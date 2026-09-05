@@ -1,0 +1,34 @@
+name: Atualizar dashboard de fantasy football
+
+on:
+  schedule:
+    # Todo dia às 09:00 UTC (~06:00 no horário de Brasília)
+    - cron: "0 9 * * *"
+  workflow_dispatch: {}  # permite rodar manualmente pela aba "Actions" no GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Gerar relatório
+        run: python main.py
+
+      - name: Publicar no GitHub Pages
+        run: |
+          git config user.name "fantasy-bot"
+          git config user.email "fantasy-bot@users.noreply.github.com"
+          git add docs/index.html data/ || true
+          git diff --quiet && git diff --staged --quiet || git commit -m "Atualiza dashboard automaticamente"
+          git push
