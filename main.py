@@ -1,6 +1,6 @@
 import os
 import config
-from clients import sleeper, fleaflicker, fantasypros
+import sleeper, fleaflicker, fantasypros
 from analyzer import analyze_team
 import report
 
