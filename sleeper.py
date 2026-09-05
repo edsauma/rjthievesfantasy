@@ -9,7 +9,7 @@ import time
 import requests
 
 BASE = "https://api.sleeper.app/v1"
-PLAYERS_CACHE = os.path.join(os.path.dirname(__file__), "..", "data", "sleeper_players.json")
+PLAYERS_CACHE = os.path.join("data", "sleeper_players.json")
 PLAYERS_CACHE_TTL_HOURS = 24
 
 
