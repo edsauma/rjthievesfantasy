@@ -130,14 +130,28 @@ def _free_agents_block(free_agents: list[dict]) -> str:
         by_pos.setdefault(group, []).append(p)
     blocks = []
     for group in order:
-        players = by_pos[group]
-        players.sort(key=lambda p: p["rank"] if p["rank"] is not None else 9999)
-        rows = "".join(_player_row(p) for p in players)
-        blocks.append(f"""
-        <details>
-          <summary>{group.upper()} — {len(players)} disponíveis</summary>
-          <table><tr><th>Jogador</th><th>Rank</th></tr>{rows}</table>
-        </details>""")
+        players = sorted(by_pos[group], key=lambda p: p["rank"] if p["rank"] is not None else 9999)
+        highlighted = [p for p in players if p.get("flag") == "add"]
+        others = [p for p in players if p.get("flag") != "add"]
+
+        others_toggle = ""
+        if others:
+            others_rows = "".join(_player_row(p) for p in others)
+            others_toggle = f"""
+            <details class="reserves-toggle">
+              <summary>{len(others)} outros disponíveis</summary>
+              <table>{others_rows}</table>
+            </details>"""
+
+        if highlighted:
+            highlighted_rows = "".join(_player_row(p) for p in highlighted)
+            body = f"<table><tr><th>Jogador</th><th>Rank</th></tr>{highlighted_rows}</table>{others_toggle}"
+            summary = f"{group.upper()} — {len(highlighted)} valendo a pena"
+            blocks.append(f"<details open><summary>{summary}</summary>{body}</details>")
+        else:
+            all_rows = "".join(_player_row(p) for p in players)
+            body = f"<table><tr><th>Jogador</th><th>Rank</th></tr>{all_rows}</table>"
+            blocks.append(f"<details><summary>{group.upper()} — {len(players)} disponíveis</summary>{body}</details>")
     return "".join(blocks)
 
 
