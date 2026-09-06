@@ -26,24 +26,39 @@ SLOT_CONFIG = {
 }
 
 # No Sleeper, os códigos de defesa já vêm agrupados (DL/LB/DB), então o
-# "IDP" (qualquer defensivo) cobre essas três categorias.
-_SLEEPER_IDP = {"dl", "lb", "db"}
+# "IDP" (qualquer defensivo) cobre essas três categorias — e também DE/DT,
+# que são escaláveis como DL (ver _ELIGIBILITY_ALIASES abaixo).
+_SLEEPER_IDP = {"dl", "lb", "db", "de", "dt"}
 _OFFENSE_FLEX = {"rb", "wr", "te"}
+
+# Algumas posições reais são escaláveis em slots "mais amplos" mesmo sem
+# ranking próprio: no Sleeper, DE e DT contam como DL pra fins de escalação
+# (o ranking, porém, continua sendo tratado à parte — ver positions.py).
+_ELIGIBILITY_ALIASES = {
+    "dl": {"dl", "de", "dt"},
+}
 
 
 def _eligible_positions(slot_label: str) -> set:
     if slot_label == "IDP":
         return set(_SLEEPER_IDP)
-    return {p.lower() for p in slot_label.split("/")}
+    base = {p.lower() for p in slot_label.split("/")}
+    expanded = set()
+    for pos in base:
+        expanded |= _ELIGIBILITY_ALIASES.get(pos, {pos})
+    return expanded
 
 
 def _slot_kind(slot_label: str, elig: set) -> str:
     """'single' = posição única (usa 'rank' individual);
     'flex' = útil ofensivo (usa 'flex_rank');
-    'idp' = útil defensivo (usa 'idp_rank')."""
+    'idp' = útil defensivo (usa 'idp_rank').
+    Baseado no RÓTULO do slot (tem "/" ou é "IDP"), não no tamanho do
+    conjunto de elegibilidade — que pode crescer por causa de aliases
+    (ex: "DL" vira {dl, de, dt}) sem deixar de ser um slot de posição única."""
     if slot_label == "IDP":
         return "idp"
-    if len(elig) > 1:
+    if "/" in slot_label:
         return "flex" if elig <= _OFFENSE_FLEX else "idp"
     return "single"
 

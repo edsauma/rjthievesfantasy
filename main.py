@@ -72,17 +72,37 @@ def process_fleaflicker(team_cfg: dict, rankings: dict) -> dict:
     return build_team_result(team_cfg, "Fleaflicker", "fleaflicker", my_team, free_agents, rankings)
 
 
+OFFENSE_POSITIONS = {"qb", "rb", "wr", "te", "k"}
+
+
 def process_sleeper(team_cfg: dict, all_players: dict, rankings: dict) -> dict:
     my_team = sleeper.get_my_team(team_cfg["league_id"], team_cfg["roster_id"], all_players)
+    raw_positions = {p["position"] for p in my_team}
+    offense_raw = sorted(raw_positions & OFFENSE_POSITIONS)
+    idp_raw = sorted(raw_positions - OFFENSE_POSITIONS)
+
+    free_agents = []
+    fontes = []
+
+    # KeepTradeCut só cobre posições de ataque (não tem defensivos individuais
+    # no banco de dados dele) — usamos ele aqui pela vantagem de refletir
+    # posse real mesmo quando o sync de rookies do Sleeper está atrasado.
     try:
-        free_agents = keeptradecut.get_available_players(team_cfg["league_id"])
-        fonte = "KeepTradeCut"
+        ktc_agents = keeptradecut.get_available_players(team_cfg["league_id"])
+        free_agents += [p for p in ktc_agents if p["position"] in OFFENSE_POSITIONS]
+        fontes.append("KeepTradeCut (ataque)")
     except Exception as e:
-        print(f"[aviso] KeepTradeCut falhou para {team_cfg['label']} ({e}); usando fallback da API do Sleeper")
-        raw_positions_list = sorted({p["position"] for p in my_team})
-        free_agents = sleeper.get_free_agents(team_cfg["league_id"], all_players, raw_positions_list)
-        fonte = "Sleeper (fallback)"
-    print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados via {fonte}")
+        print(f"[aviso] KeepTradeCut falhou para {team_cfg['label']} ({e}); usando fallback da API do Sleeper pro ataque")
+        free_agents += sleeper.get_free_agents(team_cfg["league_id"], all_players, offense_raw)
+        fontes.append("Sleeper fallback (ataque)")
+
+    # Defensivos sempre vêm direto da API do Sleeper, já que o KeepTradeCut
+    # não tem esse tipo de jogador
+    if idp_raw:
+        free_agents += sleeper.get_free_agents(team_cfg["league_id"], all_players, idp_raw)
+        fontes.append("Sleeper (defesa)")
+
+    print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados via {' + '.join(fontes)}")
     return build_team_result(team_cfg, "Sleeper", "sleeper", my_team, free_agents, rankings)
 
 
