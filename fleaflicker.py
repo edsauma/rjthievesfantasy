@@ -2,31 +2,17 @@
 Cliente para a API pública do Fleaflicker (https://www.fleaflicker.com/api-docs/index.html).
 Não exige chave para ligas públicas.
 
-Duas particularidades importantes descobertas ao inspecionar a resposta real:
+O roster vem dividido em vários "groups" (titulares, banco, taxi squad) —
+é preciso percorrer todos, não só o primeiro.
 
-1. O roster vem dividido em vários "groups" (titulares, banco, taxi squad).
-   Cada um tem sua própria lista de "slots" — é preciso percorrer todos.
-
-2. O Fleaflicker usa códigos de posição de defesa mais granulares (CB, S,
-   EDR, IL) do que o FantasyPros (DB, DL). Mapeamos para as categorias do
-   FantasyPros para poder cruzar os rankings — mas guardamos a posição
-   original também, já que é ela que a API do Fleaflicker espera ao buscar
-   agentes livres.
+A posição exibida ('position') fica no código granular que o Fleaflicker
+usa (CB, S, EDR, IL, LB...). Para cruzar com o FantasyPros (que usa
+categorias mais amplas: DB, DL), guardamos também 'ranking_position'.
 """
 import requests
+import positions
 
 BASE = "https://www.fleaflicker.com/api"
-
-# Fleaflicker -> categoria equivalente usada pelo FantasyPros
-POSITION_TO_RANKING = {
-    "cb": "db", "s": "db",
-    "edr": "dl", "il": "dl", "de": "dl", "dt": "dl",
-}
-
-
-def _ranking_position(raw_position: str) -> str:
-    raw = raw_position.lower()
-    return POSITION_TO_RANKING.get(raw, raw)
 
 
 def _get(endpoint: str, params: dict):
@@ -50,18 +36,18 @@ def get_my_team(league_id: str, team_id: str) -> list[dict]:
             team.append({
                 "id": pro.get("id"),
                 "name": pro.get("nameFull", ""),
-                "position": _ranking_position(raw_position),  # usado para cruzar com FantasyPros
-                "raw_position": raw_position,                  # usado para buscar agentes livres na Fleaflicker
+                "position": raw_position,
+                "ranking_position": positions.ranking_position(raw_position),
                 "team": pro.get("proTeamAbbreviation"),
             })
     return team
 
 
-def get_free_agents(league_id: str, raw_positions: list[str], results_per_position: int = 50) -> list[dict]:
-    """raw_positions deve conter os códigos ORIGINAIS do Fleaflicker
-    (ex: 'cb', 's', 'edr', não 'db'/'dl'), pois é isso que a API espera."""
+def get_free_agents(league_id: str, raw_positions_list: list[str], results_per_position: int = 50) -> list[dict]:
+    """raw_positions_list deve conter os códigos ORIGINAIS do Fleaflicker
+    (ex: 'cb', 's', 'edr'), pois é isso que a API espera no filtro."""
     free_agents = []
-    for pos in raw_positions:
+    for pos in raw_positions_list:
         try:
             data = _get("FetchPlayerListing", {
                 "leagueId": league_id,
@@ -78,8 +64,8 @@ def get_free_agents(league_id: str, raw_positions: list[str], results_per_positi
             free_agents.append({
                 "id": pro.get("id"),
                 "name": pro.get("nameFull", ""),
-                "position": _ranking_position(raw_position),
-                "raw_position": raw_position,
+                "position": raw_position,
+                "ranking_position": positions.ranking_position(raw_position),
                 "team": pro.get("proTeamAbbreviation"),
             })
     return free_agents

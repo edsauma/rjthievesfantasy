@@ -1,7 +1,8 @@
 import os
 import config
+import positions
 import sleeper, fleaflicker, fantasypros, keeptradecut
-from analyzer import analyze_team, attach_ranks
+from analyzer import compute_flags, attach_ranks, _flag_key
 import report
 
 
@@ -18,35 +19,48 @@ def get_rankings_cache(scoring: str) -> dict:
     return cache
 
 
-def build_team_result(label: str, platform: str, my_team_raw: list, free_agents_raw: list, rankings: dict) -> dict:
-    suggestions = analyze_team(my_team_raw, free_agents_raw, rankings)
+def build_team_result(label: str, platform: str, platform_key: str,
+                       my_team_raw: list, free_agents_raw: list, rankings: dict) -> dict:
+    drop_keys, add_info = compute_flags(my_team_raw, free_agents_raw, rankings)
+
     my_team = attach_ranks(my_team_raw, rankings)
+    for p in my_team:
+        p["flag"] = "drop" if _flag_key(p) in drop_keys else None
+    my_team.sort(key=lambda p: (positions.sort_key(platform_key, p["position"]),
+                                 p["rank"] if p["rank"] is not None else 9999))
+
     free_agents = attach_ranks(free_agents_raw, rankings)
+    for p in free_agents:
+        key = _flag_key(p)
+        p["flag"] = "add" if key in add_info else None
+        p["flag_gap"] = add_info.get(key)
+    free_agents.sort(key=lambda p: (positions.sort_key(platform_key, p["position"]),
+                                     p["rank"] if p["rank"] is not None else 9999))
 
     fa_limited = []
     seen_per_pos = {}
     for p in free_agents:
         count = seen_per_pos.get(p["position"], 0)
-        if count < config.FREE_AGENTS_DISPLAY_LIMIT:
+        if count < config.FREE_AGENTS_DISPLAY_LIMIT or p["flag"] == "add":
             fa_limited.append(p)
             seen_per_pos[p["position"]] = count + 1
 
     return {
         "label": label,
         "platform": platform,
+        "platform_key": platform_key,
         "my_team": my_team,
         "free_agents": fa_limited,
         "rankings": rankings,
-        "suggestions": suggestions,
     }
 
 
 def process_fleaflicker(team_cfg: dict, rankings: dict) -> dict:
     my_team = fleaflicker.get_my_team(team_cfg["league_id"], team_cfg["team_id"])
-    raw_positions = sorted({p["raw_position"] for p in my_team})
-    free_agents = fleaflicker.get_free_agents(team_cfg["league_id"], raw_positions)
+    raw_positions_list = sorted({p["position"] for p in my_team})
+    free_agents = fleaflicker.get_free_agents(team_cfg["league_id"], raw_positions_list)
     print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados")
-    return build_team_result(team_cfg["label"], "Fleaflicker", my_team, free_agents, rankings)
+    return build_team_result(team_cfg["label"], "Fleaflicker", "fleaflicker", my_team, free_agents, rankings)
 
 
 def process_sleeper(team_cfg: dict, all_players: dict, rankings: dict) -> dict:
@@ -56,11 +70,11 @@ def process_sleeper(team_cfg: dict, all_players: dict, rankings: dict) -> dict:
         fonte = "KeepTradeCut"
     except Exception as e:
         print(f"[aviso] KeepTradeCut falhou para {team_cfg['label']} ({e}); usando fallback da API do Sleeper")
-        positions = sorted({p["position"] for p in my_team})
-        free_agents = sleeper.get_free_agents(team_cfg["league_id"], all_players, positions)
+        raw_positions_list = sorted({p["position"] for p in my_team})
+        free_agents = sleeper.get_free_agents(team_cfg["league_id"], all_players, raw_positions_list)
         fonte = "Sleeper (fallback)"
     print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados via {fonte}")
-    return build_team_result(team_cfg["label"], "Sleeper", my_team, free_agents, rankings)
+    return build_team_result(team_cfg["label"], "Sleeper", "sleeper", my_team, free_agents, rankings)
 
 
 def main():
@@ -84,8 +98,8 @@ def main():
         except Exception as e:
             print(f"[erro] time {team_cfg['label']}: {e}")
             results.append({
-                "label": team_cfg["label"], "platform": team_cfg["platform"],
-                "my_team": [], "free_agents": [], "rankings": {}, "suggestions": [],
+                "label": team_cfg["label"], "platform": team_cfg["platform"], "platform_key": team_cfg["platform"],
+                "my_team": [], "free_agents": [], "rankings": {},
             })
 
     html = report.render(results)

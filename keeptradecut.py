@@ -13,9 +13,10 @@ calculamos quem está de fato disponível, sem depender do sync do Sleeper.
 import re
 import json
 import requests
+import positions
 
 URL = "https://keeptradecut.com/dynasty/power-rankings/players"
-RELEVANT_POSITIONS = {"qb", "rb", "wr", "te", "k"}
+RELEVANT_POSITIONS = {"qb", "rb", "wr", "te", "k", "de", "dt", "dl", "lb", "cb", "s", "db"}
 
 
 def _extract_js_array(html: str, var_name: str):
@@ -53,6 +54,7 @@ def get_available_players(league_id: str) -> list[dict]:
             "id": p.get("playerID"),
             "name": p.get("playerName", ""),
             "position": pos,
+            "ranking_position": positions.ranking_position(pos),
             "team": p.get("team"),
         })
     return available
