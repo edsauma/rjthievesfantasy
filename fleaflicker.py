@@ -22,7 +22,7 @@ def _get(endpoint: str, params: dict):
 
 
 def get_my_team(league_id: str, team_id: str) -> list[dict]:
-    data = _get("FetchRoster", {"leagueId": league_id, "teamId": team_id})
+    data = _get("FetchRoster", {"leagueId": league_id, "teamId": team_id, "sport": "NFL"})
     team = []
     for group in data.get("groups", []):
         for slot in group.get("slots", []):
@@ -45,14 +45,21 @@ def get_my_team(league_id: str, team_id: str) -> list[dict]:
 
 def get_free_agents(league_id: str, raw_positions_list: list[str], results_per_position: int = 50) -> list[dict]:
     """raw_positions_list deve conter os códigos ORIGINAIS do Fleaflicker
-    (ex: 'cb', 's', 'edr'), pois é isso que a API espera no filtro."""
+    (ex: 'cb', 's', 'edr'), pois é isso que a API espera no filtro.
+
+    Parâmetros conforme a documentação oficial
+    (https://www.fleaflicker.com/api-docs/index.html#operation--FetchPlayerListing-get):
+    'filter.position_eligibility' (lista de códigos de posição) e
+    'filter.free_agent_only' (booleano) — não 'filter.position'/'filter.status',
+    que eu tinha usado antes por engano."""
     free_agents = []
     for pos in raw_positions_list:
         try:
             data = _get("FetchPlayerListing", {
                 "leagueId": league_id,
-                "filter.position": pos.upper(),
-                "filter.status": "FREE_AGENT",
+                "sport": "NFL",
+                "filter.positionEligibility": pos.upper(),
+                "filter.freeAgentOnly": "true",
             })
         except requests.HTTPError:
             continue
