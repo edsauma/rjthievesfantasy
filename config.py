@@ -55,6 +55,14 @@ POSITIONS_IDP = ["lb", "dl", "db"]  # FantasyPros usa esses códigos para defesa
 # para virar sugestão de troca/waiver (ajuste conforme sua tolerância)
 RANK_GAP_THRESHOLD = 8
 
+# Limiares específicos por posição (sobrescreve o padrão acima). Posições
+# com poucos jogadores relevantes no ranking (como K, com só ~32 no total)
+# precisam de um limiar bem menor — uma diferença de 2-3 posições ali já é
+# significativa, diferente de RB/WR, que têm centenas de jogadores.
+RANK_GAP_THRESHOLD_OVERRIDES = {
+    "k": 2,
+}
+
 # Limites de exibição no dashboard (só afeta o que é MOSTRADO, não a lógica
 # de sugestão, que sempre olha a lista inteira)
 FREE_AGENTS_DISPLAY_LIMIT = 15   # top N agentes livres por posição, por liga

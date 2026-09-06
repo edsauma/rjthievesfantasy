@@ -80,7 +80,8 @@ def compute_flags(team_players: list[dict], free_agents: list[dict], rankings_by
 
         for fa, fa_rank in candidates[:3]:
             gap = worst_rank - fa_rank
-            if gap >= config.RANK_GAP_THRESHOLD:
+            threshold = config.RANK_GAP_THRESHOLD_OVERRIDES.get(ranking_category, config.RANK_GAP_THRESHOLD)
+            if gap >= threshold:
                 drop_keys.add(_flag_key(worst_player))
                 key = _flag_key(fa)
                 add_info[key] = max(gap, add_info.get(key, 0))

@@ -21,7 +21,7 @@ STYLE = """
   .rank-missing { color: #bbb; }
 
   /* Sinalização de troca — bem visível: badge sólida + linha destacada */
-  .flag-badge { display:inline-block; font-weight:800; font-size: 0.72rem; padding: 3px 9px; border-radius: 999px; margin-right: 7px; white-space:nowrap; letter-spacing: 0.02em; }
+  .flag-badge { display:inline-flex; align-items:center; justify-content:center; font-weight:900; font-size: 1rem; width: 22px; height: 22px; border-radius: 999px; margin-right: 7px; }
   .flag-drop-badge { background:#d1242f; color:#fff; }
   .flag-add-badge { background:#1a7f37; color:#fff; }
   tr.flag-row-drop { background: #fff0ef; }
@@ -57,11 +57,11 @@ def _player_row(p, extra_pos_cell=None):
     row_class = f' class="flag-row-{flag}"' if flag else ""
     badge = ""
     if flag == "drop":
-        badge = '<span class="flag-badge flag-drop-badge" title="Há um agente livre bem melhor nessa categoria">SAIR ↓</span>'
+        badge = '<span class="flag-badge flag-drop-badge" title="Há um agente livre bem melhor nessa categoria">↓</span>'
     elif flag == "add":
         gap = p.get("flag_gap")
         title = f' title="Rank {gap} posições melhor que seu pior jogador nessa categoria"' if gap else ""
-        badge = f'<span class="flag-badge flag-add-badge"{title}>ENTRAR ↑</span>'
+        badge = f'<span class="flag-badge flag-add-badge"{title}>↑</span>'
     pos_cell = f"<td>{extra_pos_cell}</td>" if extra_pos_cell is not None else ""
     return (f"<tr{row_class}>{pos_cell}"
             f"<td>{badge}{p['name']} <small>({p.get('team') or '?'})</small></td>"
@@ -97,7 +97,7 @@ def _my_team_tables(lineup_sections: dict, bench: list) -> str:
 
 def _free_agents_block(free_agents: list[dict]) -> str:
     if not free_agents:
-        return '<p class="empty">Nenhum agente livre valendo a pena no momento.</p>'
+        return '<p class="empty">Nenhum agente livre encontrado (ou fonte de dados não retornou nada).</p>'
     by_pos = {}
     order = []
     for p in free_agents:
@@ -108,9 +108,10 @@ def _free_agents_block(free_agents: list[dict]) -> str:
     for pos in order:
         players = by_pos[pos]
         rows = "".join(_player_row(p) for p in players)
+        has_flag = any(p.get("flag") == "add" for p in players)
         blocks.append(f"""
-        <details open>
-          <summary>{pos.upper()} — {len(players)} valendo a pena</summary>
+        <details{' open' if has_flag else ''}>
+          <summary>{pos.upper()} — {len(players)} disponíveis</summary>
           <table><tr><th>Jogador</th><th>Rank</th></tr>{rows}</table>
         </details>""")
     return "".join(blocks)
@@ -158,7 +159,7 @@ def render(results: list[dict]) -> str:
 </head>
 <body>
   <h1>🏈 Fantasy Football Dashboard</h1>
-  <div class="updated">Atualizado automaticamente em {now} · <span class="flag-badge flag-drop-badge">SAIR ↓</span> considere trocar · <span class="flag-badge flag-add-badge">ENTRAR ↑</span> melhor opção disponível</div>
+  <div class="updated">Atualizado automaticamente em {now} · <span class="flag-badge flag-drop-badge">↓</span> considere trocar · <span class="flag-badge flag-add-badge">↑</span> melhor opção disponível</div>
   <div class="tabset">
     {radios}
     <div class="tab-labels">{labels}</div>

@@ -40,15 +40,19 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
         key = _flag_key(p)
         p["flag"] = "add" if key in add_info else None
         p["flag_gap"] = add_info.get(key)
+    free_agents.sort(key=lambda p: (positions.sort_key(platform_key, p["position"]),
+                                     p["rank"] if p["rank"] is not None else 9999))
 
-    # Só mostra quem realmente vale a pena (sinalizado) e não está numa
-    # posição escondida por configuração
-    free_agents_worth_it = [
-        p for p in free_agents
-        if p["flag"] == "add" and p["position"] not in config.FREE_AGENTS_HIDDEN_POSITIONS
-    ]
-    free_agents_worth_it.sort(key=lambda p: (positions.sort_key(platform_key, p["position"]),
-                                              -(p.get("flag_gap") or 0)))
+    # Lista completa (top N por posição), com os que valem a pena sinalizados,
+    # excluindo posições escondidas por configuração
+    free_agents_visible = [p for p in free_agents if p["position"] not in config.FREE_AGENTS_HIDDEN_POSITIONS]
+    fa_limited = []
+    seen_per_pos = {}
+    for p in free_agents_visible:
+        count = seen_per_pos.get(p["position"], 0)
+        if count < config.FREE_AGENTS_DISPLAY_LIMIT or p["flag"] == "add":
+            fa_limited.append(p)
+            seen_per_pos[p["position"]] = count + 1
 
     return {
         "label": team_cfg["label"],
@@ -56,7 +60,7 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
         "platform_key": platform_key,
         "lineup_sections": lineup_sections,
         "bench": bench,
-        "free_agents": free_agents_worth_it,
+        "free_agents": fa_limited,
     }
 
 
