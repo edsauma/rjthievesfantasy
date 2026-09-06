@@ -44,7 +44,12 @@ POSITIONS_IDP = ["lb", "dl", "db"]  # FantasyPros usa esses códigos para defesa
 
 # Quantos "slots piores" um jogador precisa estar atrás de um agente livre
 # para virar sugestão de troca/waiver (ajuste conforme sua tolerância)
-RANK_GAP_THRESHOLD = 1
+RANK_GAP_THRESHOLD = 8
+
+# Limites de exibição no dashboard (só afeta o que é MOSTRADO, não a lógica
+# de sugestão, que sempre olha a lista inteira)
+FREE_AGENTS_DISPLAY_LIMIT = 15   # top N agentes livres por posição, por liga
+RANKINGS_DISPLAY_LIMIT = 50      # top N do ranking consenso do FantasyPros por posição
 
 OUTPUT_HTML = "docs/index.html"  # pasta "docs" é o padrão pro GitHub Pages
 CACHE_DIR = "data"
