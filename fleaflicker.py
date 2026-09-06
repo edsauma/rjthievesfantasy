@@ -1,16 +1,32 @@
 """
 Cliente para a API pública do Fleaflicker (https://www.fleaflicker.com/api-docs/index.html).
-Não exige chave para ligas públicas. Isso substitui o Web.BrowserContents +
-seletores CSS que a planilha original usava para raspar as páginas HTML —
-muito mais estável, pois é a mesma API que o app oficial usa.
+Não exige chave para ligas públicas.
 
-Observação: a Fleaflicker pode alterar a estrutura do JSON de tempos em tempos.
-Os acessos abaixo usam .get() com fallback para não quebrar o script inteiro
-se um campo mudar de lugar — mas vale checar o retorno bruto se algo vier vazio.
+Duas particularidades importantes descobertas ao inspecionar a resposta real:
+
+1. O roster vem dividido em vários "groups" (titulares, banco, taxi squad).
+   Cada um tem sua própria lista de "slots" — é preciso percorrer todos.
+
+2. O Fleaflicker usa códigos de posição de defesa mais granulares (CB, S,
+   EDR, IL) do que o FantasyPros (DB, DL). Mapeamos para as categorias do
+   FantasyPros para poder cruzar os rankings — mas guardamos a posição
+   original também, já que é ela que a API do Fleaflicker espera ao buscar
+   agentes livres.
 """
 import requests
 
 BASE = "https://www.fleaflicker.com/api"
+
+# Fleaflicker -> categoria equivalente usada pelo FantasyPros
+POSITION_TO_RANKING = {
+    "cb": "db", "s": "db",
+    "edr": "dl", "il": "dl", "de": "dl", "dt": "dl",
+}
+
+
+def _ranking_position(raw_position: str) -> str:
+    raw = raw_position.lower()
+    return POSITION_TO_RANKING.get(raw, raw)
 
 
 def _get(endpoint: str, params: dict):
@@ -19,34 +35,33 @@ def _get(endpoint: str, params: dict):
     return r.json()
 
 
-def _player_name(entry: dict) -> str:
-    name = entry.get("proPlayer", {}).get("nameFull")
-    return name or ""
-
-
 def get_my_team(league_id: str, team_id: str) -> list[dict]:
     data = _get("FetchRoster", {"leagueId": league_id, "teamId": team_id})
     team = []
-    for slot in data.get("groups", [{}])[0].get("slots", []):
-        player = slot.get("leaguePlayer") or {}
-        pro = player.get("proPlayer", {})
-        if not pro:
-            continue
-        team.append({
-            "id": pro.get("id"),
-            "name": pro.get("nameFull", ""),
-            "position": (pro.get("position") or "").lower(),
-            "team": pro.get("proTeamAbbreviation"),
-        })
+    for group in data.get("groups", []):
+        for slot in group.get("slots", []):
+            player = slot.get("leaguePlayer") or {}
+            pro = player.get("proPlayer", {})
+            if not pro:
+                continue
+            raw_position = (pro.get("position") or "").lower()
+            if not raw_position:
+                continue
+            team.append({
+                "id": pro.get("id"),
+                "name": pro.get("nameFull", ""),
+                "position": _ranking_position(raw_position),  # usado para cruzar com FantasyPros
+                "raw_position": raw_position,                  # usado para buscar agentes livres na Fleaflicker
+                "team": pro.get("proTeamAbbreviation"),
+            })
     return team
 
 
-def get_free_agents(league_id: str, positions: list[str], results_per_position: int = 50) -> list[dict]:
-    """A Fleaflicker pagina os resultados; para cada posição buscamos as
-    primeiras N entradas ordenadas por rank de titularidade (proxy razoável
-    de qualidade quando ainda não cruzamos com o FantasyPros)."""
+def get_free_agents(league_id: str, raw_positions: list[str], results_per_position: int = 50) -> list[dict]:
+    """raw_positions deve conter os códigos ORIGINAIS do Fleaflicker
+    (ex: 'cb', 's', 'edr', não 'db'/'dl'), pois é isso que a API espera."""
     free_agents = []
-    for pos in positions:
+    for pos in raw_positions:
         try:
             data = _get("FetchPlayerListing", {
                 "leagueId": league_id,
@@ -59,10 +74,12 @@ def get_free_agents(league_id: str, positions: list[str], results_per_position: 
             pro = entry.get("proPlayer", {})
             if not pro:
                 continue
+            raw_position = (pro.get("position") or pos).lower()
             free_agents.append({
                 "id": pro.get("id"),
                 "name": pro.get("nameFull", ""),
-                "position": (pro.get("position") or pos).lower(),
+                "position": _ranking_position(raw_position),
+                "raw_position": raw_position,
                 "team": pro.get("proTeamAbbreviation"),
             })
     return free_agents
