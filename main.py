@@ -43,8 +43,8 @@ def build_team_result(label: str, platform: str, my_team_raw: list, free_agents_
 
 def process_fleaflicker(team_cfg: dict, rankings: dict) -> dict:
     my_team = fleaflicker.get_my_team(team_cfg["league_id"], team_cfg["team_id"])
-    positions = sorted({p["position"] for p in my_team})
-    free_agents = fleaflicker.get_free_agents(team_cfg["league_id"], positions)
+    raw_positions = sorted({p["raw_position"] for p in my_team})
+    free_agents = fleaflicker.get_free_agents(team_cfg["league_id"], raw_positions)
     print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados")
     return build_team_result(team_cfg["label"], "Fleaflicker", my_team, free_agents, rankings)
 
