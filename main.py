@@ -1,7 +1,7 @@
 import os
 import config
 import sleeper, fleaflicker, fantasypros
-from analyzer import analyze_team
+from analyzer import analyze_team, attach_ranks
 import report
 
 
@@ -18,20 +18,43 @@ def get_rankings_cache(scoring: str) -> dict:
     return cache
 
 
+def build_team_result(label: str, platform: str, my_team_raw: list, free_agents_raw: list, rankings: dict) -> dict:
+    suggestions = analyze_team(my_team_raw, free_agents_raw, rankings)
+    my_team = attach_ranks(my_team_raw, rankings)
+    free_agents = attach_ranks(free_agents_raw, rankings)
+
+    fa_limited = []
+    seen_per_pos = {}
+    for p in free_agents:
+        count = seen_per_pos.get(p["position"], 0)
+        if count < config.FREE_AGENTS_DISPLAY_LIMIT:
+            fa_limited.append(p)
+            seen_per_pos[p["position"]] = count + 1
+
+    return {
+        "label": label,
+        "platform": platform,
+        "my_team": my_team,
+        "free_agents": fa_limited,
+        "rankings": rankings,
+        "suggestions": suggestions,
+    }
+
+
 def process_fleaflicker(team_cfg: dict, rankings: dict) -> dict:
     my_team = fleaflicker.get_my_team(team_cfg["league_id"], team_cfg["team_id"])
     positions = sorted({p["position"] for p in my_team})
     free_agents = fleaflicker.get_free_agents(team_cfg["league_id"], positions)
-    suggestions = analyze_team(my_team, free_agents, rankings)
-    return {"label": team_cfg["label"], "platform": "Fleaflicker", "suggestions": suggestions}
+    print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados")
+    return build_team_result(team_cfg["label"], "Fleaflicker", my_team, free_agents, rankings)
 
 
 def process_sleeper(team_cfg: dict, all_players: dict, rankings: dict) -> dict:
     my_team = sleeper.get_my_team(team_cfg["league_id"], team_cfg["roster_id"], all_players)
     positions = sorted({p["position"] for p in my_team})
     free_agents = sleeper.get_free_agents(team_cfg["league_id"], all_players, positions)
-    suggestions = analyze_team(my_team, free_agents, rankings)
-    return {"label": team_cfg["label"], "platform": "Sleeper", "suggestions": suggestions}
+    print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados")
+    return build_team_result(team_cfg["label"], "Sleeper", my_team, free_agents, rankings)
 
 
 def main():
@@ -54,7 +77,10 @@ def main():
                 results.append(process_sleeper(team_cfg, sleeper_players_cache, rankings))
         except Exception as e:
             print(f"[erro] time {team_cfg['label']}: {e}")
-            results.append({"label": team_cfg["label"], "platform": team_cfg["platform"], "suggestions": []})
+            results.append({
+                "label": team_cfg["label"], "platform": team_cfg["platform"],
+                "my_team": [], "free_agents": [], "rankings": {}, "suggestions": [],
+            })
 
     html = report.render(results)
     os.makedirs(os.path.dirname(config.OUTPUT_HTML), exist_ok=True)
