@@ -13,6 +13,23 @@ from matcher import build_lookup, find_rank
 import config
 
 
+def attach_ranks(players: list[dict], rankings_by_position: dict) -> list[dict]:
+    """Devolve a mesma lista de jogadores, mas cada um com o campo 'rank'
+    preenchido (ou None se não achou no ranking do FantasyPros), já
+    ordenada por posição e depois por rank. Usada para exibir 'Meu Time' e
+    'Disponíveis na Liga' no dashboard."""
+    out = []
+    lookups_cache = {}
+    for p in players:
+        pos = p["position"]
+        if pos not in lookups_cache:
+            lookups_cache[pos] = build_lookup(rankings_by_position.get(pos, []))
+        rank = find_rank(p["name"], lookups_cache[pos])
+        out.append({**p, "rank": rank})
+    out.sort(key=lambda p: (p["position"], p["rank"] if p["rank"] is not None else 9999))
+    return out
+
+
 def analyze_team(team_players: list[dict], free_agents: list[dict], rankings_by_position: dict) -> list[dict]:
     suggestions = []
 
