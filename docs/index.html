@@ -3,220 +3,462 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fantasy Football — Sugestões de Troca</title>
+<title>Fantasy Football Dashboard</title>
 
 <style>
   :root { color-scheme: light dark; }
-  body { font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 16px; line-height: 1.5; }
+  body { font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; max-width: 1000px; margin: 40px auto; padding: 0 16px; line-height: 1.5; }
   h1 { font-size: 1.6rem; margin-bottom: 0; }
   .updated { color: #888; font-size: 0.85rem; margin-bottom: 32px; }
-  .team { border: 1px solid #ddd; border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; }
-  .team h2 { margin-top: 0; font-size: 1.2rem; }
+  .team { border: 1px solid #ddd; border-radius: 10px; padding: 20px 24px; margin-bottom: 32px; }
+  .team h2 { margin-top: 0; font-size: 1.3rem; }
   .platform { color: #888; font-weight: normal; font-size: 0.85rem; }
   table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid #eee; font-size: 0.92rem; }
-  th { color: #888; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+  th, td { text-align: left; padding: 6px 6px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+  th { color: #888; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
   .gap { font-weight: 600; color: #1a7f37; }
   .empty { color: #888; font-style: italic; }
   .pos-badge { display:inline-block; background:#eef; border-radius: 6px; padding: 1px 8px; font-size: 0.78rem; font-weight:600; }
+  section.block { margin-top: 20px; }
+  section.block > h3 { font-size: 1rem; margin-bottom: 4px; border-bottom: 2px solid #eee; padding-bottom: 6px; }
+  details { margin: 6px 0; border: 1px solid #eee; border-radius: 8px; padding: 6px 12px; }
+  details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+  .rank-missing { color: #bbb; }
+  .highlight-suggestions { background: #fffbe6; border-color: #f0d868; }
 </style>
 
 </head>
 <body>
-  <h1>🏈 Fantasy Football — Sugestões de Troca</h1>
-  <div class="updated">Atualizado automaticamente em 05/09/2026 09:06 UTC</div>
+  <h1>🏈 Fantasy Football Dashboard</h1>
+  <div class="updated">Atualizado automaticamente em 06/09/2026 01:30 UTC</div>
   
         <div class="team">
           <h2>ErreJota <span class="platform">(Fleaflicker)</span></h2>
-          <p class="empty">Nenhuma sugestão hoje — seu elenco está bem posicionado nessa liga.</p>
+
+          <section class="block highlight-suggestions">
+            <h3>🔁 Sugestões de troca</h3>
+            <p class="empty">Nenhuma sugestão hoje — seu elenco está bem posicionado nessa liga.</p>
+          </section>
+
+          <section class="block">
+            <h3>👤 Meu time</h3>
+            <table><tr><th>Pos</th><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td><span class='pos-badge'>DB</span></td><td>Tykee Smith <small>(TB)</small></td><td>#5</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Tre'von Moehrig <small>(CAR)</small></td><td>#11</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Nick Emmanwori <small>(SEA)</small></td><td>#15</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Quentin Lake <small>(LAR)</small></td><td>#19</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Alontae Taylor <small>(TEN)</small></td><td>#28</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>C.J. Gardner-Johnson <small>(BUF)</small></td><td>#32</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Jacob Parrish <small>(TB)</small></td><td>#85</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Myles Garrett <small>(LAR)</small></td><td>#7</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Chase Young <small>(NO)</small></td><td>#20</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Jonathan Greenard <small>(PHI)</small></td><td>#40</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Calijah Kancey <small>(TB)</small></td><td>#70</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Kobie Turner <small>(LAR)</small></td><td>#95</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Cameron Jordan <small>(NO)</small></td><td>#284</td></tr><tr><td><span class='pos-badge'>K</span></td><td>Eddy Pineiro <small>(SF)</small></td><td>#10</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Blake Cashman <small>(MIN)</small></td><td>#4</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Daiyan Henley <small>(LAC)</small></td><td>#25</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Terrel Bernard <small>(BUF)</small></td><td>#32</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Anthony Hill <small>(TEN)</small></td><td>#54</td></tr><tr><td><span class='pos-badge'>P</span></td><td>Ryan Rehkow <small>(CIN)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>QB</span></td><td>Jared Goff <small>(DET)</small></td><td>#12</td></tr><tr><td><span class='pos-badge'>QB</span></td><td>Malik Willis <small>(MIA)</small></td><td>#21</td></tr><tr><td><span class='pos-badge'>QB</span></td><td>Bryce Young <small>(CAR)</small></td><td>#25</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>James Cook <small>(BUF)</small></td><td>#9</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Jordan Mason <small>(MIN)</small></td><td>#35</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Jaylen Wright <small>(MIA)</small></td><td>#62</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Nicholas Singleton <small>(TEN)</small></td><td>#67</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Samaje Perine <small>(CIN)</small></td><td>#68</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Malik Davis <small>(DAL)</small></td><td>#70</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Isaiah Davis <small>(NYJ)</small></td><td>#71</td></tr><tr><td><span class='pos-badge'>TE</span></td><td>Trey McBride <small>(ARI)</small></td><td>#2</td></tr><tr><td><span class='pos-badge'>TE</span></td><td>Oronde Gadsden <small>(LAC)</small></td><td>#27</td></tr><tr><td><span class='pos-badge'>TE</span></td><td>Darren Waller <small>(CAR)</small></td><td>#30</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Jameson Williams <small>(DET)</small></td><td>#18</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Luther Burden <small>(CHI)</small></td><td>#26</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Jordan Addison <small>(MIN)</small></td><td>#40</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Romeo Doubs <small>(NE)</small></td><td>#46</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Jalen McMillan <small>(TB)</small></td><td>#59</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Jerry Jeudy <small>(CLE)</small></td><td>#62</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Malik Washington <small>(MIA)</small></td><td>#69</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Marvin Mims <small>(DEN)</small></td><td>#93</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Bryce Lance <small>(NO)</small></td><td>#107</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Barion Brown <small>(NO)</small></td><td><span class="rank-missing">—</span></td></tr></table>
+          </section>
+
+          <section class="block">
+            <h3>🟢 Disponíveis na liga</h3>
+            <p class="empty">Nenhum agente livre encontrado (ou API não retornou dados).</p>
+          </section>
+
+          <section class="block">
+            <h3>📊 Rankings FantasyPros (consenso)</h3>
+            
+        <details>
+          <summary>DB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Derwin James Jr.</td></tr><tr><td>#2</td><td>Budda Baker</td></tr><tr><td>#3</td><td>Jessie Bates III</td></tr><tr><td>#4</td><td>Nick Cross</td></tr><tr><td>#5</td><td>Tykee Smith</td></tr><tr><td>#6</td><td>Talanoa Hufanga</td></tr><tr><td>#7</td><td>Jordan Battle</td></tr><tr><td>#8</td><td>Kyle Hamilton</td></tr><tr><td>#9</td><td>Kam Curl</td></tr><tr><td>#10</td><td>Xavier McKinney</td></tr><tr><td>#11</td><td>Tre'von Moehrig</td></tr><tr><td>#12</td><td>Cooper DeJean</td></tr><tr><td>#13</td><td>Jeremy Chinn</td></tr><tr><td>#14</td><td>Kevin Byard III</td></tr><tr><td>#15</td><td>Nick Emmanwori</td></tr><tr><td>#16</td><td>Chamarri Conner</td></tr><tr><td>#17</td><td>Antoine Winfield Jr.</td></tr><tr><td>#18</td><td>Xavier Watts</td></tr><tr><td>#19</td><td>Quentin Lake</td></tr><tr><td>#20</td><td>Jalen Pitre</td></tr><tr><td>#21</td><td>Malik Mustapha</td></tr><tr><td>#22</td><td>Jaquan Brisker</td></tr><tr><td>#23</td><td>Paulson Adebo</td></tr><tr><td>#24</td><td>Brandon Jones</td></tr><tr><td>#25</td><td>Cole Bishop</td></tr><tr><td>#26</td><td>Joshua Metellus</td></tr><tr><td>#27</td><td>Cam Bynum</td></tr><tr><td>#28</td><td>Alontae Taylor</td></tr><tr><td>#29</td><td>Amani Hooker</td></tr><tr><td>#30</td><td>Ronnie Hickman Jr.</td></tr><tr><td>#31</td><td>DeShon Elliott</td></tr><tr><td>#32</td><td>C.J. Gardner-Johnson</td></tr><tr><td>#33</td><td>Kamari Lassiter</td></tr><tr><td>#34</td><td>Julian Blackmon</td></tr><tr><td>#35</td><td>Jalen Ramsey</td></tr><tr><td>#36</td><td>Julian Love</td></tr><tr><td>#37</td><td>Nick Scott</td></tr><tr><td>#38</td><td>Grant Delpit</td></tr><tr><td>#39</td><td>Caleb Downs</td></tr><tr><td>#40</td><td>Devon Witherspoon</td></tr><tr><td>#41</td><td>Tyler Nubin</td></tr><tr><td>#42</td><td>AJ Haulcy</td></tr><tr><td>#43</td><td>Kevin Winston Jr.</td></tr><tr><td>#44</td><td>Jalen Thompson</td></tr><tr><td>#45</td><td>Andrew Wingard</td></tr><tr><td>#46</td><td>Reed Blankenship</td></tr><tr><td>#47</td><td>Dillon Thieneman</td></tr><tr><td>#48</td><td>Justin Reid</td></tr><tr><td>#49</td><td>Riley Moss</td></tr><tr><td>#50</td><td>Minkah Fitzpatrick</td></tr></table>
+        </details>
+        <details>
+          <summary>DL — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Aidan Hutchinson</td></tr><tr><td>#2</td><td>Maxx Crosby</td></tr><tr><td>#3</td><td>Will Anderson Jr.</td></tr><tr><td>#4</td><td>Danielle Hunter</td></tr><tr><td>#5</td><td>Jeffery Simmons</td></tr><tr><td>#6</td><td>Brian Burns</td></tr><tr><td>#7</td><td>Myles Garrett</td></tr><tr><td>#8</td><td>Nick Bosa</td></tr><tr><td>#9</td><td>Josh Hines-Allen</td></tr><tr><td>#10</td><td>Tuli Tuipulotu</td></tr><tr><td>#11</td><td>DeForest Buckner</td></tr><tr><td>#12</td><td>Laiatu Latu</td></tr><tr><td>#13</td><td>Andrew Van Ginkel</td></tr><tr><td>#14</td><td>T.J. Watt</td></tr><tr><td>#15</td><td>Leonard Williams</td></tr><tr><td>#16</td><td>Montez Sweat</td></tr><tr><td>#17</td><td>Alex Highsmith</td></tr><tr><td>#18</td><td>Byron Young</td></tr><tr><td>#19</td><td>Jared Verse</td></tr><tr><td>#20</td><td>Chase Young</td></tr><tr><td>#21</td><td>Derrick Brown</td></tr><tr><td>#22</td><td>Jaelan Phillips</td></tr><tr><td>#23</td><td>Nik Bonitto</td></tr><tr><td>#24</td><td>Rashan Gary</td></tr><tr><td>#25</td><td>Trey Hendrickson</td></tr><tr><td>#26</td><td>Travon Walker</td></tr><tr><td>#27</td><td>Greg Rousseau</td></tr><tr><td>#28</td><td>Quinnen Williams</td></tr><tr><td>#29</td><td>Austin Booker</td></tr><tr><td>#30</td><td>Bradley Chubb</td></tr><tr><td>#31</td><td>Joseph Ossai</td></tr><tr><td>#32</td><td>Cameron Heyward</td></tr><tr><td>#33</td><td>George Karlaftis III</td></tr><tr><td>#34</td><td>Abdul Carter</td></tr><tr><td>#35</td><td>Jalen Carter</td></tr><tr><td>#36</td><td>Walter Nolen III</td></tr><tr><td>#37</td><td>Dallas Turner</td></tr><tr><td>#38</td><td>Patrick Jones II</td></tr><tr><td>#39</td><td>Maliek Collins</td></tr><tr><td>#40</td><td>Jonathan Greenard</td></tr><tr><td>#41</td><td>Arvell Reese</td></tr><tr><td>#42</td><td>Josh Sweat</td></tr><tr><td>#43</td><td>Ed Oliver</td></tr><tr><td>#44</td><td>Devonte Wyatt</td></tr><tr><td>#45</td><td>Harold Landry III</td></tr><tr><td>#46</td><td>Byron Murphy II</td></tr><tr><td>#47</td><td>Tavius Robinson</td></tr><tr><td>#48</td><td>Jonathon Cooper</td></tr><tr><td>#49</td><td>DeMarcus Lawrence</td></tr><tr><td>#50</td><td>Chop Robinson</td></tr></table>
+        </details>
+        <details>
+          <summary>K — top 34 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Brandon Aubrey</td></tr><tr><td>#2</td><td>Cameron Dicker</td></tr><tr><td>#3</td><td>Ka'imi Fairbairn</td></tr><tr><td>#4</td><td>Cam Little</td></tr><tr><td>#5</td><td>Jason Myers</td></tr><tr><td>#6</td><td>Tyler Loop</td></tr><tr><td>#7</td><td>Evan McPherson</td></tr><tr><td>#8</td><td>Jake Bates</td></tr><tr><td>#9</td><td>Chase McLaughlin</td></tr><tr><td>#10</td><td>Eddy Pineiro</td></tr><tr><td>#11</td><td>Chris Boswell</td></tr><tr><td>#12</td><td>Cairo Santos</td></tr><tr><td>#13</td><td>Will Reichard</td></tr><tr><td>#14</td><td>Harrison Mevis</td></tr><tr><td>#15</td><td>Harrison Butker</td></tr><tr><td>#16</td><td>Jake Elliott</td></tr><tr><td>#17</td><td>Wil Lutz</td></tr><tr><td>#18</td><td>Trey Smack</td></tr><tr><td>#19</td><td>Andy Borregales</td></tr><tr><td>#20</td><td>Tyler Bass</td></tr><tr><td>#21</td><td>Joey Slye</td></tr><tr><td>#22</td><td>Ryan Fitzgerald</td></tr><tr><td>#23</td><td>Daniel Carlson</td></tr><tr><td>#24</td><td>Nick Folk</td></tr><tr><td>#25</td><td>Chad Ryland</td></tr><tr><td>#26</td><td>Blake Grupe</td></tr><tr><td>#27</td><td>Charlie Smyth</td></tr><tr><td>#28</td><td>Spencer Shrader</td></tr><tr><td>#29</td><td>Matt Gay</td></tr><tr><td>#30</td><td>Riley Patterson</td></tr><tr><td>#31</td><td>Dominic Zvada</td></tr><tr><td>#32</td><td>Andre Szmyt</td></tr><tr><td>#33</td><td>Drew Stevens</td></tr><tr><td>#34</td><td>Andrew Wellock</td></tr></table>
+        </details>
+        <details>
+          <summary>LB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Jordyn Brooks</td></tr><tr><td>#2</td><td>Carson Schwesinger</td></tr><tr><td>#3</td><td>Jack Campbell</td></tr><tr><td>#4</td><td>Blake Cashman</td></tr><tr><td>#5</td><td>Foyesade Oluokun</td></tr><tr><td>#6</td><td>Jamien Sherwood</td></tr><tr><td>#7</td><td>Roquan Smith</td></tr><tr><td>#8</td><td>Nick Bolton</td></tr><tr><td>#9</td><td>Zack Baun</td></tr><tr><td>#10</td><td>Tremaine Edmunds</td></tr><tr><td>#11</td><td>Ernest Jones IV</td></tr><tr><td>#12</td><td>Quay Walker</td></tr><tr><td>#13</td><td>Fred Warner</td></tr><tr><td>#14</td><td>Alex Singleton</td></tr><tr><td>#15</td><td>Robert Spillane</td></tr><tr><td>#16</td><td>Edgerrin Cooper</td></tr><tr><td>#17</td><td>Nate Landman</td></tr><tr><td>#18</td><td>Devin Bush Jr.</td></tr><tr><td>#19</td><td>Kaden Elliss</td></tr><tr><td>#20</td><td>Azeez Al-Shaair</td></tr><tr><td>#21</td><td>Demario Davis</td></tr><tr><td>#22</td><td>Zaire Franklin</td></tr><tr><td>#23</td><td>T.J. Edwards</td></tr><tr><td>#24</td><td>Alex Anzalone</td></tr><tr><td>#25</td><td>Daiyan Henley</td></tr><tr><td>#26</td><td>Quincy Williams</td></tr><tr><td>#27</td><td>Sonny Styles</td></tr><tr><td>#28</td><td>Divine Deablo</td></tr><tr><td>#29</td><td>Tyrel Dodson</td></tr><tr><td>#30</td><td>Dee Winters</td></tr><tr><td>#31</td><td>CJ Allen</td></tr><tr><td>#32</td><td>Terrel Bernard</td></tr><tr><td>#33</td><td>Cedric Gray</td></tr><tr><td>#34</td><td>Frankie Luvu</td></tr><tr><td>#35</td><td>Tatum Bethune</td></tr><tr><td>#36</td><td>Barrett Carter</td></tr><tr><td>#37</td><td>Mack Wilson Sr.</td></tr><tr><td>#38</td><td>Tuli Tuipulotu</td></tr><tr><td>#39</td><td>Nakobe Dean</td></tr><tr><td>#40</td><td>Eric Wilson</td></tr><tr><td>#41</td><td>Devin Lloyd</td></tr><tr><td>#42</td><td>Patrick Queen</td></tr><tr><td>#43</td><td>Brian Burns</td></tr><tr><td>#44</td><td>Danielle Hunter</td></tr><tr><td>#45</td><td>Cody Barton</td></tr><tr><td>#46</td><td>Demetrius Knight Jr.</td></tr><tr><td>#47</td><td>DeMarvion Overshown</td></tr><tr><td>#48</td><td>Cody Simon</td></tr><tr><td>#49</td><td>Josh Hines-Allen</td></tr><tr><td>#50</td><td>Payton Wilson</td></tr></table>
+        </details>
+        <details>
+          <summary>QB — top 36 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Lamar Jackson</td></tr><tr><td>#2</td><td>Joe Burrow</td></tr><tr><td>#3</td><td>Josh Allen</td></tr><tr><td>#4</td><td>Jalen Hurts</td></tr><tr><td>#5</td><td>Justin Herbert</td></tr><tr><td>#6</td><td>Drake Maye</td></tr><tr><td>#7</td><td>Dak Prescott</td></tr><tr><td>#8</td><td>Jayden Daniels</td></tr><tr><td>#9</td><td>Caleb Williams</td></tr><tr><td>#10</td><td>Jaxson Dart</td></tr><tr><td>#11</td><td>Trevor Lawrence</td></tr><tr><td>#12</td><td>Jared Goff</td></tr><tr><td>#13</td><td>Brock Purdy</td></tr><tr><td>#14</td><td>Baker Mayfield</td></tr><tr><td>#15</td><td>Matthew Stafford</td></tr><tr><td>#16</td><td>Kyler Murray</td></tr><tr><td>#17</td><td>Bo Nix</td></tr><tr><td>#18</td><td>Patrick Mahomes II</td></tr><tr><td>#19</td><td>Jordan Love</td></tr><tr><td>#20</td><td>Tyler Shough</td></tr><tr><td>#21</td><td>Malik Willis</td></tr><tr><td>#22</td><td>Sam Darnold</td></tr><tr><td>#23</td><td>Daniel Jones</td></tr><tr><td>#24</td><td>C.J. Stroud</td></tr><tr><td>#25</td><td>Bryce Young</td></tr><tr><td>#26</td><td>Aaron Rodgers</td></tr><tr><td>#27</td><td>Cam Ward</td></tr><tr><td>#28</td><td>Geno Smith</td></tr><tr><td>#29</td><td>Kirk Cousins</td></tr><tr><td>#30</td><td>Jacoby Brissett</td></tr><tr><td>#31</td><td>Tua Tagovailoa</td></tr><tr><td>#32</td><td>Deshaun Watson</td></tr><tr><td>#33</td><td>Michael Penix Jr.</td></tr><tr><td>#34</td><td>Shedeur Sanders</td></tr><tr><td>#35</td><td>Fernando Mendoza</td></tr><tr><td>#36</td><td>Justin Fields</td></tr></table>
+        </details>
+        <details>
+          <summary>RB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Jahmyr Gibbs</td></tr><tr><td>#2</td><td>Bijan Robinson</td></tr><tr><td>#3</td><td>Jonathan Taylor</td></tr><tr><td>#4</td><td>Christian McCaffrey</td></tr><tr><td>#5</td><td>Derrick Henry</td></tr><tr><td>#6</td><td>Saquon Barkley</td></tr><tr><td>#7</td><td>De'Von Achane</td></tr><tr><td>#8</td><td>Omarion Hampton</td></tr><tr><td>#9</td><td>James Cook III</td></tr><tr><td>#10</td><td>Chase Brown</td></tr><tr><td>#11</td><td>Javonte Williams</td></tr><tr><td>#12</td><td>Kyren Williams</td></tr><tr><td>#13</td><td>Kenneth Walker III</td></tr><tr><td>#14</td><td>D'Andre Swift</td></tr><tr><td>#15</td><td>Breece Hall</td></tr><tr><td>#16</td><td>Travis Etienne Jr.</td></tr><tr><td>#17</td><td>Ashton Jeanty</td></tr><tr><td>#18</td><td>Bucky Irving</td></tr><tr><td>#19</td><td>David Montgomery</td></tr><tr><td>#20</td><td>Cam Skattebo</td></tr><tr><td>#21</td><td>Jadarian Price</td></tr><tr><td>#22</td><td>Jeremiyah Love</td></tr><tr><td>#23</td><td>Quinshon Judkins</td></tr><tr><td>#24</td><td>Bhayshul Tuten</td></tr><tr><td>#25</td><td>Jaylen Warren</td></tr><tr><td>#26</td><td>Rhamondre Stevenson</td></tr><tr><td>#27</td><td>Tony Pollard</td></tr><tr><td>#28</td><td>Rico Dowdle</td></tr><tr><td>#29</td><td>MarShawn Lloyd</td></tr><tr><td>#30</td><td>TreVeyon Henderson</td></tr><tr><td>#31</td><td>J.K. Dobbins</td></tr><tr><td>#32</td><td>Jacory Croskey-Merritt</td></tr><tr><td>#33</td><td>Chuba Hubbard</td></tr><tr><td>#34</td><td>Jonathon Brooks</td></tr><tr><td>#35</td><td>Jordan Mason</td></tr><tr><td>#36</td><td>Blake Corum</td></tr><tr><td>#37</td><td>Kenny Gainwell</td></tr><tr><td>#38</td><td>Rachaad White</td></tr><tr><td>#39</td><td>Aaron Jones Sr.</td></tr><tr><td>#40</td><td>Chris Rodriguez Jr.</td></tr><tr><td>#41</td><td>Tyler Allgeier</td></tr><tr><td>#42</td><td>Kyle Monangai</td></tr><tr><td>#43</td><td>RJ Harvey</td></tr><tr><td>#44</td><td>Woody Marks</td></tr><tr><td>#45</td><td>Keaton Mitchell</td></tr><tr><td>#46</td><td>Brian Robinson Jr.</td></tr><tr><td>#47</td><td>Mike Washington Jr.</td></tr><tr><td>#48</td><td>Tyjae Spears</td></tr><tr><td>#49</td><td>Tank Bigsby</td></tr><tr><td>#50</td><td>Jonah Coleman</td></tr></table>
+        </details>
+        <details>
+          <summary>TE — top 41 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Brock Bowers</td></tr><tr><td>#2</td><td>Trey McBride</td></tr><tr><td>#3</td><td>Colston Loveland</td></tr><tr><td>#4</td><td>Tucker Kraft</td></tr><tr><td>#5</td><td>Tyler Warren</td></tr><tr><td>#6</td><td>Sam LaPorta</td></tr><tr><td>#7</td><td>Kyle Pitts Sr.</td></tr><tr><td>#8</td><td>Dallas Goedert</td></tr><tr><td>#9</td><td>Harold Fannin Jr.</td></tr><tr><td>#10</td><td>Isaiah Likely</td></tr><tr><td>#11</td><td>Travis Kelce</td></tr><tr><td>#12</td><td>Mark Andrews</td></tr><tr><td>#13</td><td>Dalton Kincaid</td></tr><tr><td>#14</td><td>Juwan Johnson</td></tr><tr><td>#15</td><td>Jake Ferguson</td></tr><tr><td>#16</td><td>Brenton Strange</td></tr><tr><td>#17</td><td>Hunter Henry</td></tr><tr><td>#18</td><td>George Kittle</td></tr><tr><td>#19</td><td>Dalton Schultz</td></tr><tr><td>#20</td><td>Terrance Ferguson</td></tr><tr><td>#21</td><td>T.J. Hockenson</td></tr><tr><td>#22</td><td>AJ Barner</td></tr><tr><td>#23</td><td>Cade Otton</td></tr><tr><td>#24</td><td>Chig Okonkwo</td></tr><tr><td>#25</td><td>Greg Dulcich</td></tr><tr><td>#26</td><td>Pat Freiermuth</td></tr><tr><td>#27</td><td>Oronde Gadsden II</td></tr><tr><td>#28</td><td>Gunnar Helm</td></tr><tr><td>#29</td><td>Kenyon Sadiq</td></tr><tr><td>#30</td><td>Darren Waller</td></tr><tr><td>#31</td><td>Colby Parkinson</td></tr><tr><td>#32</td><td>David Njoku</td></tr><tr><td>#33</td><td>Mike Gesicki</td></tr><tr><td>#34</td><td>Evan Engram</td></tr><tr><td>#35</td><td>Jake Tonges</td></tr><tr><td>#36</td><td>Theo Johnson</td></tr><tr><td>#37</td><td>Michael Mayer</td></tr><tr><td>#38</td><td>Darnell Washington</td></tr><tr><td>#39</td><td>Mason Taylor</td></tr><tr><td>#40</td><td>Eli Stowers</td></tr><tr><td>#41</td><td>Charlie Kolar</td></tr></table>
+        </details>
+        <details>
+          <summary>WR — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Ja'Marr Chase</td></tr><tr><td>#2</td><td>Puka Nacua</td></tr><tr><td>#3</td><td>Amon-Ra St. Brown</td></tr><tr><td>#4</td><td>Jaxon Smith-Njigba</td></tr><tr><td>#5</td><td>Justin Jefferson</td></tr><tr><td>#6</td><td>CeeDee Lamb</td></tr><tr><td>#7</td><td>Nico Collins</td></tr><tr><td>#8</td><td>George Pickens</td></tr><tr><td>#9</td><td>Chris Olave</td></tr><tr><td>#10</td><td>Drake London</td></tr><tr><td>#11</td><td>A.J. Brown</td></tr><tr><td>#12</td><td>DeVonta Smith</td></tr><tr><td>#13</td><td>Tee Higgins</td></tr><tr><td>#14</td><td>Zay Flowers</td></tr><tr><td>#15</td><td>Ladd McConkey</td></tr><tr><td>#16</td><td>Tetairoa McMillan</td></tr><tr><td>#17</td><td>Rashee Rice</td></tr><tr><td>#18</td><td>Jameson Williams</td></tr><tr><td>#19</td><td>Davante Adams</td></tr><tr><td>#20</td><td>Emeka Egbuka</td></tr><tr><td>#21</td><td>Jaylen Waddle</td></tr><tr><td>#22</td><td>Garrett Wilson</td></tr><tr><td>#23</td><td>Christian Watson</td></tr><tr><td>#24</td><td>Malik Nabers</td></tr><tr><td>#25</td><td>Rome Odunze</td></tr><tr><td>#26</td><td>Luther Burden III</td></tr><tr><td>#27</td><td>Terry McLaurin</td></tr><tr><td>#28</td><td>Mike Evans</td></tr><tr><td>#29</td><td>Parker Washington</td></tr><tr><td>#30</td><td>DJ Moore</td></tr><tr><td>#31</td><td>DK Metcalf</td></tr><tr><td>#32</td><td>Marvin Harrison Jr.</td></tr><tr><td>#33</td><td>Courtland Sutton</td></tr><tr><td>#34</td><td>Chris Godwin Jr.</td></tr><tr><td>#35</td><td>Carnell Tate</td></tr><tr><td>#36</td><td>Brian Thomas Jr.</td></tr><tr><td>#37</td><td>Quentin Johnston</td></tr><tr><td>#38</td><td>Jayden Reed</td></tr><tr><td>#39</td><td>Michael Wilson</td></tr><tr><td>#40</td><td>Jordan Addison</td></tr><tr><td>#41</td><td>Michael Pittman Jr.</td></tr><tr><td>#42</td><td>Josh Downs</td></tr><tr><td>#43</td><td>Jakobi Meyers</td></tr><tr><td>#44</td><td>KC Concepcion</td></tr><tr><td>#45</td><td>Xavier Worthy</td></tr><tr><td>#46</td><td>Romeo Doubs</td></tr><tr><td>#47</td><td>Wan'Dale Robinson</td></tr><tr><td>#48</td><td>Jalen Coker</td></tr><tr><td>#49</td><td>De'Zhaun Stribling</td></tr><tr><td>#50</td><td>Makai Lemon</td></tr></table>
+        </details>
+          </section>
         </div>
         <div class="team">
           <h2>Quevedo <span class="platform">(Fleaflicker)</span></h2>
-          <p class="empty">Nenhuma sugestão hoje — seu elenco está bem posicionado nessa liga.</p>
+
+          <section class="block highlight-suggestions">
+            <h3>🔁 Sugestões de troca</h3>
+            <p class="empty">Nenhuma sugestão hoje — seu elenco está bem posicionado nessa liga.</p>
+          </section>
+
+          <section class="block">
+            <h3>👤 Meu time</h3>
+            <table><tr><th>Pos</th><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td><span class='pos-badge'>DB</span></td><td>Nick Cross <small>(WAS)</small></td><td>#4</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Quentin Lake <small>(LAR)</small></td><td>#19</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Christian Gonzalez <small>(NE)</small></td><td>#64</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Derek Stingley <small>(HOU)</small></td><td>#106</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Upton Stout <small>(SF)</small></td><td>#110</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Tuli Tuipulotu <small>(LAC)</small></td><td>#10</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Harold Landry <small>(NE)</small></td><td>#45</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Chop Robinson <small>(MIA)</small></td><td>#50</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Khalil Mack <small>(LAC)</small></td><td>#52</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Milton Williams <small>(NE)</small></td><td>#63</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Jalen Redmond <small>(MIN)</small></td><td>#72</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Uchenna Nwosu <small>(SEA)</small></td><td>#93</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Sebastian Joseph-Day <small>(PIT)</small></td><td>#236</td></tr><tr><td><span class='pos-badge'>K</span></td><td>Wil Lutz <small>(DEN)</small></td><td>#17</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Fred Warner <small>(SF)</small></td><td>#13</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Zaire Franklin <small>(GB)</small></td><td>#22</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Sonny Styles <small>(WAS)</small></td><td>#27</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Christian Elliss <small>(NE)</small></td><td>#61</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Jeremiah Owusu-Koramoah <small>(CLE)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>QB</span></td><td>Trevor Lawrence <small>(JAC)</small></td><td>#11</td></tr><tr><td><span class='pos-badge'>QB</span></td><td>Malik Willis <small>(MIA)</small></td><td>#21</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Breece Hall <small>(NYJ)</small></td><td>#15</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Malik Davis <small>(DAL)</small></td><td>#70</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Josh Jacobs <small>(GB)</small></td><td>#72</td></tr><tr><td><span class='pos-badge'>TE</span></td><td>George Kittle <small>(SF)</small></td><td>#18</td></tr><tr><td><span class='pos-badge'>TE</span></td><td>Pat Freiermuth <small>(PIT)</small></td><td>#26</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Josh Downs <small>(IND)</small></td><td>#42</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>KC Concepcion <small>(CLE)</small></td><td>#44</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Wan'Dale Robinson <small>(TEN)</small></td><td>#47</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Tre Tucker <small>(LV)</small></td><td>#57</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>DeMario Douglas <small>(NE)</small></td><td>#103</td></tr></table>
+          </section>
+
+          <section class="block">
+            <h3>🟢 Disponíveis na liga</h3>
+            <p class="empty">Nenhum agente livre encontrado (ou API não retornou dados).</p>
+          </section>
+
+          <section class="block">
+            <h3>📊 Rankings FantasyPros (consenso)</h3>
+            
+        <details>
+          <summary>DB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Derwin James Jr.</td></tr><tr><td>#2</td><td>Budda Baker</td></tr><tr><td>#3</td><td>Jessie Bates III</td></tr><tr><td>#4</td><td>Nick Cross</td></tr><tr><td>#5</td><td>Tykee Smith</td></tr><tr><td>#6</td><td>Talanoa Hufanga</td></tr><tr><td>#7</td><td>Jordan Battle</td></tr><tr><td>#8</td><td>Kyle Hamilton</td></tr><tr><td>#9</td><td>Kam Curl</td></tr><tr><td>#10</td><td>Xavier McKinney</td></tr><tr><td>#11</td><td>Tre'von Moehrig</td></tr><tr><td>#12</td><td>Cooper DeJean</td></tr><tr><td>#13</td><td>Jeremy Chinn</td></tr><tr><td>#14</td><td>Kevin Byard III</td></tr><tr><td>#15</td><td>Nick Emmanwori</td></tr><tr><td>#16</td><td>Chamarri Conner</td></tr><tr><td>#17</td><td>Antoine Winfield Jr.</td></tr><tr><td>#18</td><td>Xavier Watts</td></tr><tr><td>#19</td><td>Quentin Lake</td></tr><tr><td>#20</td><td>Jalen Pitre</td></tr><tr><td>#21</td><td>Malik Mustapha</td></tr><tr><td>#22</td><td>Jaquan Brisker</td></tr><tr><td>#23</td><td>Paulson Adebo</td></tr><tr><td>#24</td><td>Brandon Jones</td></tr><tr><td>#25</td><td>Cole Bishop</td></tr><tr><td>#26</td><td>Joshua Metellus</td></tr><tr><td>#27</td><td>Cam Bynum</td></tr><tr><td>#28</td><td>Alontae Taylor</td></tr><tr><td>#29</td><td>Amani Hooker</td></tr><tr><td>#30</td><td>Ronnie Hickman Jr.</td></tr><tr><td>#31</td><td>DeShon Elliott</td></tr><tr><td>#32</td><td>C.J. Gardner-Johnson</td></tr><tr><td>#33</td><td>Kamari Lassiter</td></tr><tr><td>#34</td><td>Julian Blackmon</td></tr><tr><td>#35</td><td>Jalen Ramsey</td></tr><tr><td>#36</td><td>Julian Love</td></tr><tr><td>#37</td><td>Nick Scott</td></tr><tr><td>#38</td><td>Grant Delpit</td></tr><tr><td>#39</td><td>Caleb Downs</td></tr><tr><td>#40</td><td>Devon Witherspoon</td></tr><tr><td>#41</td><td>Tyler Nubin</td></tr><tr><td>#42</td><td>AJ Haulcy</td></tr><tr><td>#43</td><td>Kevin Winston Jr.</td></tr><tr><td>#44</td><td>Jalen Thompson</td></tr><tr><td>#45</td><td>Andrew Wingard</td></tr><tr><td>#46</td><td>Reed Blankenship</td></tr><tr><td>#47</td><td>Dillon Thieneman</td></tr><tr><td>#48</td><td>Justin Reid</td></tr><tr><td>#49</td><td>Riley Moss</td></tr><tr><td>#50</td><td>Minkah Fitzpatrick</td></tr></table>
+        </details>
+        <details>
+          <summary>DL — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Aidan Hutchinson</td></tr><tr><td>#2</td><td>Maxx Crosby</td></tr><tr><td>#3</td><td>Will Anderson Jr.</td></tr><tr><td>#4</td><td>Danielle Hunter</td></tr><tr><td>#5</td><td>Jeffery Simmons</td></tr><tr><td>#6</td><td>Brian Burns</td></tr><tr><td>#7</td><td>Myles Garrett</td></tr><tr><td>#8</td><td>Nick Bosa</td></tr><tr><td>#9</td><td>Josh Hines-Allen</td></tr><tr><td>#10</td><td>Tuli Tuipulotu</td></tr><tr><td>#11</td><td>DeForest Buckner</td></tr><tr><td>#12</td><td>Laiatu Latu</td></tr><tr><td>#13</td><td>Andrew Van Ginkel</td></tr><tr><td>#14</td><td>T.J. Watt</td></tr><tr><td>#15</td><td>Leonard Williams</td></tr><tr><td>#16</td><td>Montez Sweat</td></tr><tr><td>#17</td><td>Alex Highsmith</td></tr><tr><td>#18</td><td>Byron Young</td></tr><tr><td>#19</td><td>Jared Verse</td></tr><tr><td>#20</td><td>Chase Young</td></tr><tr><td>#21</td><td>Derrick Brown</td></tr><tr><td>#22</td><td>Jaelan Phillips</td></tr><tr><td>#23</td><td>Nik Bonitto</td></tr><tr><td>#24</td><td>Rashan Gary</td></tr><tr><td>#25</td><td>Trey Hendrickson</td></tr><tr><td>#26</td><td>Travon Walker</td></tr><tr><td>#27</td><td>Greg Rousseau</td></tr><tr><td>#28</td><td>Quinnen Williams</td></tr><tr><td>#29</td><td>Austin Booker</td></tr><tr><td>#30</td><td>Bradley Chubb</td></tr><tr><td>#31</td><td>Joseph Ossai</td></tr><tr><td>#32</td><td>Cameron Heyward</td></tr><tr><td>#33</td><td>George Karlaftis III</td></tr><tr><td>#34</td><td>Abdul Carter</td></tr><tr><td>#35</td><td>Jalen Carter</td></tr><tr><td>#36</td><td>Walter Nolen III</td></tr><tr><td>#37</td><td>Dallas Turner</td></tr><tr><td>#38</td><td>Patrick Jones II</td></tr><tr><td>#39</td><td>Maliek Collins</td></tr><tr><td>#40</td><td>Jonathan Greenard</td></tr><tr><td>#41</td><td>Arvell Reese</td></tr><tr><td>#42</td><td>Josh Sweat</td></tr><tr><td>#43</td><td>Ed Oliver</td></tr><tr><td>#44</td><td>Devonte Wyatt</td></tr><tr><td>#45</td><td>Harold Landry III</td></tr><tr><td>#46</td><td>Byron Murphy II</td></tr><tr><td>#47</td><td>Tavius Robinson</td></tr><tr><td>#48</td><td>Jonathon Cooper</td></tr><tr><td>#49</td><td>DeMarcus Lawrence</td></tr><tr><td>#50</td><td>Chop Robinson</td></tr></table>
+        </details>
+        <details>
+          <summary>K — top 34 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Brandon Aubrey</td></tr><tr><td>#2</td><td>Cameron Dicker</td></tr><tr><td>#3</td><td>Ka'imi Fairbairn</td></tr><tr><td>#4</td><td>Cam Little</td></tr><tr><td>#5</td><td>Jason Myers</td></tr><tr><td>#6</td><td>Tyler Loop</td></tr><tr><td>#7</td><td>Evan McPherson</td></tr><tr><td>#8</td><td>Jake Bates</td></tr><tr><td>#9</td><td>Chase McLaughlin</td></tr><tr><td>#10</td><td>Eddy Pineiro</td></tr><tr><td>#11</td><td>Chris Boswell</td></tr><tr><td>#12</td><td>Cairo Santos</td></tr><tr><td>#13</td><td>Will Reichard</td></tr><tr><td>#14</td><td>Harrison Mevis</td></tr><tr><td>#15</td><td>Harrison Butker</td></tr><tr><td>#16</td><td>Jake Elliott</td></tr><tr><td>#17</td><td>Wil Lutz</td></tr><tr><td>#18</td><td>Trey Smack</td></tr><tr><td>#19</td><td>Andy Borregales</td></tr><tr><td>#20</td><td>Tyler Bass</td></tr><tr><td>#21</td><td>Joey Slye</td></tr><tr><td>#22</td><td>Ryan Fitzgerald</td></tr><tr><td>#23</td><td>Daniel Carlson</td></tr><tr><td>#24</td><td>Nick Folk</td></tr><tr><td>#25</td><td>Chad Ryland</td></tr><tr><td>#26</td><td>Blake Grupe</td></tr><tr><td>#27</td><td>Charlie Smyth</td></tr><tr><td>#28</td><td>Spencer Shrader</td></tr><tr><td>#29</td><td>Matt Gay</td></tr><tr><td>#30</td><td>Riley Patterson</td></tr><tr><td>#31</td><td>Dominic Zvada</td></tr><tr><td>#32</td><td>Andre Szmyt</td></tr><tr><td>#33</td><td>Drew Stevens</td></tr><tr><td>#34</td><td>Andrew Wellock</td></tr></table>
+        </details>
+        <details>
+          <summary>LB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Jordyn Brooks</td></tr><tr><td>#2</td><td>Carson Schwesinger</td></tr><tr><td>#3</td><td>Jack Campbell</td></tr><tr><td>#4</td><td>Blake Cashman</td></tr><tr><td>#5</td><td>Foyesade Oluokun</td></tr><tr><td>#6</td><td>Jamien Sherwood</td></tr><tr><td>#7</td><td>Roquan Smith</td></tr><tr><td>#8</td><td>Nick Bolton</td></tr><tr><td>#9</td><td>Zack Baun</td></tr><tr><td>#10</td><td>Tremaine Edmunds</td></tr><tr><td>#11</td><td>Ernest Jones IV</td></tr><tr><td>#12</td><td>Quay Walker</td></tr><tr><td>#13</td><td>Fred Warner</td></tr><tr><td>#14</td><td>Alex Singleton</td></tr><tr><td>#15</td><td>Robert Spillane</td></tr><tr><td>#16</td><td>Edgerrin Cooper</td></tr><tr><td>#17</td><td>Nate Landman</td></tr><tr><td>#18</td><td>Devin Bush Jr.</td></tr><tr><td>#19</td><td>Kaden Elliss</td></tr><tr><td>#20</td><td>Azeez Al-Shaair</td></tr><tr><td>#21</td><td>Demario Davis</td></tr><tr><td>#22</td><td>Zaire Franklin</td></tr><tr><td>#23</td><td>T.J. Edwards</td></tr><tr><td>#24</td><td>Alex Anzalone</td></tr><tr><td>#25</td><td>Daiyan Henley</td></tr><tr><td>#26</td><td>Quincy Williams</td></tr><tr><td>#27</td><td>Sonny Styles</td></tr><tr><td>#28</td><td>Divine Deablo</td></tr><tr><td>#29</td><td>Tyrel Dodson</td></tr><tr><td>#30</td><td>Dee Winters</td></tr><tr><td>#31</td><td>CJ Allen</td></tr><tr><td>#32</td><td>Terrel Bernard</td></tr><tr><td>#33</td><td>Cedric Gray</td></tr><tr><td>#34</td><td>Frankie Luvu</td></tr><tr><td>#35</td><td>Tatum Bethune</td></tr><tr><td>#36</td><td>Barrett Carter</td></tr><tr><td>#37</td><td>Mack Wilson Sr.</td></tr><tr><td>#38</td><td>Tuli Tuipulotu</td></tr><tr><td>#39</td><td>Nakobe Dean</td></tr><tr><td>#40</td><td>Eric Wilson</td></tr><tr><td>#41</td><td>Devin Lloyd</td></tr><tr><td>#42</td><td>Patrick Queen</td></tr><tr><td>#43</td><td>Brian Burns</td></tr><tr><td>#44</td><td>Danielle Hunter</td></tr><tr><td>#45</td><td>Cody Barton</td></tr><tr><td>#46</td><td>Demetrius Knight Jr.</td></tr><tr><td>#47</td><td>DeMarvion Overshown</td></tr><tr><td>#48</td><td>Cody Simon</td></tr><tr><td>#49</td><td>Josh Hines-Allen</td></tr><tr><td>#50</td><td>Payton Wilson</td></tr></table>
+        </details>
+        <details>
+          <summary>QB — top 36 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Lamar Jackson</td></tr><tr><td>#2</td><td>Joe Burrow</td></tr><tr><td>#3</td><td>Josh Allen</td></tr><tr><td>#4</td><td>Jalen Hurts</td></tr><tr><td>#5</td><td>Justin Herbert</td></tr><tr><td>#6</td><td>Drake Maye</td></tr><tr><td>#7</td><td>Dak Prescott</td></tr><tr><td>#8</td><td>Jayden Daniels</td></tr><tr><td>#9</td><td>Caleb Williams</td></tr><tr><td>#10</td><td>Jaxson Dart</td></tr><tr><td>#11</td><td>Trevor Lawrence</td></tr><tr><td>#12</td><td>Jared Goff</td></tr><tr><td>#13</td><td>Brock Purdy</td></tr><tr><td>#14</td><td>Baker Mayfield</td></tr><tr><td>#15</td><td>Matthew Stafford</td></tr><tr><td>#16</td><td>Kyler Murray</td></tr><tr><td>#17</td><td>Bo Nix</td></tr><tr><td>#18</td><td>Patrick Mahomes II</td></tr><tr><td>#19</td><td>Jordan Love</td></tr><tr><td>#20</td><td>Tyler Shough</td></tr><tr><td>#21</td><td>Malik Willis</td></tr><tr><td>#22</td><td>Sam Darnold</td></tr><tr><td>#23</td><td>Daniel Jones</td></tr><tr><td>#24</td><td>C.J. Stroud</td></tr><tr><td>#25</td><td>Bryce Young</td></tr><tr><td>#26</td><td>Aaron Rodgers</td></tr><tr><td>#27</td><td>Cam Ward</td></tr><tr><td>#28</td><td>Geno Smith</td></tr><tr><td>#29</td><td>Kirk Cousins</td></tr><tr><td>#30</td><td>Jacoby Brissett</td></tr><tr><td>#31</td><td>Tua Tagovailoa</td></tr><tr><td>#32</td><td>Deshaun Watson</td></tr><tr><td>#33</td><td>Michael Penix Jr.</td></tr><tr><td>#34</td><td>Shedeur Sanders</td></tr><tr><td>#35</td><td>Fernando Mendoza</td></tr><tr><td>#36</td><td>Justin Fields</td></tr></table>
+        </details>
+        <details>
+          <summary>RB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Jahmyr Gibbs</td></tr><tr><td>#2</td><td>Bijan Robinson</td></tr><tr><td>#3</td><td>Jonathan Taylor</td></tr><tr><td>#4</td><td>Christian McCaffrey</td></tr><tr><td>#5</td><td>Derrick Henry</td></tr><tr><td>#6</td><td>Saquon Barkley</td></tr><tr><td>#7</td><td>De'Von Achane</td></tr><tr><td>#8</td><td>Omarion Hampton</td></tr><tr><td>#9</td><td>James Cook III</td></tr><tr><td>#10</td><td>Chase Brown</td></tr><tr><td>#11</td><td>Javonte Williams</td></tr><tr><td>#12</td><td>Kyren Williams</td></tr><tr><td>#13</td><td>Kenneth Walker III</td></tr><tr><td>#14</td><td>D'Andre Swift</td></tr><tr><td>#15</td><td>Breece Hall</td></tr><tr><td>#16</td><td>Travis Etienne Jr.</td></tr><tr><td>#17</td><td>Ashton Jeanty</td></tr><tr><td>#18</td><td>Bucky Irving</td></tr><tr><td>#19</td><td>David Montgomery</td></tr><tr><td>#20</td><td>Cam Skattebo</td></tr><tr><td>#21</td><td>Jadarian Price</td></tr><tr><td>#22</td><td>Jeremiyah Love</td></tr><tr><td>#23</td><td>Quinshon Judkins</td></tr><tr><td>#24</td><td>Bhayshul Tuten</td></tr><tr><td>#25</td><td>Jaylen Warren</td></tr><tr><td>#26</td><td>Rhamondre Stevenson</td></tr><tr><td>#27</td><td>Tony Pollard</td></tr><tr><td>#28</td><td>Rico Dowdle</td></tr><tr><td>#29</td><td>MarShawn Lloyd</td></tr><tr><td>#30</td><td>TreVeyon Henderson</td></tr><tr><td>#31</td><td>J.K. Dobbins</td></tr><tr><td>#32</td><td>Jacory Croskey-Merritt</td></tr><tr><td>#33</td><td>Chuba Hubbard</td></tr><tr><td>#34</td><td>Jonathon Brooks</td></tr><tr><td>#35</td><td>Jordan Mason</td></tr><tr><td>#36</td><td>Blake Corum</td></tr><tr><td>#37</td><td>Kenny Gainwell</td></tr><tr><td>#38</td><td>Rachaad White</td></tr><tr><td>#39</td><td>Aaron Jones Sr.</td></tr><tr><td>#40</td><td>Chris Rodriguez Jr.</td></tr><tr><td>#41</td><td>Tyler Allgeier</td></tr><tr><td>#42</td><td>Kyle Monangai</td></tr><tr><td>#43</td><td>RJ Harvey</td></tr><tr><td>#44</td><td>Woody Marks</td></tr><tr><td>#45</td><td>Keaton Mitchell</td></tr><tr><td>#46</td><td>Brian Robinson Jr.</td></tr><tr><td>#47</td><td>Mike Washington Jr.</td></tr><tr><td>#48</td><td>Tyjae Spears</td></tr><tr><td>#49</td><td>Tank Bigsby</td></tr><tr><td>#50</td><td>Jonah Coleman</td></tr></table>
+        </details>
+        <details>
+          <summary>TE — top 41 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Brock Bowers</td></tr><tr><td>#2</td><td>Trey McBride</td></tr><tr><td>#3</td><td>Colston Loveland</td></tr><tr><td>#4</td><td>Tucker Kraft</td></tr><tr><td>#5</td><td>Tyler Warren</td></tr><tr><td>#6</td><td>Sam LaPorta</td></tr><tr><td>#7</td><td>Kyle Pitts Sr.</td></tr><tr><td>#8</td><td>Dallas Goedert</td></tr><tr><td>#9</td><td>Harold Fannin Jr.</td></tr><tr><td>#10</td><td>Isaiah Likely</td></tr><tr><td>#11</td><td>Travis Kelce</td></tr><tr><td>#12</td><td>Mark Andrews</td></tr><tr><td>#13</td><td>Dalton Kincaid</td></tr><tr><td>#14</td><td>Juwan Johnson</td></tr><tr><td>#15</td><td>Jake Ferguson</td></tr><tr><td>#16</td><td>Brenton Strange</td></tr><tr><td>#17</td><td>Hunter Henry</td></tr><tr><td>#18</td><td>George Kittle</td></tr><tr><td>#19</td><td>Dalton Schultz</td></tr><tr><td>#20</td><td>Terrance Ferguson</td></tr><tr><td>#21</td><td>T.J. Hockenson</td></tr><tr><td>#22</td><td>AJ Barner</td></tr><tr><td>#23</td><td>Cade Otton</td></tr><tr><td>#24</td><td>Chig Okonkwo</td></tr><tr><td>#25</td><td>Greg Dulcich</td></tr><tr><td>#26</td><td>Pat Freiermuth</td></tr><tr><td>#27</td><td>Oronde Gadsden II</td></tr><tr><td>#28</td><td>Gunnar Helm</td></tr><tr><td>#29</td><td>Kenyon Sadiq</td></tr><tr><td>#30</td><td>Darren Waller</td></tr><tr><td>#31</td><td>Colby Parkinson</td></tr><tr><td>#32</td><td>David Njoku</td></tr><tr><td>#33</td><td>Mike Gesicki</td></tr><tr><td>#34</td><td>Evan Engram</td></tr><tr><td>#35</td><td>Jake Tonges</td></tr><tr><td>#36</td><td>Theo Johnson</td></tr><tr><td>#37</td><td>Michael Mayer</td></tr><tr><td>#38</td><td>Darnell Washington</td></tr><tr><td>#39</td><td>Mason Taylor</td></tr><tr><td>#40</td><td>Eli Stowers</td></tr><tr><td>#41</td><td>Charlie Kolar</td></tr></table>
+        </details>
+        <details>
+          <summary>WR — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Ja'Marr Chase</td></tr><tr><td>#2</td><td>Puka Nacua</td></tr><tr><td>#3</td><td>Amon-Ra St. Brown</td></tr><tr><td>#4</td><td>Jaxon Smith-Njigba</td></tr><tr><td>#5</td><td>Justin Jefferson</td></tr><tr><td>#6</td><td>CeeDee Lamb</td></tr><tr><td>#7</td><td>Nico Collins</td></tr><tr><td>#8</td><td>George Pickens</td></tr><tr><td>#9</td><td>Chris Olave</td></tr><tr><td>#10</td><td>Drake London</td></tr><tr><td>#11</td><td>A.J. Brown</td></tr><tr><td>#12</td><td>DeVonta Smith</td></tr><tr><td>#13</td><td>Tee Higgins</td></tr><tr><td>#14</td><td>Zay Flowers</td></tr><tr><td>#15</td><td>Ladd McConkey</td></tr><tr><td>#16</td><td>Tetairoa McMillan</td></tr><tr><td>#17</td><td>Rashee Rice</td></tr><tr><td>#18</td><td>Jameson Williams</td></tr><tr><td>#19</td><td>Davante Adams</td></tr><tr><td>#20</td><td>Emeka Egbuka</td></tr><tr><td>#21</td><td>Jaylen Waddle</td></tr><tr><td>#22</td><td>Garrett Wilson</td></tr><tr><td>#23</td><td>Christian Watson</td></tr><tr><td>#24</td><td>Malik Nabers</td></tr><tr><td>#25</td><td>Rome Odunze</td></tr><tr><td>#26</td><td>Luther Burden III</td></tr><tr><td>#27</td><td>Terry McLaurin</td></tr><tr><td>#28</td><td>Mike Evans</td></tr><tr><td>#29</td><td>Parker Washington</td></tr><tr><td>#30</td><td>DJ Moore</td></tr><tr><td>#31</td><td>DK Metcalf</td></tr><tr><td>#32</td><td>Marvin Harrison Jr.</td></tr><tr><td>#33</td><td>Courtland Sutton</td></tr><tr><td>#34</td><td>Chris Godwin Jr.</td></tr><tr><td>#35</td><td>Carnell Tate</td></tr><tr><td>#36</td><td>Brian Thomas Jr.</td></tr><tr><td>#37</td><td>Quentin Johnston</td></tr><tr><td>#38</td><td>Jayden Reed</td></tr><tr><td>#39</td><td>Michael Wilson</td></tr><tr><td>#40</td><td>Jordan Addison</td></tr><tr><td>#41</td><td>Michael Pittman Jr.</td></tr><tr><td>#42</td><td>Josh Downs</td></tr><tr><td>#43</td><td>Jakobi Meyers</td></tr><tr><td>#44</td><td>KC Concepcion</td></tr><tr><td>#45</td><td>Xavier Worthy</td></tr><tr><td>#46</td><td>Romeo Doubs</td></tr><tr><td>#47</td><td>Wan'Dale Robinson</td></tr><tr><td>#48</td><td>Jalen Coker</td></tr><tr><td>#49</td><td>De'Zhaun Stribling</td></tr><tr><td>#50</td><td>Makai Lemon</td></tr></table>
+        </details>
+          </section>
         </div>
         <div class="team">
           <h2>Super Bowlo <span class="platform">(Sleeper)</span></h2>
-          
-            <table>
-              <tr><th>Posição</th><th>Trocar</th><th>Por</th><th>Ganho</th></tr>
-              
-                <tr>
-                  <td><span class="pos-badge">RB</span></td>
-                  <td>Zach Charbonnet <small>(#9999)</small></td>
-                  <td>→ Jeremiyah Love <small>(#21)</small></td>
-                  <td class="gap">+9978 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">RB</span></td>
-                  <td>Zach Charbonnet <small>(#9999)</small></td>
-                  <td>→ Jadarian Price <small>(#24)</small></td>
-                  <td class="gap">+9975 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">DL</span></td>
-                  <td>James Pearce <small>(#9999)</small></td>
-                  <td>→ Austin Booker <small>(#29)</small></td>
-                  <td class="gap">+9970 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">WR</span></td>
-                  <td>Jayden Higgins <small>(#9999)</small></td>
-                  <td>→ Carnell Tate <small>(#34)</small></td>
-                  <td class="gap">+9965 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">DL</span></td>
-                  <td>James Pearce <small>(#9999)</small></td>
-                  <td>→ Devonte Wyatt <small>(#44)</small></td>
-                  <td class="gap">+9955 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">WR</span></td>
-                  <td>Jayden Higgins <small>(#9999)</small></td>
-                  <td>→ KC Concepcion <small>(#47)</small></td>
-                  <td class="gap">+9952 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">RB</span></td>
-                  <td>Zach Charbonnet <small>(#9999)</small></td>
-                  <td>→ Mike Washington <small>(#50)</small></td>
-                  <td class="gap">+9949 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">WR</span></td>
-                  <td>Jayden Higgins <small>(#9999)</small></td>
-                  <td>→ Makai Lemon <small>(#50)</small></td>
-                  <td class="gap">+9949 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">DL</span></td>
-                  <td>James Pearce <small>(#9999)</small></td>
-                  <td>→ Myles Murphy <small>(#64)</small></td>
-                  <td class="gap">+9935 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">LB</span></td>
-                  <td>Dallas Turner <small>(#98)</small></td>
-                  <td>→ Sonny Styles <small>(#27)</small></td>
-                  <td class="gap">+71 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">LB</span></td>
-                  <td>Dallas Turner <small>(#98)</small></td>
-                  <td>→ Divine Deablo <small>(#28)</small></td>
-                  <td class="gap">+70 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">LB</span></td>
-                  <td>Dallas Turner <small>(#98)</small></td>
-                  <td>→ Dee Winters <small>(#30)</small></td>
-                  <td class="gap">+68 posições</td>
-                </tr>
-            </table>
+
+          <section class="block highlight-suggestions">
+            <h3>🔁 Sugestões de troca</h3>
+            <table><tr><th>Posição</th><th>Trocar</th><th>Por</th><th>Ganho</th></tr>
+        <tr>
+          <td><span class="pos-badge">RB</span></td>
+          <td>Jaleel McLaughlin <small>(#9999)</small></td>
+          <td>→ Jeremiyah Love <small>(#20)</small></td>
+          <td class="gap">+9979 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">RB</span></td>
+          <td>Jaleel McLaughlin <small>(#9999)</small></td>
+          <td>→ Jadarian Price <small>(#23)</small></td>
+          <td class="gap">+9976 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">DL</span></td>
+          <td>James Pearce <small>(#9999)</small></td>
+          <td>→ Austin Booker <small>(#29)</small></td>
+          <td class="gap">+9970 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">WR</span></td>
+          <td>Jayden Higgins <small>(#9999)</small></td>
+          <td>→ Carnell Tate <small>(#35)</small></td>
+          <td class="gap">+9964 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">WR</span></td>
+          <td>Jayden Higgins <small>(#9999)</small></td>
+          <td>→ KC Concepcion <small>(#44)</small></td>
+          <td class="gap">+9955 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">DL</span></td>
+          <td>James Pearce <small>(#9999)</small></td>
+          <td>→ Devonte Wyatt <small>(#44)</small></td>
+          <td class="gap">+9955 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">RB</span></td>
+          <td>Jaleel McLaughlin <small>(#9999)</small></td>
+          <td>→ Mike Washington <small>(#48)</small></td>
+          <td class="gap">+9951 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">WR</span></td>
+          <td>Jayden Higgins <small>(#9999)</small></td>
+          <td>→ Makai Lemon <small>(#49)</small></td>
+          <td class="gap">+9950 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">DL</span></td>
+          <td>James Pearce <small>(#9999)</small></td>
+          <td>→ Myles Murphy <small>(#64)</small></td>
+          <td class="gap">+9935 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">LB</span></td>
+          <td>Dallas Turner <small>(#98)</small></td>
+          <td>→ Sonny Styles <small>(#27)</small></td>
+          <td class="gap">+71 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">LB</span></td>
+          <td>Dallas Turner <small>(#98)</small></td>
+          <td>→ Divine Deablo <small>(#28)</small></td>
+          <td class="gap">+70 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">LB</span></td>
+          <td>Dallas Turner <small>(#98)</small></td>
+          <td>→ Dee Winters <small>(#30)</small></td>
+          <td class="gap">+68 posições</td>
+        </tr></table>
+          </section>
+
+          <section class="block">
+            <h3>👤 Meu time</h3>
+            <table><tr><th>Pos</th><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td><span class='pos-badge'>DB</span></td><td>Budda Baker <small>(ARI)</small></td><td>#2</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Tykee Smith <small>(TB)</small></td><td>#5</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Tre'von Moehrig <small>(CAR)</small></td><td>#11</td></tr><tr><td><span class='pos-badge'>DE</span></td><td>Jonathan Greenard <small>(PHI)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>DE</span></td><td>Chase Young <small>(NO)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Walter Nolen <small>(ARI)</small></td><td>#36</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>James Pearce <small>(ATL)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>DT</span></td><td>Cameron Heyward <small>(PIT)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>K</span></td><td>Brandon Aubrey <small>(DAL)</small></td><td>#1</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Robert Spillane <small>(NE)</small></td><td>#15</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Nate Landman <small>(LAR)</small></td><td>#17</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Barrett Carter <small>(CIN)</small></td><td>#36</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Akeem Davis-Gaither <small>(IND)</small></td><td>#82</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Dallas Turner <small>(MIN)</small></td><td>#98</td></tr><tr><td><span class='pos-badge'>QB</span></td><td>Caleb Williams <small>(CHI)</small></td><td>#9</td></tr><tr><td><span class='pos-badge'>QB</span></td><td>Jared Goff <small>(DET)</small></td><td>#12</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Chuba Hubbard <small>(CAR)</small></td><td>#32</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Jonathon Brooks <small>(CAR)</small></td><td>#33</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Kyle Monangai <small>(CHI)</small></td><td>#42</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Tyjae Spears <small>(TEN)</small></td><td>#45</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Samaje Perine <small>(CIN)</small></td><td>#66</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Isaiah Davis <small>(NYJ)</small></td><td>#70</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Malik Davis <small>(DAL)</small></td><td>#71</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Devin Singletary <small>(NYG)</small></td><td>#77</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Audric Estime <small>(NO)</small></td><td>#84</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Zach Charbonnet <small>(SEA)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Jaleel McLaughlin <small>(CLE)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>TE</span></td><td>Trey McBride <small>(ARI)</small></td><td>#2</td></tr><tr><td><span class='pos-badge'>TE</span></td><td>Colston Loveland <small>(CHI)</small></td><td>#3</td></tr><tr><td><span class='pos-badge'>TE</span></td><td>Harold Fannin <small>(CLE)</small></td><td>#7</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Puka Nacua <small>(LAR)</small></td><td>#2</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Amon-Ra St. Brown <small>(DET)</small></td><td>#3</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Rashee Rice <small>(KC)</small></td><td>#16</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Tre Tucker <small>(LV)</small></td><td>#55</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Kayshon Boutte <small>(HOU)</small></td><td>#63</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Troy Franklin <small>(DEN)</small></td><td>#79</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Elic Ayomanor <small>(TEN)</small></td><td>#85</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Isaiah Bond <small>(CLE)</small></td><td>#113</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Jayden Higgins <small>(HOU)</small></td><td><span class="rank-missing">—</span></td></tr></table>
+          </section>
+
+          <section class="block">
+            <h3>🟢 Disponíveis na liga</h3>
+            
+        <details>
+          <summary>DB — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Xavier Watts <small>(ATL)</small></td><td>#18</td></tr><tr><td>Malik Mustapha <small>(SF)</small></td><td>#21</td></tr><tr><td>Jaquan Brisker <small>(PIT)</small></td><td>#22</td></tr><tr><td>Cole Bishop <small>(BUF)</small></td><td>#25</td></tr><tr><td>Alontae Taylor <small>(TEN)</small></td><td>#28</td></tr><tr><td>Amani Hooker <small>(TEN)</small></td><td>#29</td></tr><tr><td>Ronnie Hickman <small>(CLE)</small></td><td>#30</td></tr><tr><td>DeShon Elliott <small>(PIT)</small></td><td>#31</td></tr><tr><td>Kamari Lassiter <small>(HOU)</small></td><td>#33</td></tr><tr><td>Julian Blackmon <small>(NO)</small></td><td>#34</td></tr><tr><td>Nick Scott <small>(CAR)</small></td><td>#37</td></tr><tr><td>Grant Delpit <small>(CLE)</small></td><td>#38</td></tr><tr><td>Caleb Downs <small>(DAL)</small></td><td>#39</td></tr><tr><td>AJ Haulcy <small>(IND)</small></td><td>#42</td></tr><tr><td>Kevin Winston <small>(TEN)</small></td><td>#43</td></tr></table>
+        </details>
+        <details>
+          <summary>DE — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>DeMarcus Lawrence <small>(SEA)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Joe Gaziano <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Hayden Harris <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Tyrus Wheat <small>(DAL)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Derek Barnett <small>(CLE)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Dominique Davis <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Tyler Lacy <small>(DET)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Ray Drew <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Truman Jones <small>(TEN)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Mikey Bart <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Niko Lalos <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Leonard Williams <small>(SEA)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Janarius Robinson <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>John Daka <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Joshua Kaindoh <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr></table>
+        </details>
+        <details>
+          <summary>DL — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Austin Booker <small>(CHI)</small></td><td>#29</td></tr><tr><td>Devonte Wyatt <small>(GB)</small></td><td>#44</td></tr><tr><td>Myles Murphy <small>(?)</small></td><td>#64</td></tr><tr><td>Myles Murphy <small>(CIN)</small></td><td>#64</td></tr><tr><td>Darius Alexander <small>(NYG)</small></td><td>#69</td></tr><tr><td>Gervon Dexter <small>(ATL)</small></td><td>#75</td></tr><tr><td>Travis Jones <small>(BAL)</small></td><td>#84</td></tr><tr><td>Jordan Davis <small>(PHI)</small></td><td>#85</td></tr><tr><td>T'Vondre Sweat <small>(NYJ)</small></td><td>#94</td></tr><tr><td>Jonah Laulu <small>(LV)</small></td><td>#98</td></tr><tr><td>Lukas Van Ness <small>(GB)</small></td><td>#99</td></tr><tr><td>T.J. Sanders <small>(BUF)</small></td><td>#110</td></tr><tr><td>Boye Mafe <small>(CIN)</small></td><td>#114</td></tr><tr><td>Otito Ogbonnia <small>(DAL)</small></td><td>#119</td></tr><tr><td>Kris Jenkins <small>(CIN)</small></td><td>#125</td></tr></table>
+        </details>
+        <details>
+          <summary>DT — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Devaroe Lawrence <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Tommy Akingbesote <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>James Lynch <small>(CHI)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Tim Keenan <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Ralph Holley <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Kenneth Horsley <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Keveion'ta Spears <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Hauati Pututau <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Vita Vea <small>(TB)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Timmy Jernigan <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Anterio Thompson <small>(ATL)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Nick James <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Lavon Hooks <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Ed Oliver <small>(BUF)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Jhaustin Thomas <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr></table>
+        </details>
+        <details>
+          <summary>K — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Evan McPherson <small>(CIN)</small></td><td>#7</td></tr><tr><td>Harrison Mevis <small>(LAR)</small></td><td>#14</td></tr><tr><td>Trey Smack <small>(GB)</small></td><td>#18</td></tr><tr><td>Andy Borregales <small>(NE)</small></td><td>#19</td></tr><tr><td>Joey Slye <small>(TEN)</small></td><td>#21</td></tr><tr><td>Ryan Fitzgerald <small>(CAR)</small></td><td>#22</td></tr><tr><td>Nick Folk <small>(ATL)</small></td><td>#24</td></tr><tr><td>Chad Ryland <small>(ARI)</small></td><td>#25</td></tr><tr><td>Blake Grupe <small>(NYJ)</small></td><td>#26</td></tr><tr><td>Charlie Smyth <small>(NO)</small></td><td>#27</td></tr><tr><td>Spencer Shrader <small>(IND)</small></td><td>#28</td></tr><tr><td>Riley Patterson <small>(MIA)</small></td><td>#30</td></tr><tr><td>Dominic Zvada <small>(NYG)</small></td><td>#31</td></tr><tr><td>Andre Szmyt <small>(CLE)</small></td><td>#32</td></tr><tr><td>Drew Stevens <small>(WAS)</small></td><td>#33</td></tr></table>
+        </details>
+        <details>
+          <summary>LB — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Sonny Styles <small>(WAS)</small></td><td>#27</td></tr><tr><td>Divine Deablo <small>(ATL)</small></td><td>#28</td></tr><tr><td>Dee Winters <small>(DAL)</small></td><td>#30</td></tr><tr><td>CJ Allen <small>(IND)</small></td><td>#31</td></tr><tr><td>DeMarvion Overshown <small>(DAL)</small></td><td>#47</td></tr><tr><td>Cody Simon <small>(ARI)</small></td><td>#48</td></tr><tr><td>Arvell Reese <small>(NYG)</small></td><td>#51</td></tr><tr><td>Anthony Hill <small>(TEN)</small></td><td>#54</td></tr><tr><td>Drake Thomas <small>(SEA)</small></td><td>#55</td></tr><tr><td>Dre Greenlaw <small>(SF)</small></td><td>#59</td></tr><tr><td>Henry To'oTo'o <small>(HOU)</small></td><td>#66</td></tr><tr><td>Teddye Buchanan <small>(BAL)</small></td><td>#69</td></tr><tr><td>K'Lavon Chaisson <small>(WAS)</small></td><td>#83</td></tr><tr><td>Christian Harris <small>(ATL)</small></td><td>#85</td></tr><tr><td>Justin Strnad <small>(DEN)</small></td><td>#86</td></tr></table>
+        </details>
+        <details>
+          <summary>QB — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Malik Willis <small>(MIA)</small></td><td>#21</td></tr><tr><td>Kirk Cousins <small>(LV)</small></td><td>#29</td></tr><tr><td>Deshaun Watson <small>(CLE)</small></td><td>#32</td></tr><tr><td>Fernando Mendoza <small>(LV)</small></td><td>#35</td></tr><tr><td>Brett Gabbert <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Behren Morton <small>(NE)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>AJ McCarron <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Dwayne Haskins <small>(PIT)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Joe Flacco <small>(CIN)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Ryan Griffin <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Steven Montez <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Max Duggan <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Jacob Eason <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Davis Mills <small>(HOU)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Anthony Brown <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr></table>
+        </details>
+        <details>
+          <summary>RB — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Jeremiyah Love <small>(ARI)</small></td><td>#20</td></tr><tr><td>Jadarian Price <small>(SEA)</small></td><td>#23</td></tr><tr><td>Mike Washington <small>(LV)</small></td><td>#48</td></tr><tr><td>Jonah Coleman <small>(DEN)</small></td><td>#50</td></tr><tr><td>George Holani <small>(SEA)</small></td><td>#53</td></tr><tr><td>Emmett Johnson <small>(KC)</small></td><td>#55</td></tr><tr><td>Chris Brooks <small>(GB)</small></td><td>#61</td></tr><tr><td>Kaelon Black <small>(SF)</small></td><td>#62</td></tr><tr><td>Kaytron Allen <small>(WAS)</small></td><td>#65</td></tr><tr><td>Nicholas Singleton <small>(TEN)</small></td><td>#68</td></tr><tr><td>Demond Claiborne <small>(MIN)</small></td><td>#76</td></tr><tr><td>Seth McGowan <small>(IND)</small></td><td>#78</td></tr><tr><td>Eli Heidenreich <small>(PIT)</small></td><td>#86</td></tr><tr><td>Jawhar Jordan <small>(HOU)</small></td><td>#89</td></tr><tr><td>Raheim Sanders <small>(CLE)</small></td><td>#90</td></tr></table>
+        </details>
+        <details>
+          <summary>TE — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Greg Dulcich <small>(MIA)</small></td><td>#24</td></tr><tr><td>Kenyon Sadiq <small>(NYJ)</small></td><td>#29</td></tr><tr><td>Noah Fant <small>(NO)</small></td><td>#40</td></tr><tr><td>Eli Stowers <small>(PHI)</small></td><td>#41</td></tr><tr><td>Charlie Kolar <small>(LAC)</small></td><td>#42</td></tr><tr><td>Oscar Delp <small>(NO)</small></td><td>#43</td></tr><tr><td>Dawson Knox <small>(BUF)</small></td><td>#44</td></tr><tr><td>Drew Sample <small>(CIN)</small></td><td>#48</td></tr><tr><td>Ellis Richardson <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Carl Tucker <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Matt Seybert <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Nick Boyle <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Tommy Sweeney <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Bryce Williams <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Christian Sims <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr></table>
+        </details>
+        <details>
+          <summary>WR — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Carnell Tate <small>(TEN)</small></td><td>#35</td></tr><tr><td>KC Concepcion <small>(CLE)</small></td><td>#44</td></tr><tr><td>Makai Lemon <small>(PHI)</small></td><td>#49</td></tr><tr><td>De'Zhaun Stribling <small>(SF)</small></td><td>#52</td></tr><tr><td>Denzel Boston <small>(CLE)</small></td><td>#54</td></tr><tr><td>Omar Cooper <small>(NYJ)</small></td><td>#68</td></tr><tr><td>Ja'Kobi Lane <small>(BAL)</small></td><td>#71</td></tr><tr><td>Malachi Fields <small>(NYG)</small></td><td>#73</td></tr><tr><td>Zachariah Branch <small>(ATL)</small></td><td>#78</td></tr><tr><td>Germie Bernard <small>(PIT)</small></td><td>#80</td></tr><tr><td>Ted Hurst <small>(TB)</small></td><td>#84</td></tr><tr><td>Caleb Douglas <small>(MIA)</small></td><td>#86</td></tr><tr><td>Chris Bell <small>(MIA)</small></td><td>#89</td></tr><tr><td>Tyquan Thornton <small>(KC)</small></td><td>#90</td></tr><tr><td>Antonio Williams <small>(WAS)</small></td><td>#93</td></tr></table>
+        </details>
+          </section>
+
+          <section class="block">
+            <h3>📊 Rankings FantasyPros (consenso)</h3>
+            
+        <details>
+          <summary>DB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Derwin James Jr.</td></tr><tr><td>#2</td><td>Budda Baker</td></tr><tr><td>#3</td><td>Jessie Bates III</td></tr><tr><td>#4</td><td>Nick Cross</td></tr><tr><td>#5</td><td>Tykee Smith</td></tr><tr><td>#6</td><td>Talanoa Hufanga</td></tr><tr><td>#7</td><td>Jordan Battle</td></tr><tr><td>#8</td><td>Kyle Hamilton</td></tr><tr><td>#9</td><td>Kam Curl</td></tr><tr><td>#10</td><td>Xavier McKinney</td></tr><tr><td>#11</td><td>Tre'von Moehrig</td></tr><tr><td>#12</td><td>Cooper DeJean</td></tr><tr><td>#13</td><td>Jeremy Chinn</td></tr><tr><td>#14</td><td>Kevin Byard III</td></tr><tr><td>#15</td><td>Nick Emmanwori</td></tr><tr><td>#16</td><td>Chamarri Conner</td></tr><tr><td>#17</td><td>Antoine Winfield Jr.</td></tr><tr><td>#18</td><td>Xavier Watts</td></tr><tr><td>#19</td><td>Quentin Lake</td></tr><tr><td>#20</td><td>Jalen Pitre</td></tr><tr><td>#21</td><td>Malik Mustapha</td></tr><tr><td>#22</td><td>Jaquan Brisker</td></tr><tr><td>#23</td><td>Paulson Adebo</td></tr><tr><td>#24</td><td>Brandon Jones</td></tr><tr><td>#25</td><td>Cole Bishop</td></tr><tr><td>#26</td><td>Joshua Metellus</td></tr><tr><td>#27</td><td>Cam Bynum</td></tr><tr><td>#28</td><td>Alontae Taylor</td></tr><tr><td>#29</td><td>Amani Hooker</td></tr><tr><td>#30</td><td>Ronnie Hickman Jr.</td></tr><tr><td>#31</td><td>DeShon Elliott</td></tr><tr><td>#32</td><td>C.J. Gardner-Johnson</td></tr><tr><td>#33</td><td>Kamari Lassiter</td></tr><tr><td>#34</td><td>Julian Blackmon</td></tr><tr><td>#35</td><td>Jalen Ramsey</td></tr><tr><td>#36</td><td>Julian Love</td></tr><tr><td>#37</td><td>Nick Scott</td></tr><tr><td>#38</td><td>Grant Delpit</td></tr><tr><td>#39</td><td>Caleb Downs</td></tr><tr><td>#40</td><td>Devon Witherspoon</td></tr><tr><td>#41</td><td>Tyler Nubin</td></tr><tr><td>#42</td><td>AJ Haulcy</td></tr><tr><td>#43</td><td>Kevin Winston Jr.</td></tr><tr><td>#44</td><td>Jalen Thompson</td></tr><tr><td>#45</td><td>Andrew Wingard</td></tr><tr><td>#46</td><td>Reed Blankenship</td></tr><tr><td>#47</td><td>Dillon Thieneman</td></tr><tr><td>#48</td><td>Justin Reid</td></tr><tr><td>#49</td><td>Riley Moss</td></tr><tr><td>#50</td><td>Minkah Fitzpatrick</td></tr></table>
+        </details>
+        <details>
+          <summary>DL — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Aidan Hutchinson</td></tr><tr><td>#2</td><td>Maxx Crosby</td></tr><tr><td>#3</td><td>Will Anderson Jr.</td></tr><tr><td>#4</td><td>Danielle Hunter</td></tr><tr><td>#5</td><td>Jeffery Simmons</td></tr><tr><td>#6</td><td>Brian Burns</td></tr><tr><td>#7</td><td>Myles Garrett</td></tr><tr><td>#8</td><td>Nick Bosa</td></tr><tr><td>#9</td><td>Josh Hines-Allen</td></tr><tr><td>#10</td><td>Tuli Tuipulotu</td></tr><tr><td>#11</td><td>DeForest Buckner</td></tr><tr><td>#12</td><td>Laiatu Latu</td></tr><tr><td>#13</td><td>Andrew Van Ginkel</td></tr><tr><td>#14</td><td>T.J. Watt</td></tr><tr><td>#15</td><td>Leonard Williams</td></tr><tr><td>#16</td><td>Montez Sweat</td></tr><tr><td>#17</td><td>Alex Highsmith</td></tr><tr><td>#18</td><td>Byron Young</td></tr><tr><td>#19</td><td>Jared Verse</td></tr><tr><td>#20</td><td>Chase Young</td></tr><tr><td>#21</td><td>Derrick Brown</td></tr><tr><td>#22</td><td>Jaelan Phillips</td></tr><tr><td>#23</td><td>Nik Bonitto</td></tr><tr><td>#24</td><td>Rashan Gary</td></tr><tr><td>#25</td><td>Trey Hendrickson</td></tr><tr><td>#26</td><td>Travon Walker</td></tr><tr><td>#27</td><td>Greg Rousseau</td></tr><tr><td>#28</td><td>Quinnen Williams</td></tr><tr><td>#29</td><td>Austin Booker</td></tr><tr><td>#30</td><td>Bradley Chubb</td></tr><tr><td>#31</td><td>Joseph Ossai</td></tr><tr><td>#32</td><td>Cameron Heyward</td></tr><tr><td>#33</td><td>George Karlaftis III</td></tr><tr><td>#34</td><td>Abdul Carter</td></tr><tr><td>#35</td><td>Jalen Carter</td></tr><tr><td>#36</td><td>Walter Nolen III</td></tr><tr><td>#37</td><td>Dallas Turner</td></tr><tr><td>#38</td><td>Patrick Jones II</td></tr><tr><td>#39</td><td>Maliek Collins</td></tr><tr><td>#40</td><td>Jonathan Greenard</td></tr><tr><td>#41</td><td>Arvell Reese</td></tr><tr><td>#42</td><td>Josh Sweat</td></tr><tr><td>#43</td><td>Ed Oliver</td></tr><tr><td>#44</td><td>Devonte Wyatt</td></tr><tr><td>#45</td><td>Harold Landry III</td></tr><tr><td>#46</td><td>Byron Murphy II</td></tr><tr><td>#47</td><td>Tavius Robinson</td></tr><tr><td>#48</td><td>Jonathon Cooper</td></tr><tr><td>#49</td><td>DeMarcus Lawrence</td></tr><tr><td>#50</td><td>Chop Robinson</td></tr></table>
+        </details>
+        <details>
+          <summary>K — top 34 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Brandon Aubrey</td></tr><tr><td>#2</td><td>Cameron Dicker</td></tr><tr><td>#3</td><td>Ka'imi Fairbairn</td></tr><tr><td>#4</td><td>Cam Little</td></tr><tr><td>#5</td><td>Jason Myers</td></tr><tr><td>#6</td><td>Tyler Loop</td></tr><tr><td>#7</td><td>Evan McPherson</td></tr><tr><td>#8</td><td>Jake Bates</td></tr><tr><td>#9</td><td>Chase McLaughlin</td></tr><tr><td>#10</td><td>Eddy Pineiro</td></tr><tr><td>#11</td><td>Chris Boswell</td></tr><tr><td>#12</td><td>Cairo Santos</td></tr><tr><td>#13</td><td>Will Reichard</td></tr><tr><td>#14</td><td>Harrison Mevis</td></tr><tr><td>#15</td><td>Harrison Butker</td></tr><tr><td>#16</td><td>Jake Elliott</td></tr><tr><td>#17</td><td>Wil Lutz</td></tr><tr><td>#18</td><td>Trey Smack</td></tr><tr><td>#19</td><td>Andy Borregales</td></tr><tr><td>#20</td><td>Tyler Bass</td></tr><tr><td>#21</td><td>Joey Slye</td></tr><tr><td>#22</td><td>Ryan Fitzgerald</td></tr><tr><td>#23</td><td>Daniel Carlson</td></tr><tr><td>#24</td><td>Nick Folk</td></tr><tr><td>#25</td><td>Chad Ryland</td></tr><tr><td>#26</td><td>Blake Grupe</td></tr><tr><td>#27</td><td>Charlie Smyth</td></tr><tr><td>#28</td><td>Spencer Shrader</td></tr><tr><td>#29</td><td>Matt Gay</td></tr><tr><td>#30</td><td>Riley Patterson</td></tr><tr><td>#31</td><td>Dominic Zvada</td></tr><tr><td>#32</td><td>Andre Szmyt</td></tr><tr><td>#33</td><td>Drew Stevens</td></tr><tr><td>#34</td><td>Andrew Wellock</td></tr></table>
+        </details>
+        <details>
+          <summary>LB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Jordyn Brooks</td></tr><tr><td>#2</td><td>Carson Schwesinger</td></tr><tr><td>#3</td><td>Jack Campbell</td></tr><tr><td>#4</td><td>Blake Cashman</td></tr><tr><td>#5</td><td>Foyesade Oluokun</td></tr><tr><td>#6</td><td>Jamien Sherwood</td></tr><tr><td>#7</td><td>Roquan Smith</td></tr><tr><td>#8</td><td>Nick Bolton</td></tr><tr><td>#9</td><td>Zack Baun</td></tr><tr><td>#10</td><td>Tremaine Edmunds</td></tr><tr><td>#11</td><td>Ernest Jones IV</td></tr><tr><td>#12</td><td>Quay Walker</td></tr><tr><td>#13</td><td>Fred Warner</td></tr><tr><td>#14</td><td>Alex Singleton</td></tr><tr><td>#15</td><td>Robert Spillane</td></tr><tr><td>#16</td><td>Edgerrin Cooper</td></tr><tr><td>#17</td><td>Nate Landman</td></tr><tr><td>#18</td><td>Devin Bush Jr.</td></tr><tr><td>#19</td><td>Kaden Elliss</td></tr><tr><td>#20</td><td>Azeez Al-Shaair</td></tr><tr><td>#21</td><td>Demario Davis</td></tr><tr><td>#22</td><td>Zaire Franklin</td></tr><tr><td>#23</td><td>T.J. Edwards</td></tr><tr><td>#24</td><td>Alex Anzalone</td></tr><tr><td>#25</td><td>Daiyan Henley</td></tr><tr><td>#26</td><td>Quincy Williams</td></tr><tr><td>#27</td><td>Sonny Styles</td></tr><tr><td>#28</td><td>Divine Deablo</td></tr><tr><td>#29</td><td>Tyrel Dodson</td></tr><tr><td>#30</td><td>Dee Winters</td></tr><tr><td>#31</td><td>CJ Allen</td></tr><tr><td>#32</td><td>Terrel Bernard</td></tr><tr><td>#33</td><td>Cedric Gray</td></tr><tr><td>#34</td><td>Frankie Luvu</td></tr><tr><td>#35</td><td>Tatum Bethune</td></tr><tr><td>#36</td><td>Barrett Carter</td></tr><tr><td>#37</td><td>Mack Wilson Sr.</td></tr><tr><td>#38</td><td>Tuli Tuipulotu</td></tr><tr><td>#39</td><td>Nakobe Dean</td></tr><tr><td>#40</td><td>Eric Wilson</td></tr><tr><td>#41</td><td>Devin Lloyd</td></tr><tr><td>#42</td><td>Patrick Queen</td></tr><tr><td>#43</td><td>Brian Burns</td></tr><tr><td>#44</td><td>Danielle Hunter</td></tr><tr><td>#45</td><td>Cody Barton</td></tr><tr><td>#46</td><td>Demetrius Knight Jr.</td></tr><tr><td>#47</td><td>DeMarvion Overshown</td></tr><tr><td>#48</td><td>Cody Simon</td></tr><tr><td>#49</td><td>Josh Hines-Allen</td></tr><tr><td>#50</td><td>Payton Wilson</td></tr></table>
+        </details>
+        <details>
+          <summary>QB — top 36 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Lamar Jackson</td></tr><tr><td>#2</td><td>Joe Burrow</td></tr><tr><td>#3</td><td>Josh Allen</td></tr><tr><td>#4</td><td>Jalen Hurts</td></tr><tr><td>#5</td><td>Justin Herbert</td></tr><tr><td>#6</td><td>Drake Maye</td></tr><tr><td>#7</td><td>Dak Prescott</td></tr><tr><td>#8</td><td>Jayden Daniels</td></tr><tr><td>#9</td><td>Caleb Williams</td></tr><tr><td>#10</td><td>Jaxson Dart</td></tr><tr><td>#11</td><td>Trevor Lawrence</td></tr><tr><td>#12</td><td>Jared Goff</td></tr><tr><td>#13</td><td>Brock Purdy</td></tr><tr><td>#14</td><td>Baker Mayfield</td></tr><tr><td>#15</td><td>Matthew Stafford</td></tr><tr><td>#16</td><td>Kyler Murray</td></tr><tr><td>#17</td><td>Bo Nix</td></tr><tr><td>#18</td><td>Patrick Mahomes II</td></tr><tr><td>#19</td><td>Jordan Love</td></tr><tr><td>#20</td><td>Tyler Shough</td></tr><tr><td>#21</td><td>Malik Willis</td></tr><tr><td>#22</td><td>Sam Darnold</td></tr><tr><td>#23</td><td>Daniel Jones</td></tr><tr><td>#24</td><td>C.J. Stroud</td></tr><tr><td>#25</td><td>Bryce Young</td></tr><tr><td>#26</td><td>Aaron Rodgers</td></tr><tr><td>#27</td><td>Cam Ward</td></tr><tr><td>#28</td><td>Geno Smith</td></tr><tr><td>#29</td><td>Kirk Cousins</td></tr><tr><td>#30</td><td>Jacoby Brissett</td></tr><tr><td>#31</td><td>Tua Tagovailoa</td></tr><tr><td>#32</td><td>Deshaun Watson</td></tr><tr><td>#33</td><td>Michael Penix Jr.</td></tr><tr><td>#34</td><td>Shedeur Sanders</td></tr><tr><td>#35</td><td>Fernando Mendoza</td></tr><tr><td>#36</td><td>Justin Fields</td></tr></table>
+        </details>
+        <details>
+          <summary>RB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Jahmyr Gibbs</td></tr><tr><td>#2</td><td>Bijan Robinson</td></tr><tr><td>#3</td><td>Christian McCaffrey</td></tr><tr><td>#4</td><td>De'Von Achane</td></tr><tr><td>#5</td><td>Jonathan Taylor</td></tr><tr><td>#6</td><td>Omarion Hampton</td></tr><tr><td>#7</td><td>Chase Brown</td></tr><tr><td>#8</td><td>Saquon Barkley</td></tr><tr><td>#9</td><td>James Cook III</td></tr><tr><td>#10</td><td>Derrick Henry</td></tr><tr><td>#11</td><td>Javonte Williams</td></tr><tr><td>#12</td><td>Kenneth Walker III</td></tr><tr><td>#13</td><td>Ashton Jeanty</td></tr><tr><td>#14</td><td>Breece Hall</td></tr><tr><td>#15</td><td>Kyren Williams</td></tr><tr><td>#16</td><td>Travis Etienne Jr.</td></tr><tr><td>#17</td><td>D'Andre Swift</td></tr><tr><td>#18</td><td>Bucky Irving</td></tr><tr><td>#19</td><td>Cam Skattebo</td></tr><tr><td>#20</td><td>Jeremiyah Love</td></tr><tr><td>#21</td><td>David Montgomery</td></tr><tr><td>#22</td><td>Quinshon Judkins</td></tr><tr><td>#23</td><td>Jadarian Price</td></tr><tr><td>#24</td><td>Jaylen Warren</td></tr><tr><td>#25</td><td>Bhayshul Tuten</td></tr><tr><td>#26</td><td>Rhamondre Stevenson</td></tr><tr><td>#27</td><td>Tony Pollard</td></tr><tr><td>#28</td><td>Rico Dowdle</td></tr><tr><td>#29</td><td>TreVeyon Henderson</td></tr><tr><td>#30</td><td>Kenny Gainwell</td></tr><tr><td>#31</td><td>MarShawn Lloyd</td></tr><tr><td>#32</td><td>Chuba Hubbard</td></tr><tr><td>#33</td><td>Jonathon Brooks</td></tr><tr><td>#34</td><td>J.K. Dobbins</td></tr><tr><td>#35</td><td>Aaron Jones Sr.</td></tr><tr><td>#36</td><td>Rachaad White</td></tr><tr><td>#37</td><td>RJ Harvey</td></tr><tr><td>#38</td><td>Jordan Mason</td></tr><tr><td>#39</td><td>Jacory Croskey-Merritt</td></tr><tr><td>#40</td><td>Tyler Allgeier</td></tr><tr><td>#41</td><td>Blake Corum</td></tr><tr><td>#42</td><td>Kyle Monangai</td></tr><tr><td>#43</td><td>Chris Rodriguez Jr.</td></tr><tr><td>#44</td><td>Woody Marks</td></tr><tr><td>#45</td><td>Tyjae Spears</td></tr><tr><td>#46</td><td>Dylan Sampson</td></tr><tr><td>#47</td><td>Keaton Mitchell</td></tr><tr><td>#48</td><td>Mike Washington Jr.</td></tr><tr><td>#49</td><td>Brian Robinson Jr.</td></tr><tr><td>#50</td><td>Jonah Coleman</td></tr></table>
+        </details>
+        <details>
+          <summary>TE — top 48 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Brock Bowers</td></tr><tr><td>#2</td><td>Trey McBride</td></tr><tr><td>#3</td><td>Colston Loveland</td></tr><tr><td>#4</td><td>Tyler Warren</td></tr><tr><td>#5</td><td>Kyle Pitts Sr.</td></tr><tr><td>#6</td><td>Sam LaPorta</td></tr><tr><td>#7</td><td>Harold Fannin Jr.</td></tr><tr><td>#8</td><td>Travis Kelce</td></tr><tr><td>#9</td><td>Dallas Goedert</td></tr><tr><td>#10</td><td>Tucker Kraft</td></tr><tr><td>#11</td><td>Isaiah Likely</td></tr><tr><td>#12</td><td>Juwan Johnson</td></tr><tr><td>#13</td><td>Jake Ferguson</td></tr><tr><td>#14</td><td>Mark Andrews</td></tr><tr><td>#15</td><td>Dalton Kincaid</td></tr><tr><td>#16</td><td>Brenton Strange</td></tr><tr><td>#17</td><td>Dalton Schultz</td></tr><tr><td>#18</td><td>T.J. Hockenson</td></tr><tr><td>#19</td><td>George Kittle</td></tr><tr><td>#20</td><td>Cade Otton</td></tr><tr><td>#21</td><td>Hunter Henry</td></tr><tr><td>#22</td><td>AJ Barner</td></tr><tr><td>#23</td><td>Chig Okonkwo</td></tr><tr><td>#24</td><td>Greg Dulcich</td></tr><tr><td>#25</td><td>Pat Freiermuth</td></tr><tr><td>#26</td><td>Gunnar Helm</td></tr><tr><td>#27</td><td>Terrance Ferguson</td></tr><tr><td>#28</td><td>Oronde Gadsden II</td></tr><tr><td>#29</td><td>Kenyon Sadiq</td></tr><tr><td>#30</td><td>Darren Waller</td></tr><tr><td>#31</td><td>David Njoku</td></tr><tr><td>#32</td><td>Colby Parkinson</td></tr><tr><td>#33</td><td>Evan Engram</td></tr><tr><td>#34</td><td>Mike Gesicki</td></tr><tr><td>#35</td><td>Jake Tonges</td></tr><tr><td>#36</td><td>Michael Mayer</td></tr><tr><td>#37</td><td>Theo Johnson</td></tr><tr><td>#38</td><td>Darnell Washington</td></tr><tr><td>#39</td><td>Mason Taylor</td></tr><tr><td>#40</td><td>Noah Fant</td></tr><tr><td>#41</td><td>Eli Stowers</td></tr><tr><td>#42</td><td>Charlie Kolar</td></tr><tr><td>#43</td><td>Oscar Delp</td></tr><tr><td>#44</td><td>Dawson Knox</td></tr><tr><td>#45</td><td>Cole Kmet</td></tr><tr><td>#46</td><td>Tyler Higbee</td></tr><tr><td>#47</td><td>Elijah Arroyo</td></tr><tr><td>#48</td><td>Drew Sample</td></tr></table>
+        </details>
+        <details>
+          <summary>WR — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Ja'Marr Chase</td></tr><tr><td>#2</td><td>Puka Nacua</td></tr><tr><td>#3</td><td>Amon-Ra St. Brown</td></tr><tr><td>#4</td><td>Jaxon Smith-Njigba</td></tr><tr><td>#5</td><td>Justin Jefferson</td></tr><tr><td>#6</td><td>CeeDee Lamb</td></tr><tr><td>#7</td><td>Chris Olave</td></tr><tr><td>#8</td><td>Drake London</td></tr><tr><td>#9</td><td>Nico Collins</td></tr><tr><td>#10</td><td>DeVonta Smith</td></tr><tr><td>#11</td><td>George Pickens</td></tr><tr><td>#12</td><td>A.J. Brown</td></tr><tr><td>#13</td><td>Garrett Wilson</td></tr><tr><td>#14</td><td>Zay Flowers</td></tr><tr><td>#15</td><td>Ladd McConkey</td></tr><tr><td>#16</td><td>Rashee Rice</td></tr><tr><td>#17</td><td>Tee Higgins</td></tr><tr><td>#18</td><td>Tetairoa McMillan</td></tr><tr><td>#19</td><td>Jaylen Waddle</td></tr><tr><td>#20</td><td>Emeka Egbuka</td></tr><tr><td>#21</td><td>Malik Nabers</td></tr><tr><td>#22</td><td>Davante Adams</td></tr><tr><td>#23</td><td>Jameson Williams</td></tr><tr><td>#24</td><td>Luther Burden III</td></tr><tr><td>#25</td><td>Christian Watson</td></tr><tr><td>#26</td><td>Rome Odunze</td></tr><tr><td>#27</td><td>Terry McLaurin</td></tr><tr><td>#28</td><td>Parker Washington</td></tr><tr><td>#29</td><td>Mike Evans</td></tr><tr><td>#30</td><td>Chris Godwin Jr.</td></tr><tr><td>#31</td><td>DJ Moore</td></tr><tr><td>#32</td><td>Marvin Harrison Jr.</td></tr><tr><td>#33</td><td>Courtland Sutton</td></tr><tr><td>#34</td><td>DK Metcalf</td></tr><tr><td>#35</td><td>Carnell Tate</td></tr><tr><td>#36</td><td>Michael Pittman Jr.</td></tr><tr><td>#37</td><td>Josh Downs</td></tr><tr><td>#38</td><td>Wan'Dale Robinson</td></tr><tr><td>#39</td><td>Michael Wilson</td></tr><tr><td>#40</td><td>Brian Thomas Jr.</td></tr><tr><td>#41</td><td>Quentin Johnston</td></tr><tr><td>#42</td><td>Jakobi Meyers</td></tr><tr><td>#43</td><td>Jayden Reed</td></tr><tr><td>#44</td><td>KC Concepcion</td></tr><tr><td>#45</td><td>Khalil Shakir</td></tr><tr><td>#46</td><td>Jordan Addison</td></tr><tr><td>#47</td><td>Jalen Coker</td></tr><tr><td>#48</td><td>Romeo Doubs</td></tr><tr><td>#49</td><td>Makai Lemon</td></tr><tr><td>#50</td><td>Stefon Diggs</td></tr></table>
+        </details>
+          </section>
         </div>
         <div class="team">
           <h2>Camisa <span class="platform">(Sleeper)</span></h2>
-          
-            <table>
-              <tr><th>Posição</th><th>Trocar</th><th>Por</th><th>Ganho</th></tr>
-              
-                <tr>
-                  <td><span class="pos-badge">LB</span></td>
-                  <td>Bobby Wagner <small>(#9999)</small></td>
-                  <td>→ Sonny Styles <small>(#27)</small></td>
-                  <td class="gap">+9972 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">LB</span></td>
-                  <td>Bobby Wagner <small>(#9999)</small></td>
-                  <td>→ Divine Deablo <small>(#28)</small></td>
-                  <td class="gap">+9971 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">LB</span></td>
-                  <td>Bobby Wagner <small>(#9999)</small></td>
-                  <td>→ CJ Allen <small>(#31)</small></td>
-                  <td class="gap">+9968 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">WR</span></td>
-                  <td>Jayden Higgins <small>(#9999)</small></td>
-                  <td>→ Carnell Tate <small>(#34)</small></td>
-                  <td class="gap">+9965 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">WR</span></td>
-                  <td>Jayden Higgins <small>(#9999)</small></td>
-                  <td>→ KC Concepcion <small>(#47)</small></td>
-                  <td class="gap">+9952 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">WR</span></td>
-                  <td>Jayden Higgins <small>(#9999)</small></td>
-                  <td>→ Makai Lemon <small>(#50)</small></td>
-                  <td class="gap">+9949 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">RB</span></td>
-                  <td>Devin Neal <small>(#95)</small></td>
-                  <td>→ Jeremiyah Love <small>(#21)</small></td>
-                  <td class="gap">+74 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">RB</span></td>
-                  <td>Devin Neal <small>(#95)</small></td>
-                  <td>→ Jadarian Price <small>(#24)</small></td>
-                  <td class="gap">+71 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">RB</span></td>
-                  <td>Devin Neal <small>(#95)</small></td>
-                  <td>→ MarShawn Lloyd <small>(#39)</small></td>
-                  <td class="gap">+56 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">DL</span></td>
-                  <td>Jonathon Cooper <small>(#48)</small></td>
-                  <td>→ Austin Booker <small>(#29)</small></td>
-                  <td class="gap">+19 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">K</span></td>
-                  <td>Eddy Pineiro <small>(#12)</small></td>
-                  <td>→ Cam Little <small>(#4)</small></td>
-                  <td class="gap">+8 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">K</span></td>
-                  <td>Eddy Pineiro <small>(#12)</small></td>
-                  <td>→ Tyler Loop <small>(#5)</small></td>
-                  <td class="gap">+7 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">K</span></td>
-                  <td>Eddy Pineiro <small>(#12)</small></td>
-                  <td>→ Evan McPherson <small>(#6)</small></td>
-                  <td class="gap">+6 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">QB</span></td>
-                  <td>C.J. Stroud <small>(#23)</small></td>
-                  <td>→ Malik Willis <small>(#19)</small></td>
-                  <td class="gap">+4 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">DL</span></td>
-                  <td>Jonathon Cooper <small>(#48)</small></td>
-                  <td>→ Devonte Wyatt <small>(#44)</small></td>
-                  <td class="gap">+4 posições</td>
-                </tr>
-                <tr>
-                  <td><span class="pos-badge">DL</span></td>
-                  <td>Jonathon Cooper <small>(#48)</small></td>
-                  <td>→ Byron Murphy <small>(#46)</small></td>
-                  <td class="gap">+2 posições</td>
-                </tr>
-            </table>
+
+          <section class="block highlight-suggestions">
+            <h3>🔁 Sugestões de troca</h3>
+            <table><tr><th>Posição</th><th>Trocar</th><th>Por</th><th>Ganho</th></tr>
+        <tr>
+          <td><span class="pos-badge">RB</span></td>
+          <td>Devin Neal <small>(#9999)</small></td>
+          <td>→ Jeremiyah Love <small>(#20)</small></td>
+          <td class="gap">+9979 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">RB</span></td>
+          <td>Devin Neal <small>(#9999)</small></td>
+          <td>→ Jadarian Price <small>(#23)</small></td>
+          <td class="gap">+9976 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">LB</span></td>
+          <td>Bobby Wagner <small>(#9999)</small></td>
+          <td>→ Sonny Styles <small>(#27)</small></td>
+          <td class="gap">+9972 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">LB</span></td>
+          <td>Bobby Wagner <small>(#9999)</small></td>
+          <td>→ Divine Deablo <small>(#28)</small></td>
+          <td class="gap">+9971 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">LB</span></td>
+          <td>Bobby Wagner <small>(#9999)</small></td>
+          <td>→ CJ Allen <small>(#31)</small></td>
+          <td class="gap">+9968 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">RB</span></td>
+          <td>Devin Neal <small>(#9999)</small></td>
+          <td>→ MarShawn Lloyd <small>(#31)</small></td>
+          <td class="gap">+9968 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">WR</span></td>
+          <td>Jaylin Lane <small>(#9999)</small></td>
+          <td>→ Carnell Tate <small>(#35)</small></td>
+          <td class="gap">+9964 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">WR</span></td>
+          <td>Jaylin Lane <small>(#9999)</small></td>
+          <td>→ KC Concepcion <small>(#44)</small></td>
+          <td class="gap">+9955 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">WR</span></td>
+          <td>Jaylin Lane <small>(#9999)</small></td>
+          <td>→ Makai Lemon <small>(#49)</small></td>
+          <td class="gap">+9950 posições</td>
+        </tr>
+        <tr>
+          <td><span class="pos-badge">DL</span></td>
+          <td>Jonathon Cooper <small>(#48)</small></td>
+          <td>→ Austin Booker <small>(#29)</small></td>
+          <td class="gap">+19 posições</td>
+        </tr></table>
+          </section>
+
+          <section class="block">
+            <h3>👤 Meu time</h3>
+            <table><tr><th>Pos</th><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td><span class='pos-badge'>DB</span></td><td>Tykee Smith <small>(TB)</small></td><td>#5</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Talanoa Hufanga <small>(DEN)</small></td><td>#6</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Tre'von Moehrig <small>(CAR)</small></td><td>#11</td></tr><tr><td><span class='pos-badge'>DB</span></td><td>Nick Emmanwori <small>(SEA)</small></td><td>#15</td></tr><tr><td><span class='pos-badge'>DE</span></td><td>Greg Rousseau <small>(BUF)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>DE</span></td><td>Myles Garrett <small>(LAR)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Walter Nolen <small>(ARI)</small></td><td>#36</td></tr><tr><td><span class='pos-badge'>DL</span></td><td>Jonathon Cooper <small>(DEN)</small></td><td>#48</td></tr><tr><td><span class='pos-badge'>K</span></td><td>Eddy Pineiro <small>(SF)</small></td><td>#10</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Blake Cashman <small>(MIN)</small></td><td>#4</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Nate Landman <small>(LAR)</small></td><td>#17</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Demario Davis <small>(NYJ)</small></td><td>#21</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Quincy Williams <small>(CLE)</small></td><td>#26</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Rashan Gary <small>(DAL)</small></td><td>#60</td></tr><tr><td><span class='pos-badge'>LB</span></td><td>Bobby Wagner <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>QB</span></td><td>Drake Maye <small>(NE)</small></td><td>#6</td></tr><tr><td><span class='pos-badge'>QB</span></td><td>Matthew Stafford <small>(LAR)</small></td><td>#15</td></tr><tr><td><span class='pos-badge'>QB</span></td><td>C.J. Stroud <small>(HOU)</small></td><td>#24</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Bijan Robinson <small>(ATL)</small></td><td>#2</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Chase Brown <small>(CIN)</small></td><td>#7</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Ashton Jeanty <small>(LV)</small></td><td>#13</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Jordan Mason <small>(MIN)</small></td><td>#38</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Kendre Miller <small>(NO)</small></td><td>#81</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Tahj Brooks <small>(CIN)</small></td><td>#88</td></tr><tr><td><span class='pos-badge'>RB</span></td><td>Devin Neal <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>TE</span></td><td>Harold Fannin <small>(CLE)</small></td><td>#7</td></tr><tr><td><span class='pos-badge'>TE</span></td><td>Isaiah Likely <small>(NYG)</small></td><td>#11</td></tr><tr><td><span class='pos-badge'>TE</span></td><td>Hunter Henry <small>(NE)</small></td><td>#21</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Parker Washington <small>(JAX)</small></td><td>#28</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Tre Tucker <small>(LV)</small></td><td>#55</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Jalen McMillan <small>(TB)</small></td><td>#60</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Adonai Mitchell <small>(NYJ)</small></td><td>#61</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Jauan Jennings <small>(MIN)</small></td><td>#65</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Malik Washington <small>(MIA)</small></td><td>#66</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Pat Bryant <small>(DEN)</small></td><td>#76</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Darius Slayton <small>(NYG)</small></td><td>#87</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Keon Coleman <small>(BUF)</small></td><td>#91</td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Jayden Higgins <small>(HOU)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td><span class='pos-badge'>WR</span></td><td>Jaylin Lane <small>(WAS)</small></td><td><span class="rank-missing">—</span></td></tr></table>
+          </section>
+
+          <section class="block">
+            <h3>🟢 Disponíveis na liga</h3>
+            
+        <details>
+          <summary>DB — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Malik Mustapha <small>(SF)</small></td><td>#21</td></tr><tr><td>Jaquan Brisker <small>(PIT)</small></td><td>#22</td></tr><tr><td>Cole Bishop <small>(BUF)</small></td><td>#25</td></tr><tr><td>Amani Hooker <small>(TEN)</small></td><td>#29</td></tr><tr><td>Ronnie Hickman <small>(CLE)</small></td><td>#30</td></tr><tr><td>C.J. Gardner-Johnson <small>(BUF)</small></td><td>#32</td></tr><tr><td>Julian Blackmon <small>(NO)</small></td><td>#34</td></tr><tr><td>Nick Scott <small>(CAR)</small></td><td>#37</td></tr><tr><td>Grant Delpit <small>(CLE)</small></td><td>#38</td></tr><tr><td>Caleb Downs <small>(DAL)</small></td><td>#39</td></tr><tr><td>AJ Haulcy <small>(IND)</small></td><td>#42</td></tr><tr><td>Kevin Winston <small>(TEN)</small></td><td>#43</td></tr><tr><td>Andrew Wingard <small>(ARI)</small></td><td>#45</td></tr><tr><td>Dillon Thieneman <small>(CHI)</small></td><td>#47</td></tr><tr><td>Justin Reid <small>(NO)</small></td><td>#48</td></tr></table>
+        </details>
+        <details>
+          <summary>DE — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Joe Gaziano <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Hayden Harris <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Tyrus Wheat <small>(DAL)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Derek Barnett <small>(CLE)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Dominique Davis <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Tyler Lacy <small>(DET)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Ray Drew <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Truman Jones <small>(TEN)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Mikey Bart <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Niko Lalos <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Janarius Robinson <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>John Daka <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Joshua Kaindoh <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Max Llewellyn <small>(MIA)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Aaron Patrick <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr></table>
+        </details>
+        <details>
+          <summary>DL — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Austin Booker <small>(CHI)</small></td><td>#29</td></tr><tr><td>Devonte Wyatt <small>(GB)</small></td><td>#44</td></tr><tr><td>Byron Murphy <small>(SEA)</small></td><td>#46</td></tr><tr><td>Jalyx Hunt <small>(PHI)</small></td><td>#51</td></tr><tr><td>Myles Murphy <small>(?)</small></td><td>#64</td></tr><tr><td>Myles Murphy <small>(CIN)</small></td><td>#64</td></tr><tr><td>Darius Alexander <small>(NYG)</small></td><td>#69</td></tr><tr><td>Calijah Kancey <small>(TB)</small></td><td>#70</td></tr><tr><td>Gervon Dexter <small>(ATL)</small></td><td>#75</td></tr><tr><td>Mason Graham <small>(CLE)</small></td><td>#80</td></tr><tr><td>Travis Jones <small>(BAL)</small></td><td>#84</td></tr><tr><td>T'Vondre Sweat <small>(NYJ)</small></td><td>#94</td></tr><tr><td>Lukas Van Ness <small>(GB)</small></td><td>#99</td></tr><tr><td>T.J. Sanders <small>(BUF)</small></td><td>#110</td></tr><tr><td>Braden Fiske <small>(LAR)</small></td><td>#113</td></tr></table>
+        </details>
+        <details>
+          <summary>K — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Cam Little <small>(JAX)</small></td><td>#4</td></tr><tr><td>Tyler Loop <small>(BAL)</small></td><td>#6</td></tr><tr><td>Evan McPherson <small>(CIN)</small></td><td>#7</td></tr><tr><td>Chris Boswell <small>(PIT)</small></td><td>#11</td></tr><tr><td>Will Reichard <small>(MIN)</small></td><td>#13</td></tr><tr><td>Harrison Mevis <small>(LAR)</small></td><td>#14</td></tr><tr><td>Trey Smack <small>(GB)</small></td><td>#18</td></tr><tr><td>Andy Borregales <small>(NE)</small></td><td>#19</td></tr><tr><td>Tyler Bass <small>(BUF)</small></td><td>#20</td></tr><tr><td>Joey Slye <small>(TEN)</small></td><td>#21</td></tr><tr><td>Ryan Fitzgerald <small>(CAR)</small></td><td>#22</td></tr><tr><td>Daniel Carlson <small>(NO)</small></td><td>#23</td></tr><tr><td>Nick Folk <small>(ATL)</small></td><td>#24</td></tr><tr><td>Blake Grupe <small>(NYJ)</small></td><td>#26</td></tr><tr><td>Charlie Smyth <small>(NO)</small></td><td>#27</td></tr></table>
+        </details>
+        <details>
+          <summary>LB — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Sonny Styles <small>(WAS)</small></td><td>#27</td></tr><tr><td>Divine Deablo <small>(ATL)</small></td><td>#28</td></tr><tr><td>CJ Allen <small>(IND)</small></td><td>#31</td></tr><tr><td>Tatum Bethune <small>(SF)</small></td><td>#35</td></tr><tr><td>DeMarvion Overshown <small>(DAL)</small></td><td>#47</td></tr><tr><td>Arvell Reese <small>(NYG)</small></td><td>#51</td></tr><tr><td>Anthony Hill <small>(TEN)</small></td><td>#54</td></tr><tr><td>Trevin Wallace <small>(NYJ)</small></td><td>#58</td></tr><tr><td>Derrick Barnes <small>(DET)</small></td><td>#67</td></tr><tr><td>K'Lavon Chaisson <small>(WAS)</small></td><td>#83</td></tr><tr><td>Christian Harris <small>(ATL)</small></td><td>#85</td></tr><tr><td>Elandon Roberts <small>(?)</small></td><td>#91</td></tr><tr><td>D'Marco Jackson <small>(CHI)</small></td><td>#92</td></tr><tr><td>Odafe Oweh <small>(WAS)</small></td><td>#93</td></tr><tr><td>Josiah Trotter <small>(TB)</small></td><td>#94</td></tr></table>
+        </details>
+        <details>
+          <summary>QB — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Malik Willis <small>(MIA)</small></td><td>#21</td></tr><tr><td>Geno Smith <small>(NYJ)</small></td><td>#28</td></tr><tr><td>Deshaun Watson <small>(CLE)</small></td><td>#32</td></tr><tr><td>Fernando Mendoza <small>(LV)</small></td><td>#35</td></tr><tr><td>Justin Fields <small>(KC)</small></td><td>#36</td></tr><tr><td>Brett Gabbert <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Behren Morton <small>(NE)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>AJ McCarron <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Dwayne Haskins <small>(PIT)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Joe Flacco <small>(CIN)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Ryan Griffin <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Steven Montez <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Max Duggan <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Jacob Eason <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Anthony Brown <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr></table>
+        </details>
+        <details>
+          <summary>RB — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Jeremiyah Love <small>(ARI)</small></td><td>#20</td></tr><tr><td>Jadarian Price <small>(SEA)</small></td><td>#23</td></tr><tr><td>MarShawn Lloyd <small>(GB)</small></td><td>#31</td></tr><tr><td>Mike Washington <small>(LV)</small></td><td>#48</td></tr><tr><td>Jonah Coleman <small>(DEN)</small></td><td>#50</td></tr><tr><td>George Holani <small>(SEA)</small></td><td>#53</td></tr><tr><td>Emmett Johnson <small>(KC)</small></td><td>#55</td></tr><tr><td>Ray Davis <small>(BUF)</small></td><td>#59</td></tr><tr><td>Chris Brooks <small>(GB)</small></td><td>#61</td></tr><tr><td>Kaelon Black <small>(SF)</small></td><td>#62</td></tr><tr><td>Kaytron Allen <small>(WAS)</small></td><td>#65</td></tr><tr><td>Nicholas Singleton <small>(TEN)</small></td><td>#68</td></tr><tr><td>LeQuint Allen <small>(JAX)</small></td><td>#72</td></tr><tr><td>Demond Claiborne <small>(MIN)</small></td><td>#76</td></tr><tr><td>Seth McGowan <small>(IND)</small></td><td>#78</td></tr></table>
+        </details>
+        <details>
+          <summary>TE — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Greg Dulcich <small>(MIA)</small></td><td>#24</td></tr><tr><td>Pat Freiermuth <small>(PIT)</small></td><td>#25</td></tr><tr><td>Kenyon Sadiq <small>(NYJ)</small></td><td>#29</td></tr><tr><td>Mike Gesicki <small>(CIN)</small></td><td>#34</td></tr><tr><td>Jake Tonges <small>(SF)</small></td><td>#35</td></tr><tr><td>Darnell Washington <small>(PIT)</small></td><td>#38</td></tr><tr><td>Eli Stowers <small>(PHI)</small></td><td>#41</td></tr><tr><td>Charlie Kolar <small>(LAC)</small></td><td>#42</td></tr><tr><td>Oscar Delp <small>(NO)</small></td><td>#43</td></tr><tr><td>Drew Sample <small>(CIN)</small></td><td>#48</td></tr><tr><td>Ellis Richardson <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Carl Tucker <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Matt Seybert <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Nick Boyle <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr><tr><td>Tommy Sweeney <small>(?)</small></td><td><span class="rank-missing">—</span></td></tr></table>
+        </details>
+        <details>
+          <summary>WR — top 15 disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr><tr><td>Carnell Tate <small>(TEN)</small></td><td>#35</td></tr><tr><td>KC Concepcion <small>(CLE)</small></td><td>#44</td></tr><tr><td>Makai Lemon <small>(PHI)</small></td><td>#49</td></tr><tr><td>De'Zhaun Stribling <small>(SF)</small></td><td>#52</td></tr><tr><td>Denzel Boston <small>(CLE)</small></td><td>#54</td></tr><tr><td>Jalen Nailor <small>(LV)</small></td><td>#57</td></tr><tr><td>Omar Cooper <small>(NYJ)</small></td><td>#68</td></tr><tr><td>Ja'Kobi Lane <small>(BAL)</small></td><td>#71</td></tr><tr><td>Ryan Flournoy <small>(DAL)</small></td><td>#72</td></tr><tr><td>Malachi Fields <small>(NYG)</small></td><td>#73</td></tr><tr><td>Zachariah Branch <small>(ATL)</small></td><td>#78</td></tr><tr><td>Germie Bernard <small>(PIT)</small></td><td>#80</td></tr><tr><td>Rashod Bateman <small>(BAL)</small></td><td>#81</td></tr><tr><td>Ted Hurst <small>(TB)</small></td><td>#84</td></tr><tr><td>Caleb Douglas <small>(MIA)</small></td><td>#86</td></tr></table>
+        </details>
+          </section>
+
+          <section class="block">
+            <h3>📊 Rankings FantasyPros (consenso)</h3>
+            
+        <details>
+          <summary>DB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Derwin James Jr.</td></tr><tr><td>#2</td><td>Budda Baker</td></tr><tr><td>#3</td><td>Jessie Bates III</td></tr><tr><td>#4</td><td>Nick Cross</td></tr><tr><td>#5</td><td>Tykee Smith</td></tr><tr><td>#6</td><td>Talanoa Hufanga</td></tr><tr><td>#7</td><td>Jordan Battle</td></tr><tr><td>#8</td><td>Kyle Hamilton</td></tr><tr><td>#9</td><td>Kam Curl</td></tr><tr><td>#10</td><td>Xavier McKinney</td></tr><tr><td>#11</td><td>Tre'von Moehrig</td></tr><tr><td>#12</td><td>Cooper DeJean</td></tr><tr><td>#13</td><td>Jeremy Chinn</td></tr><tr><td>#14</td><td>Kevin Byard III</td></tr><tr><td>#15</td><td>Nick Emmanwori</td></tr><tr><td>#16</td><td>Chamarri Conner</td></tr><tr><td>#17</td><td>Antoine Winfield Jr.</td></tr><tr><td>#18</td><td>Xavier Watts</td></tr><tr><td>#19</td><td>Quentin Lake</td></tr><tr><td>#20</td><td>Jalen Pitre</td></tr><tr><td>#21</td><td>Malik Mustapha</td></tr><tr><td>#22</td><td>Jaquan Brisker</td></tr><tr><td>#23</td><td>Paulson Adebo</td></tr><tr><td>#24</td><td>Brandon Jones</td></tr><tr><td>#25</td><td>Cole Bishop</td></tr><tr><td>#26</td><td>Joshua Metellus</td></tr><tr><td>#27</td><td>Cam Bynum</td></tr><tr><td>#28</td><td>Alontae Taylor</td></tr><tr><td>#29</td><td>Amani Hooker</td></tr><tr><td>#30</td><td>Ronnie Hickman Jr.</td></tr><tr><td>#31</td><td>DeShon Elliott</td></tr><tr><td>#32</td><td>C.J. Gardner-Johnson</td></tr><tr><td>#33</td><td>Kamari Lassiter</td></tr><tr><td>#34</td><td>Julian Blackmon</td></tr><tr><td>#35</td><td>Jalen Ramsey</td></tr><tr><td>#36</td><td>Julian Love</td></tr><tr><td>#37</td><td>Nick Scott</td></tr><tr><td>#38</td><td>Grant Delpit</td></tr><tr><td>#39</td><td>Caleb Downs</td></tr><tr><td>#40</td><td>Devon Witherspoon</td></tr><tr><td>#41</td><td>Tyler Nubin</td></tr><tr><td>#42</td><td>AJ Haulcy</td></tr><tr><td>#43</td><td>Kevin Winston Jr.</td></tr><tr><td>#44</td><td>Jalen Thompson</td></tr><tr><td>#45</td><td>Andrew Wingard</td></tr><tr><td>#46</td><td>Reed Blankenship</td></tr><tr><td>#47</td><td>Dillon Thieneman</td></tr><tr><td>#48</td><td>Justin Reid</td></tr><tr><td>#49</td><td>Riley Moss</td></tr><tr><td>#50</td><td>Minkah Fitzpatrick</td></tr></table>
+        </details>
+        <details>
+          <summary>DL — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Aidan Hutchinson</td></tr><tr><td>#2</td><td>Maxx Crosby</td></tr><tr><td>#3</td><td>Will Anderson Jr.</td></tr><tr><td>#4</td><td>Danielle Hunter</td></tr><tr><td>#5</td><td>Jeffery Simmons</td></tr><tr><td>#6</td><td>Brian Burns</td></tr><tr><td>#7</td><td>Myles Garrett</td></tr><tr><td>#8</td><td>Nick Bosa</td></tr><tr><td>#9</td><td>Josh Hines-Allen</td></tr><tr><td>#10</td><td>Tuli Tuipulotu</td></tr><tr><td>#11</td><td>DeForest Buckner</td></tr><tr><td>#12</td><td>Laiatu Latu</td></tr><tr><td>#13</td><td>Andrew Van Ginkel</td></tr><tr><td>#14</td><td>T.J. Watt</td></tr><tr><td>#15</td><td>Leonard Williams</td></tr><tr><td>#16</td><td>Montez Sweat</td></tr><tr><td>#17</td><td>Alex Highsmith</td></tr><tr><td>#18</td><td>Byron Young</td></tr><tr><td>#19</td><td>Jared Verse</td></tr><tr><td>#20</td><td>Chase Young</td></tr><tr><td>#21</td><td>Derrick Brown</td></tr><tr><td>#22</td><td>Jaelan Phillips</td></tr><tr><td>#23</td><td>Nik Bonitto</td></tr><tr><td>#24</td><td>Rashan Gary</td></tr><tr><td>#25</td><td>Trey Hendrickson</td></tr><tr><td>#26</td><td>Travon Walker</td></tr><tr><td>#27</td><td>Greg Rousseau</td></tr><tr><td>#28</td><td>Quinnen Williams</td></tr><tr><td>#29</td><td>Austin Booker</td></tr><tr><td>#30</td><td>Bradley Chubb</td></tr><tr><td>#31</td><td>Joseph Ossai</td></tr><tr><td>#32</td><td>Cameron Heyward</td></tr><tr><td>#33</td><td>George Karlaftis III</td></tr><tr><td>#34</td><td>Abdul Carter</td></tr><tr><td>#35</td><td>Jalen Carter</td></tr><tr><td>#36</td><td>Walter Nolen III</td></tr><tr><td>#37</td><td>Dallas Turner</td></tr><tr><td>#38</td><td>Patrick Jones II</td></tr><tr><td>#39</td><td>Maliek Collins</td></tr><tr><td>#40</td><td>Jonathan Greenard</td></tr><tr><td>#41</td><td>Arvell Reese</td></tr><tr><td>#42</td><td>Josh Sweat</td></tr><tr><td>#43</td><td>Ed Oliver</td></tr><tr><td>#44</td><td>Devonte Wyatt</td></tr><tr><td>#45</td><td>Harold Landry III</td></tr><tr><td>#46</td><td>Byron Murphy II</td></tr><tr><td>#47</td><td>Tavius Robinson</td></tr><tr><td>#48</td><td>Jonathon Cooper</td></tr><tr><td>#49</td><td>DeMarcus Lawrence</td></tr><tr><td>#50</td><td>Chop Robinson</td></tr></table>
+        </details>
+        <details>
+          <summary>K — top 34 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Brandon Aubrey</td></tr><tr><td>#2</td><td>Cameron Dicker</td></tr><tr><td>#3</td><td>Ka'imi Fairbairn</td></tr><tr><td>#4</td><td>Cam Little</td></tr><tr><td>#5</td><td>Jason Myers</td></tr><tr><td>#6</td><td>Tyler Loop</td></tr><tr><td>#7</td><td>Evan McPherson</td></tr><tr><td>#8</td><td>Jake Bates</td></tr><tr><td>#9</td><td>Chase McLaughlin</td></tr><tr><td>#10</td><td>Eddy Pineiro</td></tr><tr><td>#11</td><td>Chris Boswell</td></tr><tr><td>#12</td><td>Cairo Santos</td></tr><tr><td>#13</td><td>Will Reichard</td></tr><tr><td>#14</td><td>Harrison Mevis</td></tr><tr><td>#15</td><td>Harrison Butker</td></tr><tr><td>#16</td><td>Jake Elliott</td></tr><tr><td>#17</td><td>Wil Lutz</td></tr><tr><td>#18</td><td>Trey Smack</td></tr><tr><td>#19</td><td>Andy Borregales</td></tr><tr><td>#20</td><td>Tyler Bass</td></tr><tr><td>#21</td><td>Joey Slye</td></tr><tr><td>#22</td><td>Ryan Fitzgerald</td></tr><tr><td>#23</td><td>Daniel Carlson</td></tr><tr><td>#24</td><td>Nick Folk</td></tr><tr><td>#25</td><td>Chad Ryland</td></tr><tr><td>#26</td><td>Blake Grupe</td></tr><tr><td>#27</td><td>Charlie Smyth</td></tr><tr><td>#28</td><td>Spencer Shrader</td></tr><tr><td>#29</td><td>Matt Gay</td></tr><tr><td>#30</td><td>Riley Patterson</td></tr><tr><td>#31</td><td>Dominic Zvada</td></tr><tr><td>#32</td><td>Andre Szmyt</td></tr><tr><td>#33</td><td>Drew Stevens</td></tr><tr><td>#34</td><td>Andrew Wellock</td></tr></table>
+        </details>
+        <details>
+          <summary>LB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Jordyn Brooks</td></tr><tr><td>#2</td><td>Carson Schwesinger</td></tr><tr><td>#3</td><td>Jack Campbell</td></tr><tr><td>#4</td><td>Blake Cashman</td></tr><tr><td>#5</td><td>Foyesade Oluokun</td></tr><tr><td>#6</td><td>Jamien Sherwood</td></tr><tr><td>#7</td><td>Roquan Smith</td></tr><tr><td>#8</td><td>Nick Bolton</td></tr><tr><td>#9</td><td>Zack Baun</td></tr><tr><td>#10</td><td>Tremaine Edmunds</td></tr><tr><td>#11</td><td>Ernest Jones IV</td></tr><tr><td>#12</td><td>Quay Walker</td></tr><tr><td>#13</td><td>Fred Warner</td></tr><tr><td>#14</td><td>Alex Singleton</td></tr><tr><td>#15</td><td>Robert Spillane</td></tr><tr><td>#16</td><td>Edgerrin Cooper</td></tr><tr><td>#17</td><td>Nate Landman</td></tr><tr><td>#18</td><td>Devin Bush Jr.</td></tr><tr><td>#19</td><td>Kaden Elliss</td></tr><tr><td>#20</td><td>Azeez Al-Shaair</td></tr><tr><td>#21</td><td>Demario Davis</td></tr><tr><td>#22</td><td>Zaire Franklin</td></tr><tr><td>#23</td><td>T.J. Edwards</td></tr><tr><td>#24</td><td>Alex Anzalone</td></tr><tr><td>#25</td><td>Daiyan Henley</td></tr><tr><td>#26</td><td>Quincy Williams</td></tr><tr><td>#27</td><td>Sonny Styles</td></tr><tr><td>#28</td><td>Divine Deablo</td></tr><tr><td>#29</td><td>Tyrel Dodson</td></tr><tr><td>#30</td><td>Dee Winters</td></tr><tr><td>#31</td><td>CJ Allen</td></tr><tr><td>#32</td><td>Terrel Bernard</td></tr><tr><td>#33</td><td>Cedric Gray</td></tr><tr><td>#34</td><td>Frankie Luvu</td></tr><tr><td>#35</td><td>Tatum Bethune</td></tr><tr><td>#36</td><td>Barrett Carter</td></tr><tr><td>#37</td><td>Mack Wilson Sr.</td></tr><tr><td>#38</td><td>Tuli Tuipulotu</td></tr><tr><td>#39</td><td>Nakobe Dean</td></tr><tr><td>#40</td><td>Eric Wilson</td></tr><tr><td>#41</td><td>Devin Lloyd</td></tr><tr><td>#42</td><td>Patrick Queen</td></tr><tr><td>#43</td><td>Brian Burns</td></tr><tr><td>#44</td><td>Danielle Hunter</td></tr><tr><td>#45</td><td>Cody Barton</td></tr><tr><td>#46</td><td>Demetrius Knight Jr.</td></tr><tr><td>#47</td><td>DeMarvion Overshown</td></tr><tr><td>#48</td><td>Cody Simon</td></tr><tr><td>#49</td><td>Josh Hines-Allen</td></tr><tr><td>#50</td><td>Payton Wilson</td></tr></table>
+        </details>
+        <details>
+          <summary>QB — top 36 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Lamar Jackson</td></tr><tr><td>#2</td><td>Joe Burrow</td></tr><tr><td>#3</td><td>Josh Allen</td></tr><tr><td>#4</td><td>Jalen Hurts</td></tr><tr><td>#5</td><td>Justin Herbert</td></tr><tr><td>#6</td><td>Drake Maye</td></tr><tr><td>#7</td><td>Dak Prescott</td></tr><tr><td>#8</td><td>Jayden Daniels</td></tr><tr><td>#9</td><td>Caleb Williams</td></tr><tr><td>#10</td><td>Jaxson Dart</td></tr><tr><td>#11</td><td>Trevor Lawrence</td></tr><tr><td>#12</td><td>Jared Goff</td></tr><tr><td>#13</td><td>Brock Purdy</td></tr><tr><td>#14</td><td>Baker Mayfield</td></tr><tr><td>#15</td><td>Matthew Stafford</td></tr><tr><td>#16</td><td>Kyler Murray</td></tr><tr><td>#17</td><td>Bo Nix</td></tr><tr><td>#18</td><td>Patrick Mahomes II</td></tr><tr><td>#19</td><td>Jordan Love</td></tr><tr><td>#20</td><td>Tyler Shough</td></tr><tr><td>#21</td><td>Malik Willis</td></tr><tr><td>#22</td><td>Sam Darnold</td></tr><tr><td>#23</td><td>Daniel Jones</td></tr><tr><td>#24</td><td>C.J. Stroud</td></tr><tr><td>#25</td><td>Bryce Young</td></tr><tr><td>#26</td><td>Aaron Rodgers</td></tr><tr><td>#27</td><td>Cam Ward</td></tr><tr><td>#28</td><td>Geno Smith</td></tr><tr><td>#29</td><td>Kirk Cousins</td></tr><tr><td>#30</td><td>Jacoby Brissett</td></tr><tr><td>#31</td><td>Tua Tagovailoa</td></tr><tr><td>#32</td><td>Deshaun Watson</td></tr><tr><td>#33</td><td>Michael Penix Jr.</td></tr><tr><td>#34</td><td>Shedeur Sanders</td></tr><tr><td>#35</td><td>Fernando Mendoza</td></tr><tr><td>#36</td><td>Justin Fields</td></tr></table>
+        </details>
+        <details>
+          <summary>RB — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Jahmyr Gibbs</td></tr><tr><td>#2</td><td>Bijan Robinson</td></tr><tr><td>#3</td><td>Christian McCaffrey</td></tr><tr><td>#4</td><td>De'Von Achane</td></tr><tr><td>#5</td><td>Jonathan Taylor</td></tr><tr><td>#6</td><td>Omarion Hampton</td></tr><tr><td>#7</td><td>Chase Brown</td></tr><tr><td>#8</td><td>Saquon Barkley</td></tr><tr><td>#9</td><td>James Cook III</td></tr><tr><td>#10</td><td>Derrick Henry</td></tr><tr><td>#11</td><td>Javonte Williams</td></tr><tr><td>#12</td><td>Kenneth Walker III</td></tr><tr><td>#13</td><td>Ashton Jeanty</td></tr><tr><td>#14</td><td>Breece Hall</td></tr><tr><td>#15</td><td>Kyren Williams</td></tr><tr><td>#16</td><td>Travis Etienne Jr.</td></tr><tr><td>#17</td><td>D'Andre Swift</td></tr><tr><td>#18</td><td>Bucky Irving</td></tr><tr><td>#19</td><td>Cam Skattebo</td></tr><tr><td>#20</td><td>Jeremiyah Love</td></tr><tr><td>#21</td><td>David Montgomery</td></tr><tr><td>#22</td><td>Quinshon Judkins</td></tr><tr><td>#23</td><td>Jadarian Price</td></tr><tr><td>#24</td><td>Jaylen Warren</td></tr><tr><td>#25</td><td>Bhayshul Tuten</td></tr><tr><td>#26</td><td>Rhamondre Stevenson</td></tr><tr><td>#27</td><td>Tony Pollard</td></tr><tr><td>#28</td><td>Rico Dowdle</td></tr><tr><td>#29</td><td>TreVeyon Henderson</td></tr><tr><td>#30</td><td>Kenny Gainwell</td></tr><tr><td>#31</td><td>MarShawn Lloyd</td></tr><tr><td>#32</td><td>Chuba Hubbard</td></tr><tr><td>#33</td><td>Jonathon Brooks</td></tr><tr><td>#34</td><td>J.K. Dobbins</td></tr><tr><td>#35</td><td>Aaron Jones Sr.</td></tr><tr><td>#36</td><td>Rachaad White</td></tr><tr><td>#37</td><td>RJ Harvey</td></tr><tr><td>#38</td><td>Jordan Mason</td></tr><tr><td>#39</td><td>Jacory Croskey-Merritt</td></tr><tr><td>#40</td><td>Tyler Allgeier</td></tr><tr><td>#41</td><td>Blake Corum</td></tr><tr><td>#42</td><td>Kyle Monangai</td></tr><tr><td>#43</td><td>Chris Rodriguez Jr.</td></tr><tr><td>#44</td><td>Woody Marks</td></tr><tr><td>#45</td><td>Tyjae Spears</td></tr><tr><td>#46</td><td>Dylan Sampson</td></tr><tr><td>#47</td><td>Keaton Mitchell</td></tr><tr><td>#48</td><td>Mike Washington Jr.</td></tr><tr><td>#49</td><td>Brian Robinson Jr.</td></tr><tr><td>#50</td><td>Jonah Coleman</td></tr></table>
+        </details>
+        <details>
+          <summary>TE — top 48 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Brock Bowers</td></tr><tr><td>#2</td><td>Trey McBride</td></tr><tr><td>#3</td><td>Colston Loveland</td></tr><tr><td>#4</td><td>Tyler Warren</td></tr><tr><td>#5</td><td>Kyle Pitts Sr.</td></tr><tr><td>#6</td><td>Sam LaPorta</td></tr><tr><td>#7</td><td>Harold Fannin Jr.</td></tr><tr><td>#8</td><td>Travis Kelce</td></tr><tr><td>#9</td><td>Dallas Goedert</td></tr><tr><td>#10</td><td>Tucker Kraft</td></tr><tr><td>#11</td><td>Isaiah Likely</td></tr><tr><td>#12</td><td>Juwan Johnson</td></tr><tr><td>#13</td><td>Jake Ferguson</td></tr><tr><td>#14</td><td>Mark Andrews</td></tr><tr><td>#15</td><td>Dalton Kincaid</td></tr><tr><td>#16</td><td>Brenton Strange</td></tr><tr><td>#17</td><td>Dalton Schultz</td></tr><tr><td>#18</td><td>T.J. Hockenson</td></tr><tr><td>#19</td><td>George Kittle</td></tr><tr><td>#20</td><td>Cade Otton</td></tr><tr><td>#21</td><td>Hunter Henry</td></tr><tr><td>#22</td><td>AJ Barner</td></tr><tr><td>#23</td><td>Chig Okonkwo</td></tr><tr><td>#24</td><td>Greg Dulcich</td></tr><tr><td>#25</td><td>Pat Freiermuth</td></tr><tr><td>#26</td><td>Gunnar Helm</td></tr><tr><td>#27</td><td>Terrance Ferguson</td></tr><tr><td>#28</td><td>Oronde Gadsden II</td></tr><tr><td>#29</td><td>Kenyon Sadiq</td></tr><tr><td>#30</td><td>Darren Waller</td></tr><tr><td>#31</td><td>David Njoku</td></tr><tr><td>#32</td><td>Colby Parkinson</td></tr><tr><td>#33</td><td>Evan Engram</td></tr><tr><td>#34</td><td>Mike Gesicki</td></tr><tr><td>#35</td><td>Jake Tonges</td></tr><tr><td>#36</td><td>Michael Mayer</td></tr><tr><td>#37</td><td>Theo Johnson</td></tr><tr><td>#38</td><td>Darnell Washington</td></tr><tr><td>#39</td><td>Mason Taylor</td></tr><tr><td>#40</td><td>Noah Fant</td></tr><tr><td>#41</td><td>Eli Stowers</td></tr><tr><td>#42</td><td>Charlie Kolar</td></tr><tr><td>#43</td><td>Oscar Delp</td></tr><tr><td>#44</td><td>Dawson Knox</td></tr><tr><td>#45</td><td>Cole Kmet</td></tr><tr><td>#46</td><td>Tyler Higbee</td></tr><tr><td>#47</td><td>Elijah Arroyo</td></tr><tr><td>#48</td><td>Drew Sample</td></tr></table>
+        </details>
+        <details>
+          <summary>WR — top 50 do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr><tr><td>#1</td><td>Ja'Marr Chase</td></tr><tr><td>#2</td><td>Puka Nacua</td></tr><tr><td>#3</td><td>Amon-Ra St. Brown</td></tr><tr><td>#4</td><td>Jaxon Smith-Njigba</td></tr><tr><td>#5</td><td>Justin Jefferson</td></tr><tr><td>#6</td><td>CeeDee Lamb</td></tr><tr><td>#7</td><td>Chris Olave</td></tr><tr><td>#8</td><td>Drake London</td></tr><tr><td>#9</td><td>Nico Collins</td></tr><tr><td>#10</td><td>DeVonta Smith</td></tr><tr><td>#11</td><td>George Pickens</td></tr><tr><td>#12</td><td>A.J. Brown</td></tr><tr><td>#13</td><td>Garrett Wilson</td></tr><tr><td>#14</td><td>Zay Flowers</td></tr><tr><td>#15</td><td>Ladd McConkey</td></tr><tr><td>#16</td><td>Rashee Rice</td></tr><tr><td>#17</td><td>Tee Higgins</td></tr><tr><td>#18</td><td>Tetairoa McMillan</td></tr><tr><td>#19</td><td>Jaylen Waddle</td></tr><tr><td>#20</td><td>Emeka Egbuka</td></tr><tr><td>#21</td><td>Malik Nabers</td></tr><tr><td>#22</td><td>Davante Adams</td></tr><tr><td>#23</td><td>Jameson Williams</td></tr><tr><td>#24</td><td>Luther Burden III</td></tr><tr><td>#25</td><td>Christian Watson</td></tr><tr><td>#26</td><td>Rome Odunze</td></tr><tr><td>#27</td><td>Terry McLaurin</td></tr><tr><td>#28</td><td>Parker Washington</td></tr><tr><td>#29</td><td>Mike Evans</td></tr><tr><td>#30</td><td>Chris Godwin Jr.</td></tr><tr><td>#31</td><td>DJ Moore</td></tr><tr><td>#32</td><td>Marvin Harrison Jr.</td></tr><tr><td>#33</td><td>Courtland Sutton</td></tr><tr><td>#34</td><td>DK Metcalf</td></tr><tr><td>#35</td><td>Carnell Tate</td></tr><tr><td>#36</td><td>Michael Pittman Jr.</td></tr><tr><td>#37</td><td>Josh Downs</td></tr><tr><td>#38</td><td>Wan'Dale Robinson</td></tr><tr><td>#39</td><td>Michael Wilson</td></tr><tr><td>#40</td><td>Brian Thomas Jr.</td></tr><tr><td>#41</td><td>Quentin Johnston</td></tr><tr><td>#42</td><td>Jakobi Meyers</td></tr><tr><td>#43</td><td>Jayden Reed</td></tr><tr><td>#44</td><td>KC Concepcion</td></tr><tr><td>#45</td><td>Khalil Shakir</td></tr><tr><td>#46</td><td>Jordan Addison</td></tr><tr><td>#47</td><td>Jalen Coker</td></tr><tr><td>#48</td><td>Romeo Doubs</td></tr><tr><td>#49</td><td>Makai Lemon</td></tr><tr><td>#50</td><td>Stefon Diggs</td></tr></table>
+        </details>
+          </section>
         </div>
 </body>
 </html>
