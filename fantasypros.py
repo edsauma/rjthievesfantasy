@@ -27,6 +27,12 @@ HEADERS = {
 # Mapeia posição -> slug da URL. IDP e K não têm variante PPR.
 def _url_for(position: str, scoring: str) -> str:
     position = position.lower()
+    if position == "flex":
+        # Ranking dedicado pra posição "útil" ofensiva (RB/WR/TE)
+        return f"{BASE}/ppr-flex.php" if scoring == "ppr" else f"{BASE}/flex.php"
+    if position == "idp":
+        # Ranking dedicado pra qualquer jogador defensivo (não varia por PPR)
+        return f"{BASE}/idp.php"
     if scoring == "ppr" and position in ("rb", "wr", "te"):
         return f"{BASE}/ppr-{position}.php"
     return f"{BASE}/{position}.php"

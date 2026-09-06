@@ -1,4 +1,5 @@
-from datetime import datetime, timezone
+from datetime import datetime
+from zoneinfo import ZoneInfo
 import config
 
 STYLE = """
@@ -96,7 +97,7 @@ def _my_team_tables(lineup_sections: dict, bench: list) -> str:
 
 def _free_agents_block(free_agents: list[dict]) -> str:
     if not free_agents:
-        return '<p class="empty">Nenhum agente livre encontrado (ou fonte de dados não retornou nada).</p>'
+        return '<p class="empty">Nenhum agente livre valendo a pena no momento.</p>'
     by_pos = {}
     order = []
     for p in free_agents:
@@ -108,30 +109,16 @@ def _free_agents_block(free_agents: list[dict]) -> str:
         players = by_pos[pos]
         rows = "".join(_player_row(p) for p in players)
         blocks.append(f"""
-        <details{' open' if any(p.get('flag') == 'add' for p in players) else ''}>
-          <summary>{pos.upper()} — {len(players)} disponíveis</summary>
+        <details open>
+          <summary>{pos.upper()} — {len(players)} valendo a pena</summary>
           <table><tr><th>Jogador</th><th>Rank</th></tr>{rows}</table>
         </details>""")
     return "".join(blocks)
 
 
-def _rankings_block(rankings: dict) -> str:
-    blocks = []
-    for pos, players in sorted(rankings.items()):
-        if not players:
-            continue
-        top = players[: config.RANKINGS_DISPLAY_LIMIT]
-        rows = "".join(f"<tr><td>#{p['rank']}</td><td>{p['name']}</td></tr>" for p in top)
-        blocks.append(f"""
-        <details>
-          <summary>{pos.upper()} — top {len(top)} do consenso FantasyPros</summary>
-          <table><tr><th>Rank</th><th>Jogador</th></tr>{rows}</table>
-        </details>""")
-    return "".join(blocks) if blocks else '<p class="empty">Rankings indisponíveis.</p>'
-
 
 def render(results: list[dict]) -> str:
-    now = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M UTC")
+    now = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y %H:%M") + " BRT"
 
     radios = "".join(
         f'<input type="radio" name="team-tabs" id="tab-{i}"{" checked" if i == 0 else ""}>'
@@ -158,10 +145,6 @@ def render(results: list[dict]) -> str:
             </section>
           </div>
 
-          <section class="block">
-            <h3>📊 Rankings FantasyPros (consenso)</h3>
-            {_rankings_block(team.get('rankings', {}))}
-          </section>
         </div>"""
 
     return f"""<!DOCTYPE html>
