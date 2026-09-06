@@ -1,6 +1,6 @@
 import os
 import config
-import sleeper, fleaflicker, fantasypros
+import sleeper, fleaflicker, fantasypros, keeptradecut
 from analyzer import analyze_team, attach_ranks
 import report
 
@@ -51,9 +51,15 @@ def process_fleaflicker(team_cfg: dict, rankings: dict) -> dict:
 
 def process_sleeper(team_cfg: dict, all_players: dict, rankings: dict) -> dict:
     my_team = sleeper.get_my_team(team_cfg["league_id"], team_cfg["roster_id"], all_players)
-    positions = sorted({p["position"] for p in my_team})
-    free_agents = sleeper.get_free_agents(team_cfg["league_id"], all_players, positions)
-    print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados")
+    try:
+        free_agents = keeptradecut.get_available_players(team_cfg["league_id"])
+        fonte = "KeepTradeCut"
+    except Exception as e:
+        print(f"[aviso] KeepTradeCut falhou para {team_cfg['label']} ({e}); usando fallback da API do Sleeper")
+        positions = sorted({p["position"] for p in my_team})
+        free_agents = sleeper.get_free_agents(team_cfg["league_id"], all_players, positions)
+        fonte = "Sleeper (fallback)"
+    print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados via {fonte}")
     return build_team_result(team_cfg["label"], "Sleeper", my_team, free_agents, rankings)
 
 

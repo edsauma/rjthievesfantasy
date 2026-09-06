@@ -7,6 +7,9 @@ o resto do código não precisa mudar.
 """
 
 TEAMS = [
+    # ⚠️ Ligas Sleeper: o league_id muda a cada temporada (confira em
+    # setembro/outubro, início da nova season, na URL da sua liga no app).
+    # roster_id costuma se manter, mas vale conferir também se algo parecer errado.
     {
         "label": "ErreJota",
         "platform": "fleaflicker",
