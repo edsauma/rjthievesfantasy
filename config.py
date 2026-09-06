@@ -25,14 +25,14 @@ TEAMS = [
     {
         "label": "Super Bowlo",
         "platform": "sleeper",
-        "league_id": "1221938019913695232",
+        "league_id": "1361761930972266496",
         "roster_id": "9",
         "scoring": "ppr",
     },
     {
         "label": "Camisa",
         "platform": "sleeper",
-        "league_id": "1186839568296685568",
+        "league_id": "1360280713642905600",
         "roster_id": "12",
         "scoring": "ppr",
     },
