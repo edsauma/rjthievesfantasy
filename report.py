@@ -1,93 +1,135 @@
-import os
+from datetime import datetime, timezone
 import config
-import sleeper, fleaflicker, fantasypros
-from analyzer import analyze_team, attach_ranks
-import report
+
+STYLE = """
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; max-width: 1000px; margin: 40px auto; padding: 0 16px; line-height: 1.5; }
+  h1 { font-size: 1.6rem; margin-bottom: 0; }
+  .updated { color: #888; font-size: 0.85rem; margin-bottom: 32px; }
+  .team { border: 1px solid #ddd; border-radius: 10px; padding: 20px 24px; margin-bottom: 32px; }
+  .team h2 { margin-top: 0; font-size: 1.3rem; }
+  .platform { color: #888; font-weight: normal; font-size: 0.85rem; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th, td { text-align: left; padding: 6px 6px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+  th { color: #888; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
+  .gap { font-weight: 600; color: #1a7f37; }
+  .empty { color: #888; font-style: italic; }
+  .pos-badge { display:inline-block; background:#eef; border-radius: 6px; padding: 1px 8px; font-size: 0.78rem; font-weight:600; }
+  section.block { margin-top: 20px; }
+  section.block > h3 { font-size: 1rem; margin-bottom: 4px; border-bottom: 2px solid #eee; padding-bottom: 6px; }
+  details { margin: 6px 0; border: 1px solid #eee; border-radius: 8px; padding: 6px 12px; }
+  details summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+  .rank-missing { color: #bbb; }
+  .highlight-suggestions { background: #fffbe6; border-color: #f0d868; }
+</style>
+"""
 
 
-def get_rankings_cache(scoring: str) -> dict:
-    """Baixa os rankings do FantasyPros uma vez por posição/escopo e reutiliza
-    entre times que usam o mesmo tipo de pontuação (standard/ppr)."""
-    cache = {}
-    for pos in config.POSITIONS_OFFENSE + config.POSITIONS_IDP:
-        try:
-            cache[pos] = fantasypros.get_rankings(pos, scoring)
-        except Exception as e:
-            print(f"[aviso] falha ao buscar ranking de {pos} ({scoring}): {e}")
-            cache[pos] = []
-    return cache
+def _rank_cell(rank):
+    return f"#{rank}" if rank is not None else '<span class="rank-missing">—</span>'
 
 
-def build_team_result(label: str, platform: str, my_team_raw: list, free_agents_raw: list, rankings: dict) -> dict:
-    suggestions = analyze_team(my_team_raw, free_agents_raw, rankings)
-    my_team = attach_ranks(my_team_raw, rankings)
-    free_agents = attach_ranks(free_agents_raw, rankings)
+def _my_team_table(players: list[dict]) -> str:
+    if not players:
+        return '<p class="empty">Não consegui carregar seu elenco (veja os logs da Action).</p>'
+    rows = "".join(
+        f"<tr><td><span class='pos-badge'>{p['position'].upper()}</span></td>"
+        f"<td>{p['name']} <small>({p.get('team') or '?'})</small></td>"
+        f"<td>{_rank_cell(p['rank'])}</td></tr>"
+        for p in players
+    )
+    return f"<table><tr><th>Pos</th><th>Jogador</th><th>Rank FantasyPros</th></tr>{rows}</table>"
 
-    fa_limited = []
-    seen_per_pos = {}
+
+def _free_agents_block(free_agents: list[dict]) -> str:
+    if not free_agents:
+        return '<p class="empty">Nenhum agente livre encontrado (ou API não retornou dados).</p>'
+    by_pos = {}
     for p in free_agents:
-        count = seen_per_pos.get(p["position"], 0)
-        if count < config.FREE_AGENTS_DISPLAY_LIMIT:
-            fa_limited.append(p)
-            seen_per_pos[p["position"]] = count + 1
-
-    return {
-        "label": label,
-        "platform": platform,
-        "my_team": my_team,
-        "free_agents": fa_limited,
-        "rankings": rankings,
-        "suggestions": suggestions,
-    }
-
-
-def process_fleaflicker(team_cfg: dict, rankings: dict) -> dict:
-    my_team = fleaflicker.get_my_team(team_cfg["league_id"], team_cfg["team_id"])
-    positions = sorted({p["position"] for p in my_team})
-    free_agents = fleaflicker.get_free_agents(team_cfg["league_id"], positions)
-    print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados")
-    return build_team_result(team_cfg["label"], "Fleaflicker", my_team, free_agents, rankings)
+        by_pos.setdefault(p["position"], []).append(p)
+    blocks = []
+    for pos, players in sorted(by_pos.items()):
+        rows = "".join(
+            f"<tr><td>{p['name']} <small>({p.get('team') or '?'})</small></td><td>{_rank_cell(p['rank'])}</td></tr>"
+            for p in players
+        )
+        blocks.append(f"""
+        <details>
+          <summary>{pos.upper()} — top {len(players)} disponíveis</summary>
+          <table><tr><th>Jogador</th><th>Rank FantasyPros</th></tr>{rows}</table>
+        </details>""")
+    return "".join(blocks)
 
 
-def process_sleeper(team_cfg: dict, all_players: dict, rankings: dict) -> dict:
-    my_team = sleeper.get_my_team(team_cfg["league_id"], team_cfg["roster_id"], all_players)
-    positions = sorted({p["position"] for p in my_team})
-    free_agents = sleeper.get_free_agents(team_cfg["league_id"], all_players, positions)
-    print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados")
-    return build_team_result(team_cfg["label"], "Sleeper", my_team, free_agents, rankings)
+def _rankings_block(rankings: dict) -> str:
+    blocks = []
+    for pos, players in sorted(rankings.items()):
+        if not players:
+            continue
+        top = players[: config.RANKINGS_DISPLAY_LIMIT]
+        rows = "".join(f"<tr><td>#{p['rank']}</td><td>{p['name']}</td></tr>" for p in top)
+        blocks.append(f"""
+        <details>
+          <summary>{pos.upper()} — top {len(top)} do consenso FantasyPros</summary>
+          <table><tr><th>Rank</th><th>Jogador</th></tr>{rows}</table>
+        </details>""")
+    return "".join(blocks) if blocks else '<p class="empty">Rankings indisponíveis.</p>'
 
 
-def main():
-    rankings_by_scoring = {
-        "standard": get_rankings_cache("standard"),
-        "ppr": get_rankings_cache("ppr"),
-    }
-
-    sleeper_players_cache = None
-    results = []
-
-    for team_cfg in config.TEAMS:
-        rankings = rankings_by_scoring[team_cfg["scoring"]]
-        try:
-            if team_cfg["platform"] == "fleaflicker":
-                results.append(process_fleaflicker(team_cfg, rankings))
-            elif team_cfg["platform"] == "sleeper":
-                if sleeper_players_cache is None:
-                    sleeper_players_cache = sleeper.get_all_players()
-                results.append(process_sleeper(team_cfg, sleeper_players_cache, rankings))
-        except Exception as e:
-            print(f"[erro] time {team_cfg['label']}: {e}")
-            results.append({
-                "label": team_cfg["label"], "platform": team_cfg["platform"],
-                "my_team": [], "free_agents": [], "rankings": {}, "suggestions": [],
-            })
-
-    html = report.render(results)
-    os.makedirs(os.path.dirname(config.OUTPUT_HTML), exist_ok=True)
-    with open(config.OUTPUT_HTML, "w", encoding="utf-8") as f:
-        f.write(html)
-    print(f"Relatório gerado em {config.OUTPUT_HTML}")
+def _suggestions_block(suggestions: list[dict]) -> str:
+    if not suggestions:
+        return '<p class="empty">Nenhuma sugestão hoje — seu elenco está bem posicionado nessa liga.</p>'
+    rows = "".join(f"""
+        <tr>
+          <td><span class="pos-badge">{s['position']}</span></td>
+          <td>{s['drop']} <small>(#{s['drop_rank']})</small></td>
+          <td>→ {s['add']} <small>(#{s['add_rank']})</small></td>
+          <td class="gap">+{s['gap']} posições</td>
+        </tr>""" for s in suggestions)
+    return f"""<table><tr><th>Posição</th><th>Trocar</th><th>Por</th><th>Ganho</th></tr>{rows}</table>"""
 
 
-if __name__ == "__main__":
-    main()
+def render(results: list[dict]) -> str:
+    now = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M UTC")
+    sections = []
+    for team in results:
+        sections.append(f"""
+        <div class="team">
+          <h2>{team['label']} <span class="platform">({team['platform']})</span></h2>
+
+          <section class="block highlight-suggestions">
+            <h3>🔁 Sugestões de troca</h3>
+            {_suggestions_block(team.get('suggestions', []))}
+          </section>
+
+          <section class="block">
+            <h3>👤 Meu time</h3>
+            {_my_team_table(team.get('my_team', []))}
+          </section>
+
+          <section class="block">
+            <h3>🟢 Disponíveis na liga</h3>
+            {_free_agents_block(team.get('free_agents', []))}
+          </section>
+
+          <section class="block">
+            <h3>📊 Rankings FantasyPros (consenso)</h3>
+            {_rankings_block(team.get('rankings', {}))}
+          </section>
+        </div>""")
+
+    return f"""<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fantasy Football Dashboard</title>
+{STYLE}
+</head>
+<body>
+  <h1>🏈 Fantasy Football Dashboard</h1>
+  <div class="updated">Atualizado automaticamente em {now}</div>
+  {''.join(sections)}
+</body>
+</html>"""
