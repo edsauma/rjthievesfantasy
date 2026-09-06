@@ -34,6 +34,7 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
 
     slot_list = team_cfg.get("lineup_slots")  # None = usa o padrão da plataforma
     lineup_sections, bench = lineup_slots.assign_lineup(my_team, platform_key, slot_list)
+    # assign_lineup marca 'is_starter' em cada jogador de my_team (mutação in-place)
 
     free_agents = attach_ranks(free_agents_raw, rankings)
     for p in free_agents:
@@ -59,8 +60,7 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
         "label": team_cfg["label"],
         "platform": platform,
         "platform_key": platform_key,
-        "lineup_sections": lineup_sections,
-        "bench": bench,
+        "my_team": my_team,
         "free_agents": fa_limited,
     }
 
@@ -129,7 +129,7 @@ def main():
             print(f"[erro] time {team_cfg['label']}: {e}")
             results.append({
                 "label": team_cfg["label"], "platform": team_cfg["platform"], "platform_key": team_cfg["platform"],
-                "lineup_sections": {}, "bench": [], "free_agents": [],
+                "my_team": [], "free_agents": [],
             })
 
     html = report.render(results)

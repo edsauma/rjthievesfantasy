@@ -71,8 +71,10 @@ FREE_AGENTS_DISPLAY_LIMIT = 15   # top N agentes livres por posição, por liga
 # por plataforma, já que cada uma usa códigos diferentes (Fleaflicker é
 # granular: CB/S/EDR/IL; Sleeper já vem agrupado: DL/LB/DB)
 FREE_AGENTS_HIDDEN_POSITIONS = {
-    "fleaflicker": {"cb", "edr", "il", "wr", "p"},
-    "sleeper": {"wr"},
+    # CB, EDR, IL e agora WR também aparecem; P continua escondido; DB nem
+    # deveria existir como código bruto no Fleaflicker, mas fica por garantia.
+    "fleaflicker": {"db", "p"},
+    "sleeper": set(),
 }
 
 OUTPUT_HTML = "docs/index.html"  # pasta "docs" é o padrão pro GitHub Pages

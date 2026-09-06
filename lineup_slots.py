@@ -85,7 +85,10 @@ def assign_lineup(players: list[dict], platform_key: str, slot_list: list = None
     for slot_label in slots:
         elig = _eligible_positions(slot_label)
         kind = _slot_kind(slot_label, elig)
-        candidates = [p for p in pool if p["position"] in elig and id(p) not in assigned]
+        candidates = [
+            p for p in pool
+            if id(p) not in assigned and any(opt in elig for opt in p.get("position_options", [p["position"]]))
+        ]
         candidates.sort(key=lambda p: _rank_for_sort(p, kind))
         sections.setdefault(slot_label, [])
         if candidates:
@@ -96,4 +99,11 @@ def assign_lineup(players: list[dict], platform_key: str, slot_list: list = None
     bench = [p for p in pool if id(p) not in assigned]
     bench.sort(key=lambda p: (positions.sort_key(platform_key, p["position"]),
                                p["rank"] if p.get("rank") is not None else 9999))
+
+    # Marca cada jogador (nos dicts originais, que são os mesmos objetos
+    # passados em 'players') se ele é titular ou não — usado pelo report
+    # pra listar titular + reservas juntos, por posição.
+    for p in pool:
+        p["is_starter"] = id(p) in assigned
+
     return sections, bench

@@ -14,7 +14,8 @@ STYLE = """
   th { color: #888; font-weight: 600; font-size: 0.76rem; text-transform: uppercase; }
   .empty { color: #888; font-style: italic; }
   .pos-badge { display:inline-block; background:#eef; border-radius: 6px; padding: 1px 8px; font-size: 0.76rem; font-weight:600; white-space:nowrap; }
-  .slot-label { display:inline-block; background:#e6e6e6; border-radius: 6px; padding: 1px 8px; font-size: 0.76rem; font-weight:700; white-space:nowrap; }
+  .pos-badge-drop { display:inline-block; background:#d1242f; color:#fff; border-radius: 6px; padding: 1px 8px; font-size: 0.76rem; font-weight:700; white-space:nowrap; }
+  .reserve-marker { color:#bbb; margin-right:4px; }
   section.block { margin-top: 20px; }
   section.block > h3 { font-size: 1rem; margin-bottom: 4px; border-bottom: 2px solid #eee; padding-bottom: 6px; }
   details { margin: 6px 0; border: 1px solid #eee; border-radius: 8px; padding: 6px 12px; }
@@ -69,31 +70,39 @@ def _player_row(p, extra_pos_cell=None):
             f"<td>{_rank_cell(p['rank'])}</td></tr>")
 
 
-def _my_team_tables(lineup_sections: dict, bench: list) -> str:
-    if not lineup_sections and not bench:
+def _my_team_table(my_team: list[dict], platform_key: str) -> str:
+    if not my_team:
         return '<p class="empty">Não consegui carregar seu elenco (veja os logs da Action).</p>'
 
+    by_pos = {}
+    for p in my_team:
+        by_pos.setdefault(p["position"], []).append(p)
+    ordered_positions = sorted(by_pos.keys(), key=lambda pos: positions.sort_key(platform_key, pos))
+
     rows = ""
-    for slot_label, players in lineup_sections.items():
-        if not players:
-            rows += f"<tr><td><span class='slot-label'>{slot_label}</span></td><td colspan='2' class='empty'>vazio</td></tr>"
-            continue
-        for p in players:
-            rows += _player_row(p, extra_pos_cell=f"<span class='slot-label'>{slot_label}</span>")
+    for pos in ordered_positions:
+        players = by_pos[pos]
+        starters = sorted([p for p in players if p.get("is_starter")],
+                           key=lambda p: p["rank"] if p.get("rank") is not None else 9999)
+        reserves = sorted([p for p in players if not p.get("is_starter")],
+                           key=lambda p: p["rank"] if p.get("rank") is not None else 9999)
 
-    bench_rows = ""
-    if bench:
-        for p in bench:
-            bench_rows += _player_row(p, extra_pos_cell=f"<span class='pos-badge'>{p['position'].upper()}</span>")
-    else:
-        bench_rows = "<tr><td colspan='3' class='empty'>Sem jogadores no banco</td></tr>"
+        has_drop = any(p.get("flag") == "drop" for p in players)
+        badge_class = "pos-badge-drop" if has_drop else "pos-badge"
+        pos_label = f"<span class='{badge_class}'>{pos.upper()}</span>"
 
-    return f"""
-    <p style="font-size:0.82rem;color:#888;margin:4px 0 10px;">Escalação titular</p>
-    <table><tr><th>Slot</th><th>Jogador</th><th>Rank</th></tr>{rows}</table>
-    <p style="font-size:0.82rem;color:#888;margin:16px 0 10px;">Banco</p>
-    <table><tr><th>Pos</th><th>Jogador</th><th>Rank</th></tr>{bench_rows}</table>
-    """
+        ordered_players = starters + reserves
+        for i, p in enumerate(ordered_players):
+            if i == 0:
+                pos_cell = pos_label
+            elif i == len(starters):
+                # primeira linha do subgrupo de reservas dessa posição
+                pos_cell = "<span class='reserve-marker'>↳ banco</span>"
+            else:
+                pos_cell = ""
+            rows += _player_row(p, extra_pos_cell=pos_cell)
+
+    return f"<table><tr><th>Pos</th><th>Jogador</th><th>Rank</th></tr>{rows}</table>"
 
 
 def _free_agents_block(free_agents: list[dict]) -> str:
@@ -139,7 +148,7 @@ def render(results: list[dict]) -> str:
           <div class="side-by-side">
             <section class="block">
               <h3>👤 Meu time</h3>
-              {_my_team_tables(team.get('lineup_sections', {}), team.get('bench', []))}
+              {_my_team_table(team.get('my_team', []), team.get('platform_key', ''))}
             </section>
 
             <section class="block">
