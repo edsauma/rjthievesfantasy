@@ -16,6 +16,14 @@ STYLE = """
   .pos-badge { display:inline-block; background:#eef; border-radius: 6px; padding: 1px 8px; font-size: 0.76rem; font-weight:600; white-space:nowrap; }
   .pos-badge-drop { display:inline-block; background:#d1242f; color:#fff; border-radius: 6px; padding: 1px 8px; font-size: 0.76rem; font-weight:700; white-space:nowrap; }
   .reserve-marker { color:#bbb; margin-right:4px; }
+
+  /* Reservas como subgrupo expansível (CSS puro) */
+  details.reserves-toggle { border: none; padding: 0; margin: 0; }
+  details.reserves-toggle summary { list-style: none; cursor: pointer; padding: 4px 0; color: #888; font-size: 0.82rem; }
+  details.reserves-toggle summary::-webkit-details-marker { display: none; }
+  details.reserves-toggle summary::before { content: "▸ "; }
+  details.reserves-toggle[open] summary::before { content: "▾ "; }
+  details.reserves-toggle table { margin-top: 0; }
   section.block { margin-top: 20px; }
   section.block > h3 { font-size: 1rem; margin-bottom: 4px; border-bottom: 2px solid #eee; padding-bottom: 6px; }
   details { margin: 6px 0; border: 1px solid #eee; border-radius: 8px; padding: 6px 12px; }
@@ -91,16 +99,21 @@ def _my_team_table(my_team: list[dict], platform_key: str) -> str:
         badge_class = "pos-badge-drop" if has_drop else "pos-badge"
         pos_label = f"<span class='{badge_class}'>{pos.upper()}</span>"
 
-        ordered_players = starters + reserves
-        for i, p in enumerate(ordered_players):
-            if i == 0:
-                pos_cell = pos_label
-            elif i == len(starters):
-                # primeira linha do subgrupo de reservas dessa posição
-                pos_cell = "<span class='reserve-marker'>↳ banco</span>"
-            else:
-                pos_cell = ""
-            rows += _player_row(p, extra_pos_cell=pos_cell)
+        if starters:
+            for i, p in enumerate(starters):
+                rows += _player_row(p, extra_pos_cell=pos_label if i == 0 else "")
+        else:
+            rows += f"<tr><td>{pos_label}</td><td class='empty' colspan='2'>vazio</td></tr>"
+
+        if reserves:
+            reserve_rows = "".join(_player_row(p) for p in reserves)
+            rows += f"""
+            <tr><td colspan="3" style="padding:2px 0;border-bottom:none;">
+              <details class="reserves-toggle">
+                <summary>{len(reserves)} no banco</summary>
+                <table>{reserve_rows}</table>
+              </details>
+            </td></tr>"""
 
     return f"<table><tr><th>Pos</th><th>Jogador</th><th>Rank</th></tr>{rows}</table>"
 

@@ -11,16 +11,6 @@ import positions
 
 BASE = "https://api.sleeper.app/v1"
 
-# Sleeper permite configurar IDP granular (DE/DT/CB/S) em vez das categorias
-# largas do FantasyPros (DL/DB). Mapeamos para poder cruzar os rankings.
-POSITION_TO_RANKING = {
-    "de": "dl", "dt": "dl", "cb": "db", "s": "db",
-}
-
-
-def _ranking_position(raw_position: str) -> str:
-    return POSITION_TO_RANKING.get(raw_position, raw_position)
-
 PLAYERS_CACHE = os.path.join(os.path.dirname(__file__), "..", "data", "sleeper_players.json")
 PLAYERS_CACHE_TTL_HOURS = 24
 
@@ -72,14 +62,15 @@ def get_my_team(league_id: str, roster_id: str, all_players: dict) -> list[dict]
         team.append({
             "id": pid,
             "name": info.get("full_name") or f"{info.get('first_name','')} {info.get('last_name','')}".strip(),
-            "position": pos,                       # posição "de verdade", pra exibir/ordenar
-            "rank_position": _ranking_position(pos),  # categoria usada pelo FantasyPros
+            "position": pos,
+            "position_options": [pos],
+            "ranking_position": positions.ranking_position(pos),
             "team": info.get("team"),
         })
     return team
 
 
-def get_free_agents(league_id: str, all_players: dict, positions: list[str]) -> list[dict]:
+def get_free_agents(league_id: str, all_players: dict, wanted_positions: list[str]) -> list[dict]:
     """Agentes livres = todos os jogadores da NFL naquelas posições que não
     estão em NENHUM roster da liga."""
     rosters = get_rosters(league_id)
@@ -88,20 +79,22 @@ def get_free_agents(league_id: str, all_players: dict, positions: list[str]) -> 
         owned_ids.update(str(p) for p in (r.get("players") or []))
 
     free_agents = []
-    positions_upper = {p.upper() for p in positions}
+    positions_upper = {p.upper() for p in wanted_positions}
     for pid, info in all_players.items():
         if pid in owned_ids:
             continue
-        pos = (info.get("position") or "").upper()
-        if pos not in positions_upper:
+        pos = (info.get("position") or "")
+        if pos.upper() not in positions_upper:
             continue
         if info.get("status") not in ("Active", None):
             continue
+        pos_lower = pos.lower()
         free_agents.append({
             "id": pid,
             "name": info.get("full_name") or f"{info.get('first_name','')} {info.get('last_name','')}".strip(),
-            "position": pos.lower(),
-            "rank_position": _ranking_position(pos.lower()),
+            "position": pos_lower,
+            "position_options": [pos_lower],
+            "ranking_position": positions.ranking_position(pos_lower),
             "team": info.get("team"),
         })
     return free_agents
