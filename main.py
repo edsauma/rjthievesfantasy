@@ -1,6 +1,7 @@
 import os
 import config
 import positions
+import lineup_slots
 import sleeper, fleaflicker, fantasypros, keeptradecut
 from analyzer import compute_flags, attach_ranks, _flag_key
 import report
@@ -26,8 +27,7 @@ def build_team_result(label: str, platform: str, platform_key: str,
     my_team = attach_ranks(my_team_raw, rankings)
     for p in my_team:
         p["flag"] = "drop" if _flag_key(p) in drop_keys else None
-    my_team.sort(key=lambda p: (positions.sort_key(platform_key, p["position"]),
-                                 p["rank"] if p["rank"] is not None else 9999))
+    lineup_sections, bench = lineup_slots.assign_lineup(my_team, platform_key)
 
     free_agents = attach_ranks(free_agents_raw, rankings)
     for p in free_agents:
@@ -49,7 +49,8 @@ def build_team_result(label: str, platform: str, platform_key: str,
         "label": label,
         "platform": platform,
         "platform_key": platform_key,
-        "my_team": my_team,
+        "lineup_sections": lineup_sections,
+        "bench": bench,
         "free_agents": fa_limited,
         "rankings": rankings,
     }
@@ -99,7 +100,7 @@ def main():
             print(f"[erro] time {team_cfg['label']}: {e}")
             results.append({
                 "label": team_cfg["label"], "platform": team_cfg["platform"], "platform_key": team_cfg["platform"],
-                "my_team": [], "free_agents": [], "rankings": {},
+                "lineup_sections": {}, "bench": [], "free_agents": [], "rankings": {},
             })
 
     html = report.render(results)
