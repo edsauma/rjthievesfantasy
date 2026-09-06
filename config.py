@@ -67,9 +67,13 @@ RANK_GAP_THRESHOLD_OVERRIDES = {
 # de sugestão, que sempre olha a lista inteira)
 FREE_AGENTS_DISPLAY_LIMIT = 15   # top N agentes livres por posição, por liga
 
-# Posições que nunca aparecem na seção "Disponíveis na liga", mesmo que haja
-# alguém valendo a pena (ajuste essa lista conforme sua preferência)
-FREE_AGENTS_HIDDEN_POSITIONS = {"db", "edr", "il", "wr", "cb"}
+# Posições que nunca aparecem na seção "Disponíveis na liga" — específico
+# por plataforma, já que cada uma usa códigos diferentes (Fleaflicker é
+# granular: CB/S/EDR/IL; Sleeper já vem agrupado: DL/LB/DB)
+FREE_AGENTS_HIDDEN_POSITIONS = {
+    "fleaflicker": {"cb", "edr", "il", "wr", "p"},
+    "sleeper": {"wr"},
+}
 
 OUTPUT_HTML = "docs/index.html"  # pasta "docs" é o padrão pro GitHub Pages
 CACHE_DIR = "data"

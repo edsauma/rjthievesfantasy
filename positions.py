@@ -28,6 +28,21 @@ def ranking_position(raw_position: str) -> str:
     return RANKING_MAP.get(raw, raw)
 
 
+# Mapeamento só pra AGRUPAR a exibição de "Disponíveis na liga" — não mexe
+# no ranking usado pra decidir troca (isso é RANKING_MAP, acima). No
+# Sleeper, DE e DT contam como DL na hora de listar quem está disponível,
+# já que também são escaláveis nesse slot (ver lineup_slots.py).
+DISPLAY_GROUP_MAP = {
+    "de": "dl",
+    "dt": "dl",
+}
+
+
+def display_group(raw_position: str) -> str:
+    raw = (raw_position or "").lower()
+    return DISPLAY_GROUP_MAP.get(raw, raw)
+
+
 def sort_key(platform: str, position: str):
     order = DISPLAY_ORDER.get(platform, [])
     position = (position or "").lower()

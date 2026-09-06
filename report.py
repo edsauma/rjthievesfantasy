@@ -1,6 +1,7 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import config
+import positions
 
 STYLE = """
 <style>
@@ -101,17 +102,18 @@ def _free_agents_block(free_agents: list[dict]) -> str:
     by_pos = {}
     order = []
     for p in free_agents:
-        if p["position"] not in by_pos:
-            order.append(p["position"])
-        by_pos.setdefault(p["position"], []).append(p)
+        group = positions.display_group(p["position"])
+        if group not in by_pos:
+            order.append(group)
+        by_pos.setdefault(group, []).append(p)
     blocks = []
-    for pos in order:
-        players = by_pos[pos]
+    for group in order:
+        players = by_pos[group]
+        players.sort(key=lambda p: p["rank"] if p["rank"] is not None else 9999)
         rows = "".join(_player_row(p) for p in players)
-        has_flag = any(p.get("flag") == "add" for p in players)
         blocks.append(f"""
-        <details{' open' if has_flag else ''}>
-          <summary>{pos.upper()} — {len(players)} disponíveis</summary>
+        <details>
+          <summary>{group.upper()} — {len(players)} disponíveis</summary>
           <table><tr><th>Jogador</th><th>Rank</th></tr>{rows}</table>
         </details>""")
     return "".join(blocks)

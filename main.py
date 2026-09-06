@@ -44,8 +44,9 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
                                      p["rank"] if p["rank"] is not None else 9999))
 
     # Lista completa (top N por posição), com os que valem a pena sinalizados,
-    # excluindo posições escondidas por configuração
-    free_agents_visible = [p for p in free_agents if p["position"] not in config.FREE_AGENTS_HIDDEN_POSITIONS]
+    # excluindo posições escondidas por configuração (específico por plataforma)
+    hidden = config.FREE_AGENTS_HIDDEN_POSITIONS.get(platform_key, set())
+    free_agents_visible = [p for p in free_agents if p["position"] not in hidden]
     fa_limited = []
     seen_per_pos = {}
     for p in free_agents_visible:
