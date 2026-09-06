@@ -7,19 +7,36 @@ from analyzer import compute_flags, attach_ranks, attach_extra_rank, _flag_key
 import report
 
 
-def get_rankings_cache(scoring: str) -> dict:
-    """Baixa os rankings do FantasyPros uma vez por posição/escopo e reutiliza
-    entre times que usam o mesmo tipo de pontuação (standard/ppr). Inclui
-    também os rankings 'coringa' de FLEX (ofensivo) e IDP (defensivo)."""
-    cache = {}
-    all_positions = config.POSITIONS_OFFENSE + config.POSITIONS_IDP + ["flex", "idp"]
-    for pos in all_positions:
+def get_rankings_cache_all() -> dict:
+    """Busca os rankings do FantasyPros uma única vez pra cada posição.
+    Posições como QB/K/DL/LB/DB/IDP não têm variação por tipo de pontuação
+    (PPR vs padrão) — buscar duas vezes a mesma página (uma pro cache
+    'standard' e outra pro 'ppr') só aumenta o risco de uma das duas falhar
+    por alguma instabilidade momentânea da FantasyPros, deixando aquele
+    cache com o ranking vazio sem necessidade."""
+    scoring_independent = ["qb", "k"] + config.POSITIONS_IDP + ["idp"]
+    scoring_dependent = ["rb", "wr", "te", "flex"]
+
+    shared = {}
+    for pos in scoring_independent:
         try:
-            cache[pos] = fantasypros.get_rankings(pos, scoring)
+            shared[pos] = fantasypros.get_rankings(pos, "standard")
         except Exception as e:
-            print(f"[aviso] falha ao buscar ranking de {pos} ({scoring}): {e}")
-            cache[pos] = []
-    return cache
+            print(f"[aviso] falha ao buscar ranking de {pos}: {e}")
+            shared[pos] = []
+    print(f"[debug] rankings compartilhados carregados: {', '.join(f'{p}={len(v)}' for p, v in shared.items())}")
+
+    by_scoring = {}
+    for scoring in ("standard", "ppr"):
+        cache = dict(shared)
+        for pos in scoring_dependent:
+            try:
+                cache[pos] = fantasypros.get_rankings(pos, scoring)
+            except Exception as e:
+                print(f"[aviso] falha ao buscar ranking de {pos} ({scoring}): {e}")
+                cache[pos] = []
+        by_scoring[scoring] = cache
+    return by_scoring
 
 
 def build_team_result(team_cfg: dict, platform: str, platform_key: str,
@@ -108,10 +125,7 @@ def process_sleeper(team_cfg: dict, all_players: dict, rankings: dict) -> dict:
 
 
 def main():
-    rankings_by_scoring = {
-        "standard": get_rankings_cache("standard"),
-        "ppr": get_rankings_cache("ppr"),
-    }
+    rankings_by_scoring = get_rankings_cache_all()
 
     sleeper_players_cache = None
     results = []

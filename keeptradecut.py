@@ -54,6 +54,7 @@ def get_available_players(league_id: str) -> list[dict]:
             "id": p.get("playerID"),
             "name": p.get("playerName", ""),
             "position": pos,
+            "position_options": [pos],
             "ranking_position": positions.ranking_position(pos),
             "team": p.get("team"),
         })

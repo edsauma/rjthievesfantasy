@@ -124,10 +124,14 @@ def _free_agents_block(free_agents: list[dict]) -> str:
     by_pos = {}
     order = []
     for p in free_agents:
-        group = positions.display_group(p["position"])
-        if group not in by_pos:
-            order.append(group)
-        by_pos.setdefault(group, []).append(p)
+        # Jogadores com elegibilidade dupla (ex: "EDR/IL") aparecem em CADA
+        # uma das listagens correspondentes, não só na posição "principal"
+        raw_options = p.get("position_options") or [p["position"]]
+        groups_for_player = {positions.display_group(opt) for opt in raw_options}
+        for group in groups_for_player:
+            if group not in by_pos:
+                order.append(group)
+            by_pos.setdefault(group, []).append(p)
     blocks = []
     for group in order:
         players = sorted(by_pos[group], key=lambda p: p["rank"] if p["rank"] is not None else 9999)
