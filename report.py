@@ -84,7 +84,8 @@ def _my_team_table(my_team: list[dict], platform_key: str) -> str:
 
     by_pos = {}
     for p in my_team:
-        by_pos.setdefault(p["position"], []).append(p)
+        group = positions.display_group(p["position"])
+        by_pos.setdefault(group, []).append(p)
     ordered_positions = sorted(by_pos.keys(), key=lambda pos: positions.sort_key(platform_key, pos))
 
     rows = ""

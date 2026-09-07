@@ -8,6 +8,12 @@ O roster vem dividido em vários "groups" (titulares, banco, taxi squad) —
 A posição exibida ('position') fica no código granular que o Fleaflicker
 usa (CB, S, EDR, IL, LB...). Para cruzar com o FantasyPros (que usa
 categorias mais amplas: DB, DL), guardamos também 'ranking_position'.
+
+Alguns jogadores têm elegibilidade dupla e a própria API devolve isso como
+uma posição composta (ex: "EDR/IL"). Guardamos a primeira como posição
+"principal" (pra exibição/ranking) e a lista completa em
+'position_options', usada só na hora de decidir em quais slots da
+escalação o jogador pode entrar.
 """
 import requests
 import positions
@@ -21,6 +27,13 @@ def _get(endpoint: str, params: dict):
     return r.json()
 
 
+def _parse_position(raw: str):
+    raw = (raw or "").lower()
+    options = [p for p in raw.split("/") if p]
+    primary = options[0] if options else raw
+    return primary, (options or [raw])
+
+
 def get_my_team(league_id: str, team_id: str) -> list[dict]:
     data = _get("FetchRoster", {"leagueId": league_id, "teamId": team_id, "sport": "NFL"})
     team = []
@@ -30,14 +43,16 @@ def get_my_team(league_id: str, team_id: str) -> list[dict]:
             pro = player.get("proPlayer", {})
             if not pro:
                 continue
-            raw_position = (pro.get("position") or "").lower()
+            raw_position = pro.get("position") or ""
             if not raw_position:
                 continue
+            primary, options = _parse_position(raw_position)
             team.append({
                 "id": pro.get("id"),
                 "name": pro.get("nameFull", ""),
-                "position": raw_position,
-                "ranking_position": positions.ranking_position(raw_position),
+                "position": primary,
+                "position_options": options,
+                "ranking_position": positions.ranking_position(primary),
                 "team": pro.get("proTeamAbbreviation"),
             })
     return team
@@ -53,6 +68,7 @@ def get_free_agents(league_id: str, raw_positions_list: list[str], results_per_p
     'filter.free_agent_only' (booleano) — não 'filter.position'/'filter.status',
     que eu tinha usado antes por engano."""
     free_agents = []
+    seen_ids = set()
     for pos in raw_positions_list:
         try:
             data = _get("FetchPlayerListing", {
@@ -67,12 +83,22 @@ def get_free_agents(league_id: str, raw_positions_list: list[str], results_per_p
             pro = entry.get("proPlayer", {})
             if not pro:
                 continue
-            raw_position = (pro.get("position") or pos).lower()
+            player_id = pro.get("id")
+            if player_id is not None and player_id in seen_ids:
+                # Jogador com elegibilidade dupla (ex: "EDR/IL") aparece em
+                # mais de uma busca de posição — já processamos ele antes,
+                # não duplica na lista.
+                continue
+            if player_id is not None:
+                seen_ids.add(player_id)
+            raw_position = pro.get("position") or pos
+            primary, options = _parse_position(raw_position)
             free_agents.append({
-                "id": pro.get("id"),
+                "id": player_id,
                 "name": pro.get("nameFull", ""),
-                "position": raw_position,
-                "ranking_position": positions.ranking_position(raw_position),
+                "position": primary,
+                "position_options": options,
+                "ranking_position": positions.ranking_position(primary),
                 "team": pro.get("proTeamAbbreviation"),
             })
     return free_agents

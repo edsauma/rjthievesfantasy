@@ -16,7 +16,7 @@ RANKING_MAP = {
 }
 
 DISPLAY_ORDER = {
-    "sleeper": ["qb", "rb", "wr", "te", "k", "de", "lb", "db"],
+    "sleeper": ["qb", "rb", "wr", "te", "k", "dl", "lb", "db"],
     "fleaflicker": ["qb", "rb", "wr", "te", "k", "p", "cb", "s", "edr", "il", "lb"],
 }
 

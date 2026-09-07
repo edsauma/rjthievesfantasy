@@ -79,20 +79,30 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
         key = _flag_key(p)
         p["flag"] = "add" if key in add_info else None
         p["flag_gap"] = add_info.get(key)
-    free_agents.sort(key=lambda p: (positions.sort_key(platform_key, p["position"]),
+    for p in free_agents:
+        if len(p.get("position_options") or []) > 1:
+            print(f"[debug-dual] {p['name']} | position={p['position']} | "
+                  f"position_options={p.get('position_options')} | flag={p.get('flag')}")
+    free_agents.sort(key=lambda p: (positions.sort_key(platform_key, positions.display_group(p["position"])),
                                      p["rank"] if p["rank"] is not None else 9999))
 
-    # Lista completa (top N por posição), com os que valem a pena sinalizados,
-    # excluindo posições escondidas por configuração (específico por plataforma)
+    # Lista completa (top N por GRUPO de exibição — DE/DT contam junto com
+    # DL, não separado), com os que valem a pena sinalizados, excluindo
+    # posições escondidas por configuração (específico por plataforma)
     hidden = config.FREE_AGENTS_HIDDEN_POSITIONS.get(platform_key, set())
     free_agents_visible = [p for p in free_agents if p["position"] not in hidden]
     fa_limited = []
     seen_per_pos = {}
     for p in free_agents_visible:
-        count = seen_per_pos.get(p["position"], 0)
+        group = positions.display_group(p["position"])
+        count = seen_per_pos.get(group, 0)
         if count < config.FREE_AGENTS_DISPLAY_LIMIT or p["flag"] == "add":
             fa_limited.append(p)
-            seen_per_pos[p["position"]] = count + 1
+            seen_per_pos[group] = count + 1
+
+    for p in fa_limited:
+        if len(p.get("position_options") or []) > 1:
+            print(f"[debug-dual] SOBREVIVEU AO LIMITE | {p['name']} | position_options={p.get('position_options')}")
 
     return {
         "label": team_cfg["label"],
@@ -111,35 +121,34 @@ def process_fleaflicker(team_cfg: dict, rankings: dict) -> dict:
     return build_team_result(team_cfg, "Fleaflicker", "fleaflicker", my_team, free_agents, rankings)
 
 
-OFFENSE_POSITIONS = {"qb", "rb", "wr", "te", "k"}
+KTC_POSITIONS = {"qb", "rb", "wr", "te"}  # K não tem valor de troca dynasty -> KTC não rastreia
 
 
 def process_sleeper(team_cfg: dict, all_players: dict, rankings: dict) -> dict:
     my_team = sleeper.get_my_team(team_cfg["league_id"], team_cfg["roster_id"], all_players)
     raw_positions = {p["position"] for p in my_team}
-    offense_raw = sorted(raw_positions & OFFENSE_POSITIONS)
-    idp_raw = sorted(raw_positions - OFFENSE_POSITIONS)
+    ktc_raw = sorted(raw_positions & KTC_POSITIONS)
+    direct_raw = sorted(raw_positions - KTC_POSITIONS)  # inclui K e todos os defensivos
 
     free_agents = []
     fontes = []
 
-    # KeepTradeCut só cobre posições de ataque (não tem defensivos individuais
+    # KeepTradeCut só cobre QB/RB/WR/TE (não tem K nem defensivos individuais
     # no banco de dados dele) — usamos ele aqui pela vantagem de refletir
     # posse real mesmo quando o sync de rookies do Sleeper está atrasado.
     try:
         ktc_agents = keeptradecut.get_available_players(team_cfg["league_id"])
-        free_agents += [p for p in ktc_agents if p["position"] in OFFENSE_POSITIONS]
-        fontes.append("KeepTradeCut (ataque)")
+        free_agents += [p for p in ktc_agents if p["position"] in KTC_POSITIONS]
+        fontes.append("KeepTradeCut (QB/RB/WR/TE)")
     except Exception as e:
-        print(f"[aviso] KeepTradeCut falhou para {team_cfg['label']} ({e}); usando fallback da API do Sleeper pro ataque")
-        free_agents += sleeper.get_free_agents(team_cfg["league_id"], all_players, offense_raw)
-        fontes.append("Sleeper fallback (ataque)")
+        print(f"[aviso] KeepTradeCut falhou para {team_cfg['label']} ({e}); usando fallback da API do Sleeper")
+        free_agents += sleeper.get_free_agents(team_cfg["league_id"], all_players, ktc_raw)
+        fontes.append("Sleeper fallback (QB/RB/WR/TE)")
 
-    # Defensivos sempre vêm direto da API do Sleeper, já que o KeepTradeCut
-    # não tem esse tipo de jogador
-    if idp_raw:
-        free_agents += sleeper.get_free_agents(team_cfg["league_id"], all_players, idp_raw)
-        fontes.append("Sleeper (defesa)")
+    # K e defensivos sempre vêm direto da API do Sleeper
+    if direct_raw:
+        free_agents += sleeper.get_free_agents(team_cfg["league_id"], all_players, direct_raw)
+        fontes.append("Sleeper (K + defesa)")
 
     print(f"[debug] {team_cfg['label']}: {len(my_team)} jogadores no time, {len(free_agents)} agentes livres encontrados via {' + '.join(fontes)}")
     return build_team_result(team_cfg, "Sleeper", "sleeper", my_team, free_agents, rankings)
