@@ -9,9 +9,7 @@ Fleaflicker (CB, S, EDR, IL separados) e agrupado no Sleeper (DE, LB, DB).
 # posição real -> categoria de ranking do FantasyPros
 RANKING_MAP = {
     "qb": "qb", "rb": "rb", "wr": "wr", "te": "te", "k": "k",
-    "dt": "dl", "dl": "dl", "edr": "dl", "il": "dl",
-    # "de" fica de fora de propósito: no Sleeper, jogadores marcados DE não
-    # correspondem ao ranking de DL do FantasyPros — ficam sem rank.
+    "de": "dl", "dt": "dl", "dl": "dl", "edr": "dl", "il": "dl",
     "lb": "lb",
     "cb": "db", "s": "db", "db": "db",
     # "p" (punter) não tem ranking no FantasyPros — fica sem rank, mas aparece na lista
