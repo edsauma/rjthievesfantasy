@@ -41,6 +41,16 @@ def get_rankings_cache_all() -> dict:
 
 def build_team_result(team_cfg: dict, platform: str, platform_key: str,
                        my_team_raw: list, free_agents_raw: list, rankings: dict) -> dict:
+    _DEBUG_NAMES = {"myles garrett", "greg rousseau"}
+    for p in my_team_raw:
+        if p["name"].lower() in _DEBUG_NAMES:
+            print(f"[debug-dl] BRUTO (meu time) | {p['name']} | position={p['position']} | "
+                  f"ranking_position={p.get('ranking_position')}")
+    for p in free_agents_raw:
+        if p["name"].lower() in _DEBUG_NAMES:
+            print(f"[debug-dl] BRUTO (agente livre) | {p['name']} | position={p['position']} | "
+                  f"ranking_position={p.get('ranking_position')}")
+
     drop_keys, add_info = compute_flags(my_team_raw, free_agents_raw, rankings)
 
     my_team = attach_ranks(my_team_raw, rankings)
@@ -49,12 +59,11 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
     for p in my_team:
         p["flag"] = "drop" if _flag_key(p) in drop_keys else None
 
-    # Debug temporário: mostra exatamente o que está acontecendo com
-    # jogadores de linha defensiva, pra achar se o problema é o campo
-    # ranking_position ou a comparação de nomes
+    # Debug temporário: rastreando dois jogadores específicos que estavam
+    # sumindo em meio a centenas de outros jogadores DL nos logs do Sleeper
     for p in my_team:
-        if p.get("ranking_position") == "dl":
-            print(f"[debug-dl] {p['name']} | position={p['position']} | "
+        if p["name"].lower() in _DEBUG_NAMES:
+            print(f"[debug-dl] MEU TIME | {p['name']} | position={p['position']} | "
                   f"ranking_position={p.get('ranking_position')} | rank={p.get('rank')}")
 
     slot_list = team_cfg.get("lineup_slots")  # None = usa o padrão da plataforma
@@ -63,8 +72,8 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
 
     free_agents = attach_ranks(free_agents_raw, rankings)
     for p in free_agents:
-        if p.get("ranking_position") == "dl":
-            print(f"[debug-dl-fa] {p['name']} | position={p['position']} | "
+        if p["name"].lower() in _DEBUG_NAMES:
+            print(f"[debug-dl] AGENTE LIVRE | {p['name']} | position={p['position']} | "
                   f"ranking_position={p.get('ranking_position')} | rank={p.get('rank')}")
     for p in free_agents:
         key = _flag_key(p)
