@@ -49,11 +49,23 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
     for p in my_team:
         p["flag"] = "drop" if _flag_key(p) in drop_keys else None
 
+    # Debug temporário: mostra exatamente o que está acontecendo com
+    # jogadores de linha defensiva, pra achar se o problema é o campo
+    # ranking_position ou a comparação de nomes
+    for p in my_team:
+        if p.get("ranking_position") == "dl":
+            print(f"[debug-dl] {p['name']} | position={p['position']} | "
+                  f"ranking_position={p.get('ranking_position')} | rank={p.get('rank')}")
+
     slot_list = team_cfg.get("lineup_slots")  # None = usa o padrão da plataforma
     lineup_sections, bench = lineup_slots.assign_lineup(my_team, platform_key, slot_list)
     # assign_lineup marca 'is_starter' em cada jogador de my_team (mutação in-place)
 
     free_agents = attach_ranks(free_agents_raw, rankings)
+    for p in free_agents:
+        if p.get("ranking_position") == "dl":
+            print(f"[debug-dl-fa] {p['name']} | position={p['position']} | "
+                  f"ranking_position={p.get('ranking_position')} | rank={p.get('rank')}")
     for p in free_agents:
         key = _flag_key(p)
         p["flag"] = "add" if key in add_info else None
