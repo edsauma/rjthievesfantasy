@@ -1,89 +1,105 @@
-"""
-Para cada posição GRANULAR (a que a plataforma realmente usa: CB, S, EDR,
-IL, LB no Fleaflicker; QB, RB, WR, TE, K, DL, LB, DB no Sleeper):
-1. Pega o rank FantasyPros de cada jogador seu naquela posição (usando a
-   categoria de ranking correspondente — CB e S, por exemplo, usam o
-   mesmo ranking combinado de DB do FantasyPros, mas só comparamos
-   jogadores da MESMA posição entre si: CB com CB, S com S).
-2. Pega o rank do melhor agente livre disponível na sua liga, também
-   restrito à mesma posição granular.
-3. Se o agente livre está pelo menos RANK_GAP_THRESHOLD posições melhor
-   que o seu pior jogador ali, sinalizamos os dois.
-"""
-from matcher import build_lookup, find_rank, normalize_name
 import config
+import positions
+from matcher import normalize_name, build_lookup
 
 
-def _flag_key(player: dict) -> tuple:
-    """Chave estável pra identificar um jogador dentro da própria lista
-    (independe do 'id', que pode faltar ou vir de sistemas diferentes)."""
-    return (normalize_name(player.get("name", "")), player.get("position", ""))
+def _flag_key(player):
+    """Chave estável para identificar um jogador numa lista (independente de
+    qual posição/grupo ele está sendo exibido em)."""
+    return (normalize_name(player.get("name", "")), player.get("position"))
 
 
-def attach_ranks(players: list[dict], rankings_by_position: dict) -> list[dict]:
-    """Devolve a mesma lista de jogadores, cada um com o campo 'rank'
-    preenchido (ou None se não achou no ranking do FantasyPros)."""
-    out = []
-    lookups_cache = {}
+def _build_lookups(rankings_by_position):
+    """Monta, uma única vez, um dict categoria -> lookup (nome normalizado ->
+    rank) a partir do cache de rankings do FantasyPros, para reaproveitar
+    entre todos os jogadores em vez de reconstruir a cada chamada."""
+    return {cat: build_lookup(lst) for cat, lst in rankings_by_position.items()}
+
+
+def _best_rank(player, lookups):
+    """Retorna o melhor (menor) rank do FantasyPros para o jogador.
+
+    Jogadores "híbridos" podem aparecer em mais de uma categoria de ranking
+    do FantasyPros (ex: um edge rusher listado tanto em LB quanto em DL).
+    Quando a posição do jogador mapeia para uma dessas categorias que se
+    sobrepõem, consultamos todas elas e usamos o melhor rank encontrado."""
+    category = positions.ranking_position(player.get("position"))
+    if category is None:
+        return None
+
+    name = normalize_name(player.get("name", ""))
+    best = None
+    for cat in positions.overlap_categories(category):
+        lookup = lookups.get(cat)
+        if not lookup:
+            continue
+        rank = lookup.get(name)
+        if rank is not None and (best is None or rank < best):
+            best = rank
+    return best
+
+
+def attach_ranks(players, rankings_by_position):
+    """Anota cada jogador com seu melhor rank do FantasyPros (ver _best_rank)."""
+    lookups = _build_lookups(rankings_by_position)
     for p in players:
-        rank_pos = p.get("ranking_position", p.get("position", ""))
-        if rank_pos not in lookups_cache:
-            lookups_cache[rank_pos] = build_lookup(rankings_by_position.get(rank_pos, []))
-        rank = find_rank(p["name"], lookups_cache[rank_pos])
-        out.append({**p, "rank": rank})
-    return out
+        p["rank"] = _best_rank(p, lookups)
+    return players
 
 
-def attach_extra_rank(players: list[dict], ranking_list: list[dict], field_name: str) -> list[dict]:
-    """Anexa um rank adicional vindo de um ranking 'coringa' do FantasyPros
-    (FLEX ofensivo ou IDP), que cobre várias posições ao mesmo tempo —
-    usado pra decidir quem entra nos slots de flex da escalação."""
+def attach_extra_rank(players, ranking_list, field_name):
+    """Anota cada jogador com um rank vindo de uma lista específica (usado
+    para os rankings combinados de FLEX e IDP do FantasyPros)."""
     lookup = build_lookup(ranking_list)
-    out = []
     for p in players:
-        rank = find_rank(p["name"], lookup)
-        out.append({**p, field_name: rank})
-    return out
+        name = normalize_name(p.get("name", ""))
+        p[field_name] = lookup.get(name)
+    return players
 
 
-def compute_flags(team_players: list[dict], free_agents: list[dict], rankings_by_position: dict):
-    """Retorna (drop_keys, add_info), comparando sempre dentro da MESMA
-    posição granular (ex: CB só compete com CB, nunca com S)."""
+def compute_flags(team_players, free_agents, rankings_by_position):
+    """Agrupa o time e os agentes livres por posição BRUTA/granular (CB com
+    CB, S com S, LB com LB, etc. — nunca misturando posições diferentes) e,
+    dentro de cada grupo, sinaliza o pior jogador do time para troca e o(s)
+    melhor(es) agente(s) livre(s) disponíveis, quando a diferença de rank for
+    grande o suficiente. Os ranks usados já são os melhores entre categorias
+    sobrepostas (attach_ranks), então um jogador híbrido é comparado de forma
+    justa sem precisar de lógica extra aqui.
+
+    Retorna (drop_keys, add_info): um set de chaves a sinalizar como "sair" e
+    um dict chave -> maior gap encontrado, para sinalizar como "entrar"."""
     drop_keys = set()
     add_info = {}
 
-    by_position = {}
+    groups = {}
     for p in team_players:
-        by_position.setdefault(p["position"], []).append(p)
-
-    fa_by_position = {}
+        groups.setdefault(p["position"], {"team": [], "fa": []})["team"].append(p)
     for p in free_agents:
-        fa_by_position.setdefault(p["position"], []).append(p)
+        groups.setdefault(p["position"], {"team": [], "fa": []})["fa"].append(p)
 
-    for position, players in by_position.items():
-        ranking_category = players[0].get("ranking_position", position)
-        ranking_lookup = build_lookup(rankings_by_position.get(ranking_category, []))
-        if not ranking_lookup:
+    for raw_pos, bucket in groups.items():
+        team_list = [p for p in bucket["team"] if p.get("rank") is not None]
+        fa_list = [p for p in bucket["fa"] if p.get("rank") is not None]
+        if not team_list or not fa_list:
             continue
 
-        ranked_mine = [(p, find_rank(p["name"], ranking_lookup) or 9999) for p in players]
-        ranked_mine.sort(key=lambda x: x[1])
-        worst_player, worst_rank = ranked_mine[-1]
+        category = positions.ranking_position(raw_pos)
+        threshold = config.RANK_GAP_THRESHOLD_OVERRIDES.get(
+            category, config.RANK_GAP_THRESHOLD
+        )
 
-        fa_lookup = build_lookup(fa_by_position.get(position, []))
-        candidates = []
-        for name, fa in fa_lookup.items():
-            rank = find_rank(fa["name"], ranking_lookup)
-            if rank is not None:
-                candidates.append((fa, rank))
-        candidates.sort(key=lambda x: x[1])
+        worst_team = max(team_list, key=lambda p: p["rank"])
+        best_fa = min(fa_list, key=lambda p: p["rank"])
 
-        for fa, fa_rank in candidates[:3]:
-            gap = worst_rank - fa_rank
-            threshold = config.RANK_GAP_THRESHOLD_OVERRIDES.get(ranking_category, config.RANK_GAP_THRESHOLD)
-            if gap >= threshold:
-                drop_keys.add(_flag_key(worst_player))
-                key = _flag_key(fa)
-                add_info[key] = max(gap, add_info.get(key, 0))
+        gap = worst_team["rank"] - best_fa["rank"]
+        if gap >= threshold:
+            drop_keys.add(_flag_key(worst_team))
+            for fa in fa_list:
+                this_gap = worst_team["rank"] - fa["rank"]
+                if this_gap >= threshold:
+                    key = _flag_key(fa)
+                    prev_gap = add_info.get(key)
+                    if prev_gap is None or this_gap > prev_gap:
+                        add_info[key] = this_gap
 
     return drop_keys, add_info
