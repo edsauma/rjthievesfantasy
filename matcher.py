@@ -1,38 +1,38 @@
-"""
-O maior desafio de cruzar Sleeper + Fleaflicker + FantasyPros é que cada um
-escreve o nome do jogador de um jeito (com/sem sufixo Jr./II, acentos, etc).
-Este módulo normaliza os nomes para permitir comparação confiável,
-substituindo o que antes era feito manualmente com CONCAT/ReplaceValue na planilha.
-"""
 import re
 import unicodedata
 
 SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
 
 
-def normalize_name(name: str) -> str:
+def normalize_name(name):
+    """Remove acentos, pontuação e sufixos (Jr., Sr., II...) para comparar
+    nomes de jogadores vindos de fontes diferentes de forma confiável."""
     if not name:
         return ""
-    name = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode()
+    name = unicodedata.normalize("NFKD", name)
+    name = "".join(c for c in name if not unicodedata.combining(c))
     name = name.lower()
-    name = re.sub(r"[^a-z0-9\s]", "", name)
-    parts = [p for p in name.split() if p not in SUFFIXES]
-    return " ".join(parts).strip()
+    name = re.sub(r"[^a-z0-9\s]", " ", name)
+    tokens = [t for t in name.split() if t and t not in SUFFIXES]
+    return " ".join(tokens)
 
 
-def build_lookup(players: list[dict]) -> dict:
-    """Recebe uma lista de dicts com pelo menos {'name': ..., ...} e devolve
-    um dict {nome_normalizado: registro} para lookup O(1)."""
+def build_lookup(ranking_list):
+    """Monta um dict nome-normalizado -> rank a partir de uma lista de
+    rankings do FantasyPros. Se o mesmo nome aparecer mais de uma vez na
+    mesma lista, mantém o melhor (menor) rank."""
     lookup = {}
-    for p in players:
-        key = normalize_name(p.get("name", ""))
-        if key:
-            lookup[key] = p
+    for entry in ranking_list or []:
+        raw_name = entry.get("player_name") or entry.get("name") or ""
+        name = normalize_name(raw_name)
+        rank = entry.get("rank_ecr")
+        if rank is None:
+            rank = entry.get("rank")
+        if name and rank is not None:
+            if name not in lookup or rank < lookup[name]:
+                lookup[name] = rank
     return lookup
 
 
-def find_rank(player_name: str, ranking_lookup: dict):
-    """Procura o rank de um jogador dentro de um lookup de rankings do FantasyPros."""
-    key = normalize_name(player_name)
-    match = ranking_lookup.get(key)
-    return match["rank"] if match else None
+def find_rank(name, lookup):
+    return lookup.get(normalize_name(name))
