@@ -126,8 +126,13 @@ def _free_agents_block(free_agents: list[dict]) -> str:
     order = []
     for p in free_agents:
         # Jogadores com elegibilidade dupla (ex: "EDR/IL") aparecem em CADA
-        # uma das listagens correspondentes, não só na posição "principal"
-        raw_options = p.get("position_options") or [p["position"]]
+        # uma das listagens correspondentes, não só na posição "principal".
+        # A posição "principal" (p["position"]) já reflete, quando aplicável,
+        # a categoria do FantasyPros onde o jogador tem o melhor rank (ver
+        # analyzer.attach_ranks) — por isso ela também entra no conjunto de
+        # grupos, mesmo quando não está entre as opções de elegibilidade da
+        # própria plataforma.
+        raw_options = (p.get("position_options") or []) + [p["position"]]
         groups_for_player = {positions.display_group(opt) for opt in raw_options}
         for group in groups_for_player:
             if group not in by_pos:

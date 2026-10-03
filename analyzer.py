@@ -16,34 +16,53 @@ def _build_lookups(rankings_by_position):
     return {cat: build_lookup(lst) for cat, lst in rankings_by_position.items()}
 
 
-def _best_rank(player, lookups):
-    """Retorna o melhor (menor) rank do FantasyPros para o jogador.
+def _resolve_rank(player, lookups):
+    """Retorna (melhor_rank, categoria_vencedora) para o jogador.
 
     Jogadores "híbridos" podem aparecer em mais de uma categoria de ranking
     do FantasyPros (ex: um edge rusher listado tanto em LB quanto em DL).
     Quando a posição do jogador mapeia para uma dessas categorias que se
-    sobrepõem, consultamos todas elas e usamos o melhor rank encontrado."""
-    category = positions.ranking_position(player.get("position"))
-    if category is None:
-        return None
+    sobrepõem (lb/dl/db), consultamos todas elas e usamos o melhor rank
+    encontrado, junto com a categoria de onde ele veio."""
+    native_category = positions.ranking_position(player.get("position"))
+    if native_category is None:
+        return None, None
 
     name = normalize_name(player.get("name", ""))
     best = None
-    for cat in positions.overlap_categories(category):
+    best_cat = native_category
+    for cat in positions.overlap_categories(native_category):
         lookup = lookups.get(cat)
         if not lookup:
             continue
         rank = lookup.get(name)
         if rank is not None and (best is None or rank < best):
             best = rank
-    return best
+            best_cat = cat
+    return best, best_cat
 
 
 def attach_ranks(players, rankings_by_position):
-    """Anota cada jogador com seu melhor rank do FantasyPros (ver _best_rank)."""
+    """Anota cada jogador com seu melhor rank do FantasyPros (ver
+    _resolve_rank). Quando o melhor rank vem de uma categoria diferente da
+    posição "nativa" do jogador na plataforma (caso de jogadores híbridos
+    nas categorias defensivas lb/dl/db), a posição do jogador é atualizada
+    para essa categoria vencedora — assim ele passa a ser agrupado/exibido
+    corretamente (ex: um LB que rankeia melhor como DL some de "LB" e passa
+    a aparecer em "DL"). Isso não afeta `position_options`, usado para
+    decidir em quais slots da escalação o jogador pode ser posicionado."""
     lookups = _build_lookups(rankings_by_position)
     for p in players:
-        p["rank"] = _best_rank(p, lookups)
+        native_category = positions.ranking_position(p.get("position"))
+        rank, best_cat = _resolve_rank(p, lookups)
+        p["rank"] = rank
+        p["rank_category"] = best_cat
+        if (
+            best_cat is not None
+            and native_category in positions.IDP_OVERLAP_CATEGORIES
+            and best_cat != native_category
+        ):
+            p["position"] = best_cat
     return players
 
 
@@ -58,18 +77,24 @@ def attach_extra_rank(players, ranking_list, field_name):
 
 
 def compute_flags(team_players, free_agents, rankings_by_position):
-    """Agrupa o time e os agentes livres por posição BRUTA/granular (CB com
-    CB, S com S, LB com LB, etc. — nunca misturando posições diferentes) e,
-    dentro de cada grupo, sinaliza o pior jogador do time para troca e o(s)
-    melhor(es) agente(s) livre(s) disponíveis, quando a diferença de rank for
-    grande o suficiente. Os ranks usados já são os melhores entre categorias
-    sobrepostas (attach_ranks), então um jogador híbrido é comparado de forma
-    justa sem precisar de lógica extra aqui.
+    """Agrupa o time e os agentes livres por posição BRUTA/granular, como
+    reportada pela plataforma (CB com CB, S com S, LB com LB — nunca
+    misturando, mesmo que compartilhem a mesma categoria de ranking do
+    FantasyPros) e, dentro de cada grupo, sinaliza o pior jogador do time
+    para troca e o(s) melhor(es) agente(s) livre(s) disponíveis, quando a
+    diferença de rank for grande o suficiente.
+
+    Importante: esta função faz sua PRÓPRIA consulta aos rankings (a partir
+    de `rankings_by_position`) em vez de depender de um `rank` já anotado no
+    jogador, porque no pipeline (main.py) ela é chamada antes de
+    `attach_ranks` rodar nas mesmas listas. O rank usado em cada comparação
+    já considera o melhor valor entre categorias sobrepostas (lb/dl/db),
+    igual a `attach_ranks`, então um jogador híbrido é comparado de forma
+    justa.
 
     Retorna (drop_keys, add_info): um set de chaves a sinalizar como "sair" e
     um dict chave -> maior gap encontrado, para sinalizar como "entrar"."""
-    drop_keys = set()
-    add_info = {}
+    lookups = _build_lookups(rankings_by_position)
 
     groups = {}
     for p in team_players:
@@ -77,29 +102,30 @@ def compute_flags(team_players, free_agents, rankings_by_position):
     for p in free_agents:
         groups.setdefault(p["position"], {"team": [], "fa": []})["fa"].append(p)
 
+    drop_keys = set()
+    add_info = {}
+
     for raw_pos, bucket in groups.items():
-        team_list = [p for p in bucket["team"] if p.get("rank") is not None]
-        fa_list = [p for p in bucket["fa"] if p.get("rank") is not None]
-        if not team_list or not fa_list:
+        team_ranked = [
+            (p, r) for p in bucket["team"] for r in [_resolve_rank(p, lookups)[0]] if r is not None
+        ]
+        fa_ranked = [
+            (p, r) for p in bucket["fa"] for r in [_resolve_rank(p, lookups)[0]] if r is not None
+        ]
+        if not team_ranked or not fa_ranked:
             continue
 
         category = positions.ranking_position(raw_pos)
-        threshold = config.RANK_GAP_THRESHOLD_OVERRIDES.get(
-            category, config.RANK_GAP_THRESHOLD
-        )
+        threshold = config.RANK_GAP_THRESHOLD_OVERRIDES.get(category, config.RANK_GAP_THRESHOLD)
 
-        worst_team = max(team_list, key=lambda p: p["rank"])
-        best_fa = min(fa_list, key=lambda p: p["rank"])
-
-        gap = worst_team["rank"] - best_fa["rank"]
-        if gap >= threshold:
-            drop_keys.add(_flag_key(worst_team))
-            for fa in fa_list:
-                this_gap = worst_team["rank"] - fa["rank"]
-                if this_gap >= threshold:
-                    key = _flag_key(fa)
-                    prev_gap = add_info.get(key)
-                    if prev_gap is None or this_gap > prev_gap:
-                        add_info[key] = this_gap
+        worst_player, worst_rank = max(team_ranked, key=lambda pr: pr[1])
+        for fa_player, fa_rank in fa_ranked:
+            gap = worst_rank - fa_rank
+            if gap >= threshold:
+                drop_keys.add(_flag_key(worst_player))
+                key = _flag_key(fa_player)
+                prev = add_info.get(key)
+                if prev is None or gap > prev:
+                    add_info[key] = gap
 
     return drop_keys, add_info

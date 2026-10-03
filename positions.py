@@ -63,7 +63,11 @@ def display_group(raw_position):
 
 DISPLAY_ORDER = {
     "sleeper": ["qb", "rb", "wr", "te", "k", "dl", "lb", "db"],
-    "fleaflicker": ["qb", "rb", "wr", "te", "k", "p", "cb", "s", "edr", "il", "lb"],
+    # "dl" foi incluído aqui também: um jogador do Fleaflicker cadastrado como
+    # CB/S/EDR/IL/LB pode, por conta de um rank melhor em outra categoria do
+    # FantasyPros (ver IDP_OVERLAP_CATEGORIES em analyzer.py), acabar exibido
+    # agrupado como "DL" mesmo nessa plataforma.
+    "fleaflicker": ["qb", "rb", "wr", "te", "k", "p", "cb", "s", "dl", "edr", "il", "lb"],
 }
 
 
