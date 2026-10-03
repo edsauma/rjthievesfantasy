@@ -2,8 +2,8 @@ name: Atualizar dashboard de fantasy football
 
 on:
   schedule:
-    # Todo dia às 09:00 UTC (~06:00 no horário de Brasília)
-    - cron: "0 9 * * *"
+    # Todo dia às 15:00 UTC (~12:00 no horário de Brasília)
+    - cron: "1 5 * * *"
   workflow_dispatch: {}  # permite rodar manualmente pela aba "Actions" no GitHub
 
 permissions:
