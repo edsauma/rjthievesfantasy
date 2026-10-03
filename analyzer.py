@@ -4,7 +4,7 @@ from matcher import normalize_name, build_lookup
 
 # Quantidade máxima de agentes livres sinalizados como "ENTRAR" por grupo de
 # posição numa mesma rodada de sugestões.
-MAX_ADD_SUGGESTIONS = 10
+MAX_ADD_SUGGESTIONS = 5
 
 
 def _flag_key(player):
