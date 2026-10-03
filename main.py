@@ -53,7 +53,7 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
 
     drop_keys, add_info = compute_flags(my_team_raw, free_agents_raw, rankings)
 
-    my_team = attach_ranks(my_team_raw, rankings)
+    my_team = attach_ranks(my_team_raw, rankings, platform_key)
     my_team = attach_extra_rank(my_team, rankings.get("flex", []), "flex_rank")
     my_team = attach_extra_rank(my_team, rankings.get("idp", []), "idp_rank")
     for p in my_team:
@@ -70,7 +70,7 @@ def build_team_result(team_cfg: dict, platform: str, platform_key: str,
     lineup_sections, bench = lineup_slots.assign_lineup(my_team, platform_key, slot_list)
     # assign_lineup marca 'is_starter' em cada jogador de my_team (mutação in-place)
 
-    free_agents = attach_ranks(free_agents_raw, rankings)
+    free_agents = attach_ranks(free_agents_raw, rankings, platform_key)
     for p in free_agents:
         if p["name"].lower() in _DEBUG_NAMES:
             print(f"[debug-dl] AGENTE LIVRE | {p['name']} | position={p['position']} | "

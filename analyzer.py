@@ -4,7 +4,22 @@ from matcher import normalize_name, build_lookup
 
 # Quantidade máxima de agentes livres sinalizados como "ENTRAR" por grupo de
 # posição numa mesma rodada de sugestões.
-MAX_ADD_SUGGESTIONS = 5
+MAX_ADD_SUGGESTIONS = 10
+
+# Quando o melhor rank de um jogador híbrido vem de uma categoria diferente
+# da sua posição nativa (lb/dl/db se sobrepondo), só vale a pena REAGRUPAR a
+# exibição para essa categoria se ela corresponder a uma posição que a
+# própria plataforma já usa. No Sleeper, "DL" já é uma posição nativa (é o
+# grupo onde DE/DT são exibidos), então o reagrupamento faz sentido. No
+# Fleaflicker não existe posição "DL" nenhuma — lá o que existe é EDR (edge
+# rusher) e IL (linebacker interno) — então reagrupar para "DL" só criava um
+# grupo que não corresponde a nada na plataforma. Por isso, no Fleaflicker o
+# jogador mantém sua posição nativa (ex: IL), só o rank usado é o melhor
+# entre as categorias sobrepostas.
+RELABEL_TARGETS = {
+    "sleeper": {"dl"},
+    "fleaflicker": set(),
+}
 
 
 def _flag_key(player):
@@ -46,16 +61,19 @@ def _resolve_rank(player, lookups):
     return best, best_cat
 
 
-def attach_ranks(players, rankings_by_position):
+def attach_ranks(players, rankings_by_position, platform_key=None):
     """Anota cada jogador com seu melhor rank do FantasyPros (ver
     _resolve_rank). Quando o melhor rank vem de uma categoria diferente da
     posição "nativa" do jogador na plataforma (caso de jogadores híbridos
-    nas categorias defensivas lb/dl/db), a posição do jogador é atualizada
-    para essa categoria vencedora — assim ele passa a ser agrupado/exibido
-    corretamente (ex: um LB que rankeia melhor como DL some de "LB" e passa
-    a aparecer em "DL"). Isso não afeta `position_options`, usado para
-    decidir em quais slots da escalação o jogador pode ser posicionado."""
+    nas categorias defensivas lb/dl/db) E essa categoria vencedora é uma
+    posição que a própria plataforma usa (ver RELABEL_TARGETS), a posição do
+    jogador é atualizada para ela — assim ele passa a ser agrupado/exibido
+    corretamente (ex: um LB do Sleeper que rankeia melhor como DL some de
+    "LB" e passa a aparecer em "DL"). Isso não afeta `position_options`,
+    usado para decidir em quais slots da escalação o jogador pode ser
+    posicionado."""
     lookups = _build_lookups(rankings_by_position)
+    relabel_targets = RELABEL_TARGETS.get(platform_key, set())
     for p in players:
         native_category = positions.ranking_position(p.get("position"))
         rank, best_cat = _resolve_rank(p, lookups)
@@ -65,6 +83,7 @@ def attach_ranks(players, rankings_by_position):
             best_cat is not None
             and native_category in positions.IDP_OVERLAP_CATEGORIES
             and best_cat != native_category
+            and best_cat in relabel_targets
         ):
             p["position"] = best_cat
     return players
