@@ -2,6 +2,10 @@ import config
 import positions
 from matcher import normalize_name, build_lookup
 
+# Quantidade máxima de agentes livres sinalizados como "ENTRAR" por grupo de
+# posição numa mesma rodada de sugestões.
+MAX_ADD_SUGGESTIONS = 10
+
 
 def _flag_key(player):
     """Chave estável para identificar um jogador numa lista (independente de
@@ -93,7 +97,10 @@ def compute_flags(team_players, free_agents, rankings_by_position):
     justa.
 
     Retorna (drop_keys, add_info): um set de chaves a sinalizar como "sair" e
-    um dict chave -> maior gap encontrado, para sinalizar como "entrar"."""
+    um dict chave -> maior gap encontrado, para sinalizar como "entrar". No
+    máximo MAX_ADD_SUGGESTIONS agentes livres são sinalizados por grupo —
+    sem esse limite, uma posição com muitos jogadores qualificados (ex: WR)
+    podia sinalizar dezenas de nomes de uma vez."""
     lookups = _build_lookups(rankings_by_position)
 
     groups = {}
@@ -119,13 +126,24 @@ def compute_flags(team_players, free_agents, rankings_by_position):
         threshold = config.RANK_GAP_THRESHOLD_OVERRIDES.get(category, config.RANK_GAP_THRESHOLD)
 
         worst_player, worst_rank = max(team_ranked, key=lambda pr: pr[1])
-        for fa_player, fa_rank in fa_ranked:
-            gap = worst_rank - fa_rank
-            if gap >= threshold:
-                drop_keys.add(_flag_key(worst_player))
-                key = _flag_key(fa_player)
-                prev = add_info.get(key)
-                if prev is None or gap > prev:
-                    add_info[key] = gap
+
+        qualifying = [
+            (fa_player, fa_rank, worst_rank - fa_rank)
+            for fa_player, fa_rank in fa_ranked
+            if worst_rank - fa_rank >= threshold
+        ]
+        if not qualifying:
+            continue
+
+        # Mantém só os MAX_ADD_SUGGESTIONS de melhor rank (maior gap) por grupo.
+        qualifying.sort(key=lambda item: item[1])
+        qualifying = qualifying[:MAX_ADD_SUGGESTIONS]
+
+        drop_keys.add(_flag_key(worst_player))
+        for fa_player, fa_rank, gap in qualifying:
+            key = _flag_key(fa_player)
+            prev = add_info.get(key)
+            if prev is None or gap > prev:
+                add_info[key] = gap
 
     return drop_keys, add_info
