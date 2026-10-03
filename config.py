@@ -65,7 +65,7 @@ RANK_GAP_THRESHOLD_OVERRIDES = {
 
 # Limites de exibição no dashboard (só afeta o que é MOSTRADO, não a lógica
 # de sugestão, que sempre olha a lista inteira)
-FREE_AGENTS_DISPLAY_LIMIT = 15   # top N agentes livres por posição, por liga
+FREE_AGENTS_DISPLAY_LIMIT = 10   # top N agentes livres por posição, por liga
 
 # Posições que nunca aparecem na seção "Disponíveis na liga" — específico
 # por plataforma, já que cada uma usa códigos diferentes (Fleaflicker é
